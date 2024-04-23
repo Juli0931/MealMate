@@ -13,22 +13,25 @@
         android:theme="@style/Theme.MealMate"
         tools:targetApi="31">
         <activity
-            android:name=".activities.RegisterActivity"
+            android:name=".LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.LoginActivity"
+            android:name=".IngredientsFavActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.IngredientsFavActivity"
+            android:name=".ObjetiveActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.ObjetiveActivity"
+            android:name=".ExceptionsActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.ExceptionsActivity"
+            android:name=".ProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.MainActivity"
+            android:name=".SignupActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

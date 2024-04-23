@@ -13,6 +13,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "MealMate"
+rootProject.name = "Meal Mate"
 include(":app")
  
