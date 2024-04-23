@@ -29,9 +29,29 @@ class UserServices {
 
     fun observeUser(id: String, callback: (DocumentSnapshot?) -> Unit) {
         Firebase.firestore.collection("users").document(id)
-            .addSnapshotListener{snapshot, error ->
+            .addSnapshotListener { snapshot, error ->
                 callback(snapshot)
             }
     }
+
+    suspend fun uploadDiets(id: String, diets: List<String>): Boolean {
+        return try {
+            val user = loadUser(id).toObject(User::class.java)
+            if (user != null) {
+                Firebase.firestore.collection("users").document(id).set(
+                    user.copy(
+                        diets = diets
+                    )
+                ).await()
+                true
+            } else {
+                false
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            false
+        }
+    }
+
 
 }

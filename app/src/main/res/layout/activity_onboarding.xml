@@ -18,18 +18,6 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_saltar" />
-
-    <TextView
-        android:id="@+id/btn_saltar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="45dp"
-        android:fontFamily="@font/montserrat_semibold"
-        android:text="Saltar"
-        android:textColor="#D6FC51"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
@@ -48,18 +36,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <View
-        android:id="@+id/view2"
-        android:layout_width="320dp"
-        android:layout_height="4dp"
-        android:layout_marginBottom="15dp"
-        android:background="#DEDEDC"
-        app:layout_constraintBottom_toTopOf="@+id/btn_saltar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/btnLactoVegetariana"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="45dp"
@@ -80,13 +58,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        app:layout_constraintBottom_toBottomOf="@+id/button3"
-        app:layout_constraintStart_toStartOf="@+id/button3"
-        app:layout_constraintTop_toTopOf="@+id/button3"
+        app:layout_constraintBottom_toBottomOf="@+id/btnLactoVegetariana"
+        app:layout_constraintStart_toStartOf="@+id/btnLactoVegetariana"
+        app:layout_constraintTop_toTopOf="@+id/btnLactoVegetariana"
         app:srcCompat="@drawable/icon__stroke_" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/btnOvoVegetariana"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="45dp"
@@ -98,7 +76,7 @@
         android:textColorLink="#11151E"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button3"
+        app:layout_constraintTop_toBottomOf="@+id/btnLactoVegetariana"
         app:strokeColor="#D6FC51"
         app:strokeWidth="2dp" />
 
@@ -107,13 +85,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        app:layout_constraintBottom_toBottomOf="@+id/button4"
-        app:layout_constraintStart_toStartOf="@+id/button4"
-        app:layout_constraintTop_toBottomOf="@+id/button3"
+        app:layout_constraintBottom_toBottomOf="@+id/btnOvoVegetariana"
+        app:layout_constraintStart_toStartOf="@+id/btnOvoVegetariana"
+        app:layout_constraintTop_toBottomOf="@+id/btnLactoVegetariana"
         app:srcCompat="@drawable/icon__stroke_" />
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/btnOvoLactoVegetariana"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="45dp"
@@ -125,7 +103,7 @@
         android:textColorLink="#11151E"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button4"
+        app:layout_constraintTop_toBottomOf="@+id/btnOvoVegetariana"
         app:strokeColor="#D6FC51"
         app:strokeWidth="2dp" />
 
@@ -134,13 +112,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        app:layout_constraintBottom_toBottomOf="@+id/button5"
-        app:layout_constraintStart_toStartOf="@+id/button5"
-        app:layout_constraintTop_toTopOf="@+id/button5"
+        app:layout_constraintBottom_toBottomOf="@+id/btnOvoLactoVegetariana"
+        app:layout_constraintStart_toStartOf="@+id/btnOvoLactoVegetariana"
+        app:layout_constraintTop_toTopOf="@+id/btnOvoLactoVegetariana"
         app:srcCompat="@drawable/icon__stroke_" />
 
     <Button
-        android:id="@+id/button6"
+        android:id="@+id/btnPescetariana"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="45dp"
@@ -152,7 +130,7 @@
         android:textColorLink="#11151E"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button5"
+        app:layout_constraintTop_toBottomOf="@+id/btnOvoLactoVegetariana"
         app:strokeColor="#D6FC51"
         app:strokeWidth="2dp" />
 
@@ -161,13 +139,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        app:layout_constraintBottom_toBottomOf="@+id/button6"
-        app:layout_constraintStart_toStartOf="@+id/button6"
-        app:layout_constraintTop_toTopOf="@+id/button6"
+        app:layout_constraintBottom_toBottomOf="@+id/btnPescetariana"
+        app:layout_constraintStart_toStartOf="@+id/btnPescetariana"
+        app:layout_constraintTop_toTopOf="@+id/btnPescetariana"
         app:srcCompat="@drawable/icon__stroke_" />
 
     <Button
-        android:id="@+id/button7"
+        android:id="@+id/btnVegana"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
@@ -178,8 +156,8 @@
         android:textColor="#D6FC51"
         android:textColorLink="#11151E"
         android:textSize="14sp"
-        app:layout_constraintStart_toEndOf="@+id/button6"
-        app:layout_constraintTop_toBottomOf="@+id/button5"
+        app:layout_constraintStart_toEndOf="@+id/btnPescetariana"
+        app:layout_constraintTop_toBottomOf="@+id/btnOvoLactoVegetariana"
         app:strokeColor="#D6FC51"
         app:strokeWidth="2dp" />
 
@@ -188,13 +166,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        app:layout_constraintBottom_toBottomOf="@+id/button7"
-        app:layout_constraintStart_toStartOf="@+id/button7"
-        app:layout_constraintTop_toTopOf="@+id/button7"
+        app:layout_constraintBottom_toBottomOf="@+id/btnVegana"
+        app:layout_constraintStart_toStartOf="@+id/btnVegana"
+        app:layout_constraintTop_toTopOf="@+id/btnVegana"
         app:srcCompat="@drawable/icon__stroke_" />
 
     <Button
-        android:id="@+id/button9"
+        android:id="@+id/btnBajoCarbohidratos"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:layout_marginStart="45dp"
@@ -206,7 +184,7 @@
         android:textColorLink="#11151E"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button6"
+        app:layout_constraintTop_toBottomOf="@+id/btnPescetariana"
         app:strokeColor="#D6FC51"
         app:strokeWidth="2dp" />
 
@@ -215,25 +193,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        app:layout_constraintBottom_toBottomOf="@+id/button9"
-        app:layout_constraintStart_toStartOf="@+id/button9"
-        app:layout_constraintTop_toTopOf="@+id/button9"
+        app:layout_constraintBottom_toBottomOf="@+id/btnBajoCarbohidratos"
+        app:layout_constraintStart_toStartOf="@+id/btnBajoCarbohidratos"
+        app:layout_constraintTop_toTopOf="@+id/btnBajoCarbohidratos"
         app:srcCompat="@drawable/icon__stroke_" />
 
     <Button
-        android:id="@+id/button10"
+        android:id="@+id/btnSinGluten"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:layout_marginStart="45dp"
         android:layout_marginTop="5dp"
-        android:backgroundTint="#D6FC51"
+        android:backgroundTint="#11151E"
         android:fontFamily="@font/montserrat_semibold"
         android:text="        Sin gluten"
-        android:textColor="#11151E"
-        android:textColorLink="#11151E"
+        android:textColor="#D6FC51"
+        android:textColorLink="#D6FC51"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button9"
+        app:layout_constraintTop_toBottomOf="@+id/btnBajoCarbohidratos"
         app:strokeColor="#D6FC51"
         app:strokeWidth="2dp" />
 
@@ -242,27 +220,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        app:layout_constraintBottom_toBottomOf="@+id/button10"
-        app:layout_constraintStart_toStartOf="@+id/button10"
-        app:layout_constraintTop_toTopOf="@+id/button10"
-        app:srcCompat="@drawable/icon__stroke___1_" />
-
-    <Button
-        android:id="@+id/button11"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        android:backgroundTint="#11151E"
-        android:fontFamily="@font/montserrat_semibold"
-        android:text="+"
-        android:textColor="#D6FC51"
-        android:textColorLink="#11151E"
-        android:textSize="14sp"
-        app:layout_constraintStart_toEndOf="@+id/button10"
-        app:layout_constraintTop_toBottomOf="@+id/button9"
-        app:strokeColor="#D6FC51"
-        app:strokeWidth="2dp" />
+        app:layout_constraintBottom_toBottomOf="@+id/btnSinGluten"
+        app:layout_constraintStart_toStartOf="@+id/btnSinGluten"
+        app:layout_constraintTop_toTopOf="@+id/btnSinGluten"
+        app:srcCompat="@drawable/icon__stroke_" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

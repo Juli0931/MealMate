@@ -12,7 +12,7 @@ import com.example.mealmate.viewmodel.SignupViewModel
 
 class SignupActivity : AppCompatActivity() {
 
-    val binding by lazy {
+    private val binding by lazy {
         ActivitySignupBinding.inflate(layoutInflater)
     }
     val viewModel: SignupViewModel by viewModels()
@@ -45,9 +45,7 @@ class SignupActivity : AppCompatActivity() {
                 }
 
                 is AppAuthState.Success -> {
-                    startActivity(
-                        Intent(this@SignupActivity, ProfileActivity::class.java)
-                    )
+                    startActivity( Intent(this, AboutYouActivity::class.java) )
                 }
             }
         }

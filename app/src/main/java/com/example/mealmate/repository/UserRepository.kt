@@ -8,6 +8,7 @@ import com.google.firebase.auth.auth
 interface UserRepository {
     suspend fun loadUser(): User?
     fun observeUser(callback: (User) -> Unit)
+    suspend fun uploadDiets(diets: List<String>?): Boolean
 }
 
 class UserRepositoryImpl(
@@ -30,5 +31,7 @@ class UserRepositoryImpl(
         }
     }
 
+    override suspend fun uploadDiets(diets: List<String>?): Boolean =
+        userServices.uploadDiets(Firebase.auth.uid!!, diets ?: listOf(""))
 
 }
