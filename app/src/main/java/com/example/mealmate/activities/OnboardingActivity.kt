@@ -3,10 +3,8 @@ package com.example.mealmate.activities
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.example.mealmate.OnboardingActivity
 import com.example.mealmate.R
 
 /*class OnboardingActivity : AppCompatActivity() {

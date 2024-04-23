@@ -1,4 +1,4 @@
-package com.example.mealmate.activities
+package com.example.mealmate
 
 import android.view.LayoutInflater
 import android.view.View

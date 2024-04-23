@@ -1,10 +1,9 @@
-package com.example.mealmate.activities
+package com.example.mealmate
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
-import com.example.mealmate.R
 
 class AboutyouActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -1,4 +1,4 @@
-package com.example.mealmate.activities
+package com.example.mealmate
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

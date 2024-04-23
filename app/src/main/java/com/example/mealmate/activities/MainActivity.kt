@@ -3,6 +3,7 @@ package com.example.mealmate.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.mealmate.LoginActivity
 import com.example.mealmate.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
