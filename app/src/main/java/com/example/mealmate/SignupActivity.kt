@@ -17,7 +17,7 @@ class SignupActivity : AppCompatActivity() {
     }
     val viewModel: SignupViewModel by viewModels()
 
-    //Registro
+    //Registro prueba
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
