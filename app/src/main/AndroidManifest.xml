@@ -13,28 +13,37 @@
         android:theme="@style/Theme.MealMate"
         tools:targetApi="31">
         <activity
-            android:name=".AboutYouActivity"
+            android:name=".presentation.activities.HomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.activities.SurveyActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.activities.AuthActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.fragments.AboutYouFragment"
             android:exported="false" />
         <activity
             android:name=".OnboardingActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".presentation.fragments.LoginFragment"
             android:exported="false" />
         <activity
-            android:name=".IngredientsFavActivity"
+            android:name=".presentation.fragments.IngredientsFavFragment"
             android:exported="false" />
         <activity
-            android:name=".ObjetiveActivity"
+            android:name=".presentation.fragments.ObjetiveFragment"
             android:exported="false" />
         <activity
-            android:name=".ExceptionsActivity"
+            android:name=".presentation.fragments.ExceptionsFragment"
             android:exported="false" />
         <activity
-            android:name=".ProfileActivity"
+            android:name=".presentation.fragments.ProfileFragment"
             android:exported="false" />
         <activity
-            android:name=".SignupActivity"
+            android:name=".presentation.fragments.SignupFragment"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

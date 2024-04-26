@@ -1,12 +1,4 @@
-package com.example.mealmate
-
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
-import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.RecyclerView
-import com.example.mealmate.R
+package com.example.mealmate.presentation.adapters
 
 /*class OnboardingAdapter(private val items: List<OnboardingItem>) :
     RecyclerView.Adapter<OnboardingAdapter.ViewHolder>() {

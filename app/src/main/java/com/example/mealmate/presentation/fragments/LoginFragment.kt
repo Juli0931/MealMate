@@ -1,15 +1,35 @@
-package com.example.mealmate
+package com.example.mealmate.presentation.fragments
 
-import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
-import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
-import com.example.mealmate.databinding.ActivityLoginBinding
-import com.example.mealmate.domain.model.AppAuthState
-import com.example.mealmate.viewmodel.LoginViewModel
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import com.example.mealmate.databinding.LoginFragmentBinding
 
-class LoginActivity : AppCompatActivity() {
+class LoginFragment : Fragment() {
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val binding: LoginFragmentBinding = LoginFragmentBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    // Método estatico para generar instancias del propio fragment
+    companion object{
+        fun newInstance(): LoginFragment {
+            return LoginFragment()
+        }
+    }
+
+
+}
+/*
+
+
     private val binding by lazy {
         ActivityLoginBinding.inflate(layoutInflater)
     }
@@ -38,10 +58,10 @@ class LoginActivity : AppCompatActivity() {
 
                 is AppAuthState.Success -> {
                     startActivity(
-                        Intent(this@LoginActivity, ProfileActivity::class.java)
+                        Intent(this@LoginFragment, ProfileActivity::class.java)
                     )
                 }
             }
         }
     }
-}
+**/

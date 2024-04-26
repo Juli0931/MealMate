@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#11151E">
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/montserrat_semibold"
+        android:text="¿Tienes alguna dieta especial?"
+        android:textAlignment="center"
+        android:textColor="#D6FC51"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_continuar"
+        android:layout_width="305dp"
+        android:layout_height="56dp"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="50dp"
+        android:backgroundTint="#D6FC51"
+        android:fontFamily="@font/montserrat_semibold"
+        android:text="Continuar"
+        android:textColor="#11151E"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btnLactoVegetariana"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="30dp"
+        android:backgroundTint="#11151E"
+        android:fontFamily="@font/montserrat_semibold"
+        android:text="        Lacto Vegetariana"
+        android:textColor="#D6FC51"
+        android:textColorLink="#11151E"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6"
+        app:strokeColor="#D6FC51"
+        app:strokeWidth="2dp" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btnLactoVegetariana"
+        app:layout_constraintStart_toStartOf="@+id/btnLactoVegetariana"
+        app:layout_constraintTop_toTopOf="@+id/btnLactoVegetariana"
+        app:srcCompat="@drawable/icon__stroke_" />
+
+    <Button
+        android:id="@+id/btnOvoVegetariana"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="5dp"
+        android:backgroundTint="#11151E"
+        android:fontFamily="@font/montserrat_semibold"
+        android:text="        Ovo Vegetariana"
+        android:textColor="#D6FC51"
+        android:textColorLink="#11151E"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnLactoVegetariana"
+        app:strokeColor="#D6FC51"
+        app:strokeWidth="2dp" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btnOvoVegetariana"
+        app:layout_constraintStart_toStartOf="@+id/btnOvoVegetariana"
+        app:layout_constraintTop_toBottomOf="@+id/btnLactoVegetariana"
+        app:srcCompat="@drawable/icon__stroke_" />
+
+    <Button
+        android:id="@+id/btnOvoLactoVegetariana"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="5dp"
+        android:backgroundTint="#11151E"
+        android:fontFamily="@font/montserrat_semibold"
+        android:text="        Ovo-lacto Vegetariana"
+        android:textColor="#D6FC51"
+        android:textColorLink="#11151E"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnOvoVegetariana"
+        app:strokeColor="#D6FC51"
+        app:strokeWidth="2dp" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btnOvoLactoVegetariana"
+        app:layout_constraintStart_toStartOf="@+id/btnOvoLactoVegetariana"
+        app:layout_constraintTop_toTopOf="@+id/btnOvoLactoVegetariana"
+        app:srcCompat="@drawable/icon__stroke_" />
+
+    <Button
+        android:id="@+id/btnPescetariana"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="5dp"
+        android:backgroundTint="#11151E"
+        android:fontFamily="@font/montserrat_semibold"
+        android:text="        Pescetariana"
+        android:textColor="#D6FC51"
+        android:textColorLink="#11151E"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnOvoLactoVegetariana"
+        app:strokeColor="#D6FC51"
+        app:strokeWidth="2dp" />
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btnPescetariana"
+        app:layout_constraintStart_toStartOf="@+id/btnPescetariana"
+        app:layout_constraintTop_toTopOf="@+id/btnPescetariana"
+        app:srcCompat="@drawable/icon__stroke_" />
+
+    <Button
+        android:id="@+id/btnVegana"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="4dp"
+        android:backgroundTint="#11151E"
+        android:fontFamily="@font/montserrat_semibold"
+        android:text="        Vegana"
+        android:textColor="#D6FC51"
+        android:textColorLink="#11151E"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@+id/btnPescetariana"
+        app:layout_constraintTop_toBottomOf="@+id/btnOvoLactoVegetariana"
+        app:strokeColor="#D6FC51"
+        app:strokeWidth="2dp" />
+
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btnVegana"
+        app:layout_constraintStart_toStartOf="@+id/btnVegana"
+        app:layout_constraintTop_toTopOf="@+id/btnVegana"
+        app:srcCompat="@drawable/icon__stroke_" />
+
+    <Button
+        android:id="@+id/btnBajoCarbohidratos"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="5dp"
+        android:backgroundTint="#11151E"
+        android:fontFamily="@font/montserrat_semibold"
+        android:text="        Baja en carbohidratos"
+        android:textColor="#D6FC51"
+        android:textColorLink="#11151E"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnPescetariana"
+        app:strokeColor="#D6FC51"
+        app:strokeWidth="2dp" />
+
+    <ImageView
+        android:id="@+id/imageView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btnBajoCarbohidratos"
+        app:layout_constraintStart_toStartOf="@+id/btnBajoCarbohidratos"
+        app:layout_constraintTop_toTopOf="@+id/btnBajoCarbohidratos"
+        app:srcCompat="@drawable/icon__stroke_" />
+
+    <Button
+        android:id="@+id/btnSinGluten"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="5dp"
+        android:backgroundTint="#11151E"
+        android:fontFamily="@font/montserrat_semibold"
+        android:text="        Sin gluten"
+        android:textColor="#D6FC51"
+        android:textColorLink="#D6FC51"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnBajoCarbohidratos"
+        app:strokeColor="#D6FC51"
+        app:strokeWidth="2dp" />
+
+    <ImageView
+        android:id="@+id/imageView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btnSinGluten"
+        app:layout_constraintStart_toStartOf="@+id/btnSinGluten"
+        app:layout_constraintTop_toTopOf="@+id/btnSinGluten"
+        app:srcCompat="@drawable/icon__stroke_" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

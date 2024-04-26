@@ -1,19 +1,37 @@
-package com.example.mealmate
+package com.example.mealmate.presentation.fragments
 
-import android.content.Intent
-import android.content.res.ColorStateList
-import android.graphics.Color
 import android.os.Bundle
-import android.widget.Button
-import android.widget.Toast
-import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
-import com.example.mealmate.databinding.ActivityAboutYouBinding
-import com.example.mealmate.databinding.ActivityOnboardingBinding
-import com.example.mealmate.viewmodel.SurveyState
-import com.example.mealmate.viewmodel.SurveyViewModel
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import com.example.mealmate.databinding.OnboardingFragmentBinding
 
-class OnboardingActivity : AppCompatActivity() {
+class OnboardingFragment : Fragment() {
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val binding: OnboardingFragmentBinding = OnboardingFragmentBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    // Método estatico para generar instancias del propio fragment
+    companion object{
+        fun newInstance(): OnboardingFragment {
+            return OnboardingFragment()
+        }
+    }
+
+
+
+
+
+}
+/*
+
     private val binding by lazy {
         ActivityOnboardingBinding.inflate(layoutInflater)
     }
@@ -67,7 +85,7 @@ class OnboardingActivity : AppCompatActivity() {
         viewModel.surveyState.observe(this) { state ->
             when (state!!) {
                 SurveyState.SUCCESS -> {
-                    val intent = Intent(this, ProfileActivity::class.java)
+                    val intent = Intent(this, ProfileFragment::class.java)
                     startActivity(intent)
                 }
                 SurveyState.ERROR -> {
@@ -85,4 +103,5 @@ class OnboardingActivity : AppCompatActivity() {
             viewModel.uploadSurvey()
         }
     }
-}
+
+*/
