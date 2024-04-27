@@ -6,4 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".presentation.activities.HomeActivity">
 
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView"
+        android:name="com.example.mealmate.presentation.fragments.SignupFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="169dp"
+        tools:layout_editor_absoluteY="359dp" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        tools:layout_editor_absoluteX="172dp"
+        tools:layout_editor_absoluteY="81dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

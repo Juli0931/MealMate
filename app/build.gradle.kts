@@ -61,4 +61,9 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.8.0")
 
 
+    // https://mvnrepository.com/artifact/com.google.android.material/material
+    runtimeOnly("com.google.android.material:material:1.11.0")
+
+
+
 }

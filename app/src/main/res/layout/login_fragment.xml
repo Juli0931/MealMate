@@ -104,7 +104,7 @@
         app:layout_constraintTop_toBottomOf="@+id/etPassword" />
 
     <TextView
-        android:id="@+id/DescripTV"
+        android:id="@+id/titleTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
@@ -128,7 +128,7 @@
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/DescripTV" />
+        app:layout_constraintTop_toBottomOf="@+id/titleTV" />
 
     <TextView
         android:id="@+id/textView3"
@@ -182,7 +182,7 @@
         app:layout_constraintEnd_toStartOf="@+id/cardView3"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/cardView2"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        app:layout_constraintTop_toBottomOf="@+id/titleTV" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView3"
@@ -217,7 +217,7 @@
         app:srcCompat="@drawable/user_icon" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/titleTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"

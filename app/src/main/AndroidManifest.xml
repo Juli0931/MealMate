@@ -20,33 +20,6 @@
             android:exported="false" />
         <activity
             android:name=".presentation.activities.AuthActivity"
-            android:exported="false" />
-        <activity
-            android:name=".presentation.fragments.AboutYouFragment"
-            android:exported="false" />
-        <activity
-            android:name=".OnboardingActivity"
-            android:exported="false" />
-        <activity
-            android:name=".presentation.fragments.LoginFragment"
-            android:exported="false" />
-        <activity
-            android:name=".presentation.fragments.IngredientsFavFragment"
-            android:exported="false" />
-        <activity
-            android:name=".presentation.fragments.ObjetiveFragment"
-            android:exported="false" />
-        <activity
-            android:name=".presentation.fragments.ExceptionsFragment"
-            android:exported="false" />
-        <activity
-            android:name=".presentation.fragments.ProfileFragment"
-            android:exported="false" />
-        <activity
-            android:name=".presentation.fragments.SignupFragment"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
