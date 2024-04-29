@@ -7,9 +7,9 @@
 
     <ImageView
         android:id="@+id/imageView9"
-        android:layout_width="wrap_content"
-        android:layout_height="849dp"
-        android:layout_marginBottom="2dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,7 +30,7 @@
         android:id="@+id/btnLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/btnRegister"
+        android:layout_below="@id/btnSignup"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="56dp"
         android:background="#00FFFFFF"
@@ -44,7 +44,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/btnRegister"
+        android:id="@+id/btnSignup"
         android:layout_width="305dp"
         android:layout_height="56dp"
         android:layout_centerInParent="true"

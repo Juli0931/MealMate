@@ -1,25 +1,44 @@
 package com.example.mealmate.presentation.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.mealmate.databinding.LoginFragmentBinding
+import com.example.mealmate.presentation.activities.HomeActivity
+import com.example.mealmate.presentation.activities.NavigateToSignupListener
 
 class LoginFragment : Fragment() {
+
+    lateinit var signupListener: NavigateToSignupListener
+
+    private lateinit var binding: LoginFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding: LoginFragmentBinding = LoginFragmentBinding.inflate(inflater, container, false)
+        binding = LoginFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        binding.btnLogin.setOnClickListener {
+            startActivity(Intent(requireContext(), HomeActivity::class.java))
+            activity?.finish()
+        }
+        binding.btnSignup.setOnClickListener {
+            signupListener.navigateToSignup()
+        }
+
+    }
+
+
     // Método estatico para generar instancias del propio fragment
-    companion object{
+    companion object {
         fun newInstance(): LoginFragment {
             return LoginFragment()
         }
