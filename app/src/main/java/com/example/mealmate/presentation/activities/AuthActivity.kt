@@ -21,6 +21,8 @@ class AuthActivity : AppCompatActivity(), NavigateToMainListener, NavigateToLogi
     private lateinit var signupFragment: SignupFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        Thread.sleep(1000)
+        //setTheme(R.style.Base_Theme_MealMate)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 

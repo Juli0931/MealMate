@@ -6,4 +6,10 @@
     </style>
 
     <style name="Theme.MealMate" parent="Base.Theme.MealMate" />
+
+    <style name="SplashTheme" parent="Base.Theme.MealMate">
+        <item name="android:windowBackground">
+            @drawable/splash_screen
+        </item>
+    </style>
 </resources>

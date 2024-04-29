@@ -17,9 +17,11 @@
             android:exported="false" />
         <activity
             android:name=".presentation.activities.SurveyActivity"
-            android:exported="false" />
+            android:exported="false"
+            />
         <activity
             android:name=".presentation.activities.AuthActivity"
+            android:theme="@style/SplashTheme"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
