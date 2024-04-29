@@ -2,10 +2,6 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:drawable="@color/black"/>
-    <item>
-        <bitmap
-            android:gravity="center"
-            android:src="@drawable/user_icon"/>
-    </item>
+
 
 </layer-list>
