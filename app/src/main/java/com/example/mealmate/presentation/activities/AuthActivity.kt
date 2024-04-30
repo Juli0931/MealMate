@@ -21,7 +21,7 @@ class AuthActivity : AppCompatActivity(), NavigateToMainListener, NavigateToLogi
     private lateinit var signupFragment: SignupFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
-       // Thread.sleep(1000)
+        // Thread.sleep(1000)
         //setTheme(R.style.Base_Theme_MealMate)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -31,7 +31,10 @@ class AuthActivity : AppCompatActivity(), NavigateToMainListener, NavigateToLogi
         mainFragment.signupListener = this
 
         loginFragment = LoginFragment.newInstance()
+        loginFragment.signupListener = this
+
         signupFragment = SignupFragment.newInstance()
+        signupFragment.loginListener = this
 
         showFragment(mainFragment)
 
@@ -41,6 +44,14 @@ class AuthActivity : AppCompatActivity(), NavigateToMainListener, NavigateToLogi
     private fun showFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction().replace(R.id.fragmentContainerViewAuth, fragment)
             .commit()
+    }
+
+    override fun navigateToMain() {
+        showFragment(mainFragment)
+    }
+
+    override fun navigateToSignup() {
+        showFragment(signupFragment)
     }
 
     override fun navigateToLogin() {
@@ -55,20 +66,17 @@ class AuthActivity : AppCompatActivity(), NavigateToMainListener, NavigateToLogi
         if (currentFragment is MainFragment) {
             super.onBackPressed()
 
-        }else{
+        } else {
             showFragment(mainFragment)
         }
     }
 
-    override fun navigateToSignup() {
-        showFragment(signupFragment)
-    }
 
-    override fun navigateToMain() {
-        showFragment(mainFragment)
-    }
+}
 
 
+interface NavigateToMainListener {
+    fun navigateToMain()
 }
 
 interface NavigateToLoginListener {
@@ -79,6 +87,3 @@ interface NavigateToSignupListener {
     fun navigateToSignup()
 }
 
-interface NavigateToMainListener {
-    fun navigateToMain()
-}

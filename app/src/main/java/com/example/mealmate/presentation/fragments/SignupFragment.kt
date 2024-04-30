@@ -1,45 +1,44 @@
 package com.example.mealmate.presentation.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.example.mealmate.databinding.SignupFragmentBinding
+import com.example.mealmate.domain.model.AppAuthState
+import com.example.mealmate.domain.model.User
+import com.example.mealmate.presentation.activities.NavigateToLoginListener
+import com.example.mealmate.presentation.activities.SurveyActivity
+import com.example.mealmate.viewmodel.SignupViewModel
 
 class SignupFragment : Fragment() {
+
+    lateinit var loginListener: NavigateToLoginListener
+
+    private lateinit var binding: SignupFragmentBinding
+    private val viewModel: SignupViewModel by viewModels()
 
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val binding:SignupFragmentBinding = SignupFragmentBinding.inflate(inflater, container, false)
+    ): View {
+        binding = SignupFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
-    // Método estatico para generar instancias del propio fragment
-    companion object{
-        fun newInstance(): SignupFragment {
-            return SignupFragment()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        binding.btnLogin.setOnClickListener {
+            loginListener.navigateToLogin()
         }
-    }
 
-}
-/*
-
-    private val binding by lazy {
-        ActivitySignupBinding.inflate(layoutInflater)
-    }
-    val viewModel: SignupViewModel by viewModels()
-
-    //Registro
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(binding.root)
-
-        binding.btnRegister.setOnClickListener {
+        binding.btnSignup.setOnClickListener {
             viewModel.signup(
                 User(
                     "",
@@ -51,20 +50,31 @@ class SignupFragment : Fragment() {
             )
         }
 
-        viewModel.authStatus.observe(this) {
+        viewModel.authStatus.observe(viewLifecycleOwner) {
             when (it) {
                 is AppAuthState.Loading -> {
-                    Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
                 }
 
                 is AppAuthState.Error -> {
-                    Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
                 }
 
                 is AppAuthState.Success -> {
-                    startActivity( Intent(this, AboutYouActivity::class.java) )
+                    startActivity(
+                        Intent(requireContext(), SurveyActivity::class.java)
+                    )
+                    activity?.finish()
                 }
             }
         }
     }
-*/
+
+    // Método estatico para generar instancias del propio fragment
+    companion object{
+        fun newInstance(): SignupFragment {
+            return SignupFragment()
+        }
+    }
+
+}

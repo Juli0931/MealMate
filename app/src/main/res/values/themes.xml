@@ -2,14 +2,17 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.MealMate" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+         <item name="colorPrimary">@color/dark_bg</item>
     </style>
 
     <style name="Theme.MealMate" parent="Base.Theme.MealMate" />
 
     <style name="SplashTheme" parent="Base.Theme.MealMate">
         <item name="android:windowBackground">
-            @drawable/splash_screen
+
+            @color/black
+
+
         </item>
     </style>
 </resources>
