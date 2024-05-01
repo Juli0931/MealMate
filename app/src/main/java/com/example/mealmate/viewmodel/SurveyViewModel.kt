@@ -14,6 +14,12 @@ enum class SurveyState {
     SUCCESS,
     ERROR
 }
+enum class PreferenceField {
+    DIETS,
+    EXCEPTIONS,
+    INGREDIENTS,
+    OBJECTIVES
+}
 
 class SurveyViewModel(private val userRepo: UserRepository = UserRepositoryImpl()) : ViewModel() {
 
@@ -21,15 +27,26 @@ class SurveyViewModel(private val userRepo: UserRepository = UserRepositoryImpl(
     val surveyState = MutableLiveData(SurveyState.WAITING)
 
     val diets = MutableLiveData(mutableListOf<String>())
+    val exceptions = MutableLiveData(mutableListOf<String>())
+    val ingredients = MutableLiveData(mutableListOf<String>())
+    val objectives = MutableLiveData(mutableListOf<String>())
 
     //Los eventos de entrada
-    fun uploadSurvey() {
+    fun uploadUserPreference(field: PreferenceField) {
         viewModelScope.launch(Dispatchers.IO) {
             surveyState.postValue(SurveyState.LOADING)
-            val surveyUploaded = userRepo.uploadDiets(diets.value)
-            if(surveyUploaded){
+            val listPreferences:List<String> = when (field) {
+                PreferenceField.DIETS -> diets.value?.toList() ?: emptyList()
+                PreferenceField.EXCEPTIONS -> exceptions.value?.toList() ?: emptyList()
+                PreferenceField.INGREDIENTS -> ingredients.value?.toList() ?: emptyList()
+                PreferenceField.OBJECTIVES -> objectives.value?.toList() ?: emptyList()
+            }
+
+
+            val surveyUploaded = userRepo.uploadUserPreference(field.name, listPreferences)
+            if (surveyUploaded) {
                 surveyState.postValue(SurveyState.SUCCESS)
-            }else{
+            } else {
                 surveyState.postValue(SurveyState.ERROR)
             }
         }

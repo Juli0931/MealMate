@@ -1,4 +1,4 @@
-package com.example.mealmate.presentation.fragments
+package com.example.mealmate.view.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.mealmate.databinding.MainFragmentBinding
-import com.example.mealmate.presentation.activities.NavigateToLoginListener
-import com.example.mealmate.presentation.activities.NavigateToSignupListener
+import com.example.mealmate.view.activities.NavigateToLoginListener
+import com.example.mealmate.view.activities.NavigateToSignupListener
 
 class MainFragment : Fragment() {
 

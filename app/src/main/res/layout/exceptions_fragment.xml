@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#11151E"
-    tools:context=".presentation.fragments.ExceptionsFragment">
+    tools:context=".view.fragments.ExceptionsFragment">
 
     <TextView
         android:id="@+id/titleTV"

@@ -34,19 +34,12 @@ class UserServices {
             }
     }
 
-    suspend fun uploadDiets(id: String, diets: List<String>): Boolean {
+    suspend fun uploadUserPreference(field: String, userId: String, items: List<String>): Boolean {
         return try {
-            val user = loadUser(id).toObject(User::class.java)
-            if (user != null) {
-                Firebase.firestore.collection("users").document(id).set(
-                    user.copy(
-                        diets = diets
-                    )
-                ).await()
-                true
-            } else {
-                false
-            }
+
+            Firebase.firestore.collection("users").document(userId).collection(field)
+                .add(items).await()
+            true
         } catch (e: Exception) {
             e.printStackTrace()
             false

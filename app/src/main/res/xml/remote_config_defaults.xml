@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<defaultsMap>
+    <entry>
+        <key>diets</key>
+        <value>
+            [
+            {
+            "id": 1,
+            "name": "Lacto vegetariana"
+            },
+            {
+            "id": 2,
+            "name": "Ovo vegetariana"
+            },
+            {
+            "id": 3,
+            "name": "Ovo-lacto vegetariana"
+            }
+            ]
+        </value>
+    </entry>
+    <entry>
+        <key>exceptions</key>
+        <value>
+            [
+            {
+            "id": 1,
+            "name": "Alcohol"
+            },
+            {
+            "id": 2,
+            "name": "Cafeína"
+            },
+            {
+            "id": 3,
+            "name": "Crustáceos"
+            },
+            {
+            "id": 4,
+            "name": "Huevo"
+            }
+            ]
+        </value>
+    </entry>
+
+    <entry>
+        <key>objective</key>
+        <value>
+            [
+            {
+            "id": 1,
+            "name": "Mejorar mis hábitos alimenticios"
+            },
+            {
+            "id": 2,
+            "name": "Planificar mis comidas"
+            },
+            {
+            "id": 3,
+            "name": "Compartir mis recetas"
+            }
+            ]
+        </value>
+    </entry>
+
+    <entry>
+        <key>verduras</key>
+        <value>
+            [
+            {
+            "id": 1,
+            "name": "Tomate"
+            },
+            {
+            "id": 2,
+            "name": "Cebolla"
+            }
+            ]
+        </value>
+    </entry>
+    <entry>
+        <key>granos</key>
+        [
+        {
+        "id": 1,
+        "name": "Arroz"
+        },
+        {
+        "id": 2,
+        "name": "Frijol"
+        }
+        ]
+        <value>
+
+        </value>
+    </entry>
+    <entry>
+        <key>condimentos</key>
+        [
+        {
+        "id": 1,
+        "name": "Sal"
+        },
+        {
+        "id": 2,
+        "name": "Azúcar"
+        }
+        ]
+        <value>
+
+        </value>
+    </entry>
+
+</defaultsMap>

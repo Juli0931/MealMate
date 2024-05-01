@@ -1,15 +1,15 @@
-package com.example.mealmate.presentation.activities
+package com.example.mealmate.view.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.mealmate.R
 import com.example.mealmate.databinding.ActivitySurveyBinding
-import com.example.mealmate.presentation.fragments.AboutYouFragment
-import com.example.mealmate.presentation.fragments.ExceptionsFragment
-import com.example.mealmate.presentation.fragments.IngredientsFavFragment
-import com.example.mealmate.presentation.fragments.ObjetiveFragment
-import com.example.mealmate.presentation.fragments.OnboardingFragment
+import com.example.mealmate.view.fragments.AboutYouFragment
+import com.example.mealmate.view.fragments.ExceptionsFragment
+import com.example.mealmate.view.fragments.IngredientsFavFragment
+import com.example.mealmate.view.fragments.ObjetiveFragment
+import com.example.mealmate.view.fragments.OnboardingFragment
 
 @Suppress("MoveVariableDeclarationIntoWhen")
 class SurveyActivity : AppCompatActivity() {

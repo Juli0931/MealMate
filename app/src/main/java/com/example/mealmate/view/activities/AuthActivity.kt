@@ -1,13 +1,17 @@
-package com.example.mealmate.presentation.activities
+package com.example.mealmate.view.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.mealmate.R
 import com.example.mealmate.databinding.ActivityAuthBinding
-import com.example.mealmate.presentation.fragments.LoginFragment
-import com.example.mealmate.presentation.fragments.MainFragment
-import com.example.mealmate.presentation.fragments.SignupFragment
+import com.example.mealmate.view.fragments.LoginFragment
+import com.example.mealmate.view.fragments.MainFragment
+import com.example.mealmate.view.fragments.SignupFragment
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
+import com.google.firebase.remoteconfig.ktx.remoteConfig
+import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
 
 class AuthActivity : AppCompatActivity(), NavigateToMainListener, NavigateToLoginListener,
     NavigateToSignupListener {
@@ -21,8 +25,10 @@ class AuthActivity : AppCompatActivity(), NavigateToMainListener, NavigateToLogi
     private lateinit var signupFragment: SignupFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        // Thread.sleep(1000)
-        //setTheme(R.style.Base_Theme_MealMate)
+
+
+        initRemoteConfig()
+
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
@@ -41,6 +47,16 @@ class AuthActivity : AppCompatActivity(), NavigateToMainListener, NavigateToLogi
 
     }
 
+    private fun initRemoteConfig(){
+
+        val remoteConfig: FirebaseRemoteConfig = Firebase.remoteConfig
+        val configSettings = remoteConfigSettings {
+            minimumFetchIntervalInSeconds = 3600
+        }
+        remoteConfig.setConfigSettingsAsync(configSettings)
+        remoteConfig.setDefaultsAsync(R.xml.remote_config_defaults)
+
+    }
     private fun showFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction().replace(R.id.fragmentContainerViewAuth, fragment)
             .commit()

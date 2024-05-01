@@ -64,6 +64,9 @@ dependencies {
     // https://mvnrepository.com/artifact/com.google.android.material/material
     runtimeOnly("com.google.android.material:material:1.11.0")
 
+    //Remote config
+    implementation("com.google.firebase:firebase-config-ktx:21.6.3")
+    implementation("com.google.firebase:firebase-analytics-ktx:21.6.2")
 
 
 }

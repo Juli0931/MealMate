@@ -1,4 +1,4 @@
-package com.example.mealmate.presentation.adapters
+package com.example.mealmate.view.adapters
 
 /*class OnboardingAdapter(private val items: List<OnboardingItem>) :
     RecyclerView.Adapter<OnboardingAdapter.ViewHolder>() {

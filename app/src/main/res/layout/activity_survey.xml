@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#11151E"
-    tools:context=".presentation.activities.SurveyActivity">
+    tools:context=".view.activities.SurveyActivity">
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -97,7 +97,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerSurvey"
-        android:name="com.example.mealmate.presentation.fragments.AboutYouFragment"
+        android:name="com.example.mealmate.view.fragments.AboutYouFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="2dp"

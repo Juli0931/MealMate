@@ -1,4 +1,4 @@
-package com.example.mealmate.presentation.fragments
+package com.example.mealmate.view.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater

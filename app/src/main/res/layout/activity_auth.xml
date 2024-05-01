@@ -3,11 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.activities.AuthActivity">
+    tools:context=".view.activities.AuthActivity">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerViewAuth"
-        android:name="com.example.mealmate.presentation.fragments.MainFragment"
+        android:name="com.example.mealmate.view.fragments.MainFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </FrameLayout>

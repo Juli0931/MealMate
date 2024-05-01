@@ -1,4 +1,4 @@
-package com.example.mealmate.presentation.fragments
+package com.example.mealmate.view.fragments
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,8 +11,8 @@ import androidx.fragment.app.viewModels
 import com.example.mealmate.databinding.SignupFragmentBinding
 import com.example.mealmate.domain.model.AppAuthState
 import com.example.mealmate.domain.model.User
-import com.example.mealmate.presentation.activities.NavigateToLoginListener
-import com.example.mealmate.presentation.activities.SurveyActivity
+import com.example.mealmate.view.activities.NavigateToLoginListener
+import com.example.mealmate.view.activities.SurveyActivity
 import com.example.mealmate.viewmodel.SignupViewModel
 
 class SignupFragment : Fragment() {
