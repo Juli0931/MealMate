@@ -1,6 +1,7 @@
 package com.example.mealmate.repository
 
 import com.example.mealmate.domain.model.User
+import com.example.mealmate.domain.model.UserPreference
 import com.example.mealmate.services.UserServices
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
@@ -8,11 +9,12 @@ import com.google.firebase.auth.auth
 interface UserRepository {
     suspend fun loadUser(): User?
     fun observeUser(callback: (User) -> Unit)
-    suspend fun uploadUserPreference(field:String, diets: List<String>?): Boolean
+    suspend fun uploadUserPreference(field: String, items: List<UserPreference>): Boolean
+    suspend fun getUserPreference(field: String): List<UserPreference>
 }
 
 class UserRepositoryImpl(
-    val userServices: UserServices = UserServices()
+    private val userServices: UserServices = UserServices()
 ) : UserRepository {
 
     override suspend fun loadUser(): User? {
@@ -31,7 +33,11 @@ class UserRepositoryImpl(
         }
     }
 
-    override suspend fun uploadUserPreference(field:String, diets: List<String>?): Boolean =
-        userServices.uploadUserPreference(field, Firebase.auth.uid!!, diets ?: listOf(""))
+    override suspend fun uploadUserPreference(field: String, items: List<UserPreference>): Boolean =
+        userServices.uploadUserPreference(field, Firebase.auth.uid!!, items)
+
+    override suspend fun getUserPreference(field: String): List<UserPreference> =
+        userServices.getUserPreference(field, Firebase.auth.uid!!)
+
 
 }

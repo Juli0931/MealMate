@@ -1,10 +1,12 @@
 package com.example.mealmate.services
 
 import com.example.mealmate.domain.model.User
+import com.example.mealmate.domain.model.UserPreference
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
+import com.google.firebase.firestore.toObject
 import kotlinx.coroutines.tasks.await
 
 class UserServices {
@@ -34,7 +36,7 @@ class UserServices {
             }
     }
 
-    suspend fun uploadUserPreference(field: String, userId: String, items: List<String>): Boolean {
+    suspend fun uploadUserPreference(field: String, userId: String, items: List<UserPreference>): Boolean {
         return try {
 
             Firebase.firestore.collection("users").document(userId).collection(field)
@@ -43,6 +45,25 @@ class UserServices {
         } catch (e: Exception) {
             e.printStackTrace()
             false
+        }
+    }
+
+    suspend fun getUserPreference(field: String, userId: String): List<UserPreference> {
+
+        val list: MutableList<UserPreference> = mutableListOf()
+
+        return try {
+
+            val result = Firebase.firestore.collection("users").document(userId).collection(field)
+                .get().await()
+            result.forEach {
+                list.add(it.toObject(UserPreference::class.java))
+
+            }
+            list
+        } catch (e: Exception) {
+            e.printStackTrace()
+            list
         }
     }
 

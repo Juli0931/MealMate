@@ -15,6 +15,42 @@
             {
             "id": 3,
             "name": "Ovo-lacto vegetariana"
+            },
+            {
+            "id": 4,
+            "name": "Pescetariana"
+            },
+            {
+            "id": 5,
+            "name": "Vegana"
+            },
+            {
+            "id": 6,
+            "name": "Vegetariana"
+            },
+            {
+            "id": 7,
+            "name": "Baja en carbohidratos"
+            },
+            {
+            "id": 8,
+            "name": "Mediterránea"
+            },
+            {
+            "id": 9,
+            "name": "Keto"
+            },
+            {
+            "id": 10,
+            "name": "Paleo"
+            },
+            {
+            "id": 11,
+            "name": "Sin lácteos"
+            },
+            {
+            "id": 12,
+            "name": "Sin gluten"
             }
             ]
         </value>
@@ -38,6 +74,58 @@
             {
             "id": 4,
             "name": "Huevo"
+            },
+            {
+            "id": 5,
+            "name": "Pescado"
+            },
+            {
+            "id": 6,
+            "name": "Gluten"
+            },
+            {
+            "id": 7,
+            "name": "Maní"
+            },
+            {
+            "id": 8,
+            "name": "Leche"
+            },
+            {
+            "id": 9,
+            "name": "Moluscos"
+            },
+            {
+            "id": 10,
+            "name": "Mostaza"
+            },
+            {
+            "id": 11,
+            "name": "Sésamo"
+            },
+            {
+            "id": 12,
+            "name": "Soja"
+            },
+            {
+            "id": 13,
+            "name": "Ajo"
+            },
+            {
+            "id": 14,
+            "name": "Frutos secos"
+            },
+            {
+            "id": 15,
+            "name": "Trigo"
+            },
+            {
+            "id": 16,
+            "name": "Lactosa"
+            },
+            {
+            "id": 16,
+            "name": "Levadura"
             }
             ]
         </value>
@@ -64,7 +152,7 @@
     </entry>
 
     <entry>
-        <key>verduras</key>
+        <key>vegetables</key>
         <value>
             [
             {
@@ -79,7 +167,7 @@
         </value>
     </entry>
     <entry>
-        <key>granos</key>
+        <key>grain</key>
         [
         {
         "id": 1,
@@ -95,7 +183,7 @@
         </value>
     </entry>
     <entry>
-        <key>condimentos</key>
+        <key>condiments</key>
         [
         {
         "id": 1,
