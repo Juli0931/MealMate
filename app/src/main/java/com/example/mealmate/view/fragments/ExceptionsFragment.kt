@@ -36,18 +36,3 @@ class ExceptionsFragment : Fragment() {
         }
     }
 }
-/*
-    private lateinit var binding: ActivityIngredientsFavBinding
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityIngredientsFavBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        binding.InFavButton.setOnClickListener {
-
-        }
-    }
-}
-
- */

@@ -69,5 +69,9 @@ dependencies {
     implementation("com.google.firebase:firebase-config-ktx:21.6.3")
     implementation("com.google.firebase:firebase-analytics-ktx:21.6.2")
 
+    // https://mvnrepository.com/artifact/com.google.code.gson/gson
+    implementation("com.google.code.gson:gson:2.10.1")
+
+
 
 }

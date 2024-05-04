@@ -37,18 +37,3 @@ class ObjetiveFragment : Fragment() {
     }
 
 }
-/*
-    private lateinit var binding: ActivityObjetiveBinding
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityObjetiveBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        binding.InFavButton.setOnClickListener {
-            
-        }
-
-    }
-}
-
- */

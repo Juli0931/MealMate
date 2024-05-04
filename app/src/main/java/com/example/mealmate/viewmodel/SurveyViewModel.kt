@@ -4,10 +4,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mealmate.domain.model.UserPreference
+import com.example.mealmate.repository.SurveyRepository
+import com.example.mealmate.repository.SurveyRepositoryImpl
 import com.example.mealmate.repository.UserRepository
 import com.example.mealmate.repository.UserRepositoryImpl
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 enum class SurveyState {
     WAITING,
@@ -24,7 +27,10 @@ enum class PreferenceField {
     ABOUT_YOU
 }
 
-class SurveyViewModel(private val userRepo: UserRepository = UserRepositoryImpl()) : ViewModel() {
+class SurveyViewModel(
+    private val userRepo: UserRepository = UserRepositoryImpl(),
+    private val surveyRepo: SurveyRepository = SurveyRepositoryImpl()
+) : ViewModel() {
 
     //status
     val surveyState = MutableLiveData(SurveyState.WAITING)
@@ -38,6 +44,7 @@ class SurveyViewModel(private val userRepo: UserRepository = UserRepositoryImpl(
     val objectives = MutableLiveData(mutableListOf<UserPreference>())
 
     val currentPreferenceField = MutableLiveData(PreferenceField.ABOUT_YOU)
+    val currentPreferenceItems = MutableLiveData(emptyList<UserPreference>())
 
     //Los eventos de entrada
     fun uploadUserPreference(field: PreferenceField) {
@@ -53,7 +60,7 @@ class SurveyViewModel(private val userRepo: UserRepository = UserRepositoryImpl(
                     condiments.value?.toList() ?: emptyList()
                 }
 
-                else ->    emptyList()
+                else -> emptyList()
             }
             val surveyUploaded = userRepo.uploadUserPreference(field.name, listPreferences)
             if (surveyUploaded) {
@@ -76,6 +83,19 @@ class SurveyViewModel(private val userRepo: UserRepository = UserRepositoryImpl(
                 else -> {}
             }
             surveyState.postValue(SurveyState.WAITING)
+        }
+    }
+
+
+    fun getPreferencesByField(
+        field: String,
+        onSuccess: (result: List<UserPreference>) -> Unit
+    ) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val result = surveyRepo.getPreferencesByField(field)
+            withContext(Dispatchers.Main) {
+                onSuccess(result)
+            }
         }
     }
 }

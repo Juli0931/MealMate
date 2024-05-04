@@ -48,7 +48,7 @@
         android:textColor="#FFFFFF"
         android:textColorHint="#FFFFFF"
         android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@+id/imageView4"
+        app:layout_constraintStart_toEndOf="@+id/imageviewFullname"
         app:layout_constraintTop_toBottomOf="@+id/descriptionTV" />
 
     <androidx.cardview.widget.CardView
@@ -209,7 +209,7 @@
         app:layout_constraintTop_toTopOf="@+id/textView5" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/imageviewFullname"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginStart="32dp"

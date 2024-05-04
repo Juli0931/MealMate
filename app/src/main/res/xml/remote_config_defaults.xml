@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <defaultsMap>
     <entry>
-        <key>diets</key>
+        <key>DIETS</key>
         <value>
             [
             {
@@ -50,7 +50,7 @@
             },
             {
             "id": 12,
-            "name": "Sin gluten"
+            "name": "Sin gluten123"
             }
             ]
         </value>

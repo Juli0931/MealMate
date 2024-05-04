@@ -9,34 +9,46 @@ import androidx.fragment.app.activityViewModels
 import com.example.mealmate.databinding.DietsFragmentBinding
 import com.example.mealmate.viewmodel.PreferenceField
 import com.example.mealmate.viewmodel.SurveyViewModel
+import com.google.android.material.chip.Chip
 
 class DietsFragment : Fragment() {
 
     private val viewModel: SurveyViewModel by activityViewModels()
 
+    private lateinit var binding: DietsFragmentBinding
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val binding: DietsFragmentBinding = DietsFragmentBinding.inflate(inflater, container, false)
+    ): View {
+        binding = DietsFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel.currentPreferenceField.postValue(PreferenceField.DIETS)
 
+        viewModel.getPreferencesByField(PreferenceField.DIETS.name) { chipList ->
+
+            chipList.forEach { chipData ->
+
+                val chip = Chip(requireContext())
+                chip.text = chipData.name
+                chip.setOnClickListener {
+                    // Handle chip click
+                }
+                binding.dietChipGroup.addView(chip)
+            }
+        }
     }
 
     // Método estatico para generar instancias del propio fragment
-    companion object{
+    companion object {
         fun newInstance(): DietsFragment {
             return DietsFragment()
         }
     }
-
-
-
 
 
 }
