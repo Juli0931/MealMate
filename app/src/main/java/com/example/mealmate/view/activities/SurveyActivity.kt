@@ -19,6 +19,8 @@ class SurveyActivity : AppCompatActivity() {
 
     private val viewModel: SurveyViewModel by viewModels()
 
+    private var progress_bar:Int = 0
+
 
     private val binding by lazy {
         ActivitySurveyBinding.inflate(layoutInflater)
@@ -28,6 +30,9 @@ class SurveyActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        progress_bar = binding.progressBar.max/4
+
+
         viewModel.currentPreferenceField.observe(this){
             hideButtons()
         }
@@ -35,15 +40,26 @@ class SurveyActivity : AppCompatActivity() {
 
         binding.continueButton.setOnClickListener {
             replaceFragmentForward()
+            increaseProgressBar()
+
         }
 
         binding.backButton.setOnClickListener {
             replaceFragmentBackward()
+            decreaseProgressBar()
 
         }
 
 
     }
+    private fun increaseProgressBar(){
+        binding.progressBar.incrementProgressBy(progress_bar)
+    }
+
+    private fun decreaseProgressBar(){
+        binding.progressBar.incrementProgressBy(-progress_bar)
+    }
+
 
     private fun hideButtons() {
         val currentFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerSurvey)
@@ -102,4 +118,6 @@ class SurveyActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction().replace(R.id.fragmentContainerSurvey, fragment)
             .commit()
     }
+
+
 }

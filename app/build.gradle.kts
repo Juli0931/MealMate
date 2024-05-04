@@ -61,8 +61,9 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.8.0")
 
 
-    // https://mvnrepository.com/artifact/com.google.android.material/material
-    runtimeOnly("com.google.android.material:material:1.11.0")
+
+    // https://mvnrepository.com/artifact/androidx.compose.material3/material3
+    runtimeOnly("androidx.compose.material3:material3:1.2.1")
 
     //Remote config
     implementation("com.google.firebase:firebase-config-ktx:21.6.3")
