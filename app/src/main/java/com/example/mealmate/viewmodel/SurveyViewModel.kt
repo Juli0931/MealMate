@@ -21,6 +21,7 @@ enum class PreferenceField {
     EXCEPTIONS,
     INGREDIENTS,
     OBJECTIVES,
+    ABOUT_YOU
 }
 
 class SurveyViewModel(private val userRepo: UserRepository = UserRepositoryImpl()) : ViewModel() {
@@ -36,6 +37,8 @@ class SurveyViewModel(private val userRepo: UserRepository = UserRepositoryImpl(
 
     val objectives = MutableLiveData(mutableListOf<UserPreference>())
 
+    val currentPreferenceField = MutableLiveData(PreferenceField.ABOUT_YOU)
+
     //Los eventos de entrada
     fun uploadUserPreference(field: PreferenceField) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -49,6 +52,8 @@ class SurveyViewModel(private val userRepo: UserRepository = UserRepositoryImpl(
                     grain.value?.toList() ?: emptyList()
                     condiments.value?.toList() ?: emptyList()
                 }
+
+                else ->    emptyList()
             }
             val surveyUploaded = userRepo.uploadUserPreference(field.name, listPreferences)
             if (surveyUploaded) {

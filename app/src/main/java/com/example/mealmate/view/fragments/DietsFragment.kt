@@ -5,23 +5,33 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.mealmate.databinding.OnboardingFragmentBinding
+import androidx.fragment.app.activityViewModels
+import com.example.mealmate.databinding.DietsFragmentBinding
+import com.example.mealmate.viewmodel.PreferenceField
+import com.example.mealmate.viewmodel.SurveyViewModel
 
-class OnboardingFragment : Fragment() {
+class DietsFragment : Fragment() {
+
+    private val viewModel: SurveyViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding: OnboardingFragmentBinding = OnboardingFragmentBinding.inflate(inflater, container, false)
+        val binding: DietsFragmentBinding = DietsFragmentBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        viewModel.currentPreferenceField.postValue(PreferenceField.DIETS)
+
     }
 
     // Método estatico para generar instancias del propio fragment
     companion object{
-        fun newInstance(): OnboardingFragment {
-            return OnboardingFragment()
+        fun newInstance(): DietsFragment {
+            return DietsFragment()
         }
     }
 

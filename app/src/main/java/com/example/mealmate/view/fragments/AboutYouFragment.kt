@@ -5,10 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import com.example.mealmate.databinding.AboutYouFragmentBinding
+import com.example.mealmate.viewmodel.PreferenceField
+import com.example.mealmate.viewmodel.SurveyViewModel
 
 class AboutYouFragment : Fragment() {
 
+    private val viewModel:SurveyViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -17,6 +21,12 @@ class AboutYouFragment : Fragment() {
     ): View? {
         val binding: AboutYouFragmentBinding = AboutYouFragmentBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        viewModel.currentPreferenceField.postValue(PreferenceField.ABOUT_YOU)
+
+
     }
 
     // Método estatico para generar instancias del propio fragment
