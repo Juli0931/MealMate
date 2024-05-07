@@ -33,6 +33,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/titleTV"
         >
+
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/dietChipGroup"
             android:layout_width="match_parent"
@@ -45,6 +46,7 @@
              />
 
     </ScrollView>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

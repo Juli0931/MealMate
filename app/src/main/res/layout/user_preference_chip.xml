@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.chip.Chip xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Widget.Material3.Chip.Filter"
+    app:chipIcon="@drawable/icon__stroke_"
+    app:chipIconTint="#D6FC51"
+    app:chipIconVisible="true"
+    app:chipStrokeColor="#D6FC51"
+    app:chipStrokeWidth="3dp"
+    app:rippleColor="#D6FC51"
+    app:checkedIconTint="#D6FC51"
+    app:chipBackgroundColor="#00000000"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:text="Vegan"
+    android:textColor="#D6FC51"
+    android:textAppearance="@style/TextAppearance.MealMate.Chip"
+    />
+

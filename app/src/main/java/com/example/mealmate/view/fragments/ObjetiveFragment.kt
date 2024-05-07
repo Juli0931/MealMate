@@ -9,23 +9,36 @@ import androidx.fragment.app.activityViewModels
 import com.example.mealmate.databinding.ObjetiveFragmentBinding
 import com.example.mealmate.viewmodel.PreferenceField
 import com.example.mealmate.viewmodel.SurveyViewModel
+import com.google.android.material.chip.Chip
 
 class ObjetiveFragment : Fragment() {
 
     private val viewModel: SurveyViewModel by activityViewModels()
 
-
+    private lateinit var binding : ObjetiveFragmentBinding
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding: ObjetiveFragmentBinding = ObjetiveFragmentBinding.inflate(inflater, container, false)
+         binding = ObjetiveFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel.currentPreferenceField.postValue(PreferenceField.OBJECTIVES)
+        viewModel.getPreferencesByField(PreferenceField.OBJECTIVES.name) { chipList ->
+
+            chipList.forEach { chipData ->
+
+                val chip = Chip(requireContext())
+                chip.text = chipData.name
+                chip.setOnClickListener {
+                    // Handle chip click
+                }
+                binding.objectiveChipGroup.addView(chip)
+            }
+        }
 
     }
 

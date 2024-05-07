@@ -9,10 +9,7 @@
 
     <style name="SplashTheme" parent="Base.Theme.MealMate">
         <item name="android:windowBackground">
-
             @color/dark_bg
-
-
         </item>
     </style>
 </resources>

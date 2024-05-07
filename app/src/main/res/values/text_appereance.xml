@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="TextAppearance.MealMate.Chip"
+        parent="">
+        <item name="android:textColor">#D6FC51</item>
+        <item name="android:fontFamily">@font/montserrat_semibold</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+</resources>
