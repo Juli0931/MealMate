@@ -47,13 +47,12 @@ class SurveyViewModel(
     val objectives = MutableLiveData(mutableListOf<UserPreference>())
 
     val currentPreferenceField = MutableLiveData(PreferenceField.ABOUT_YOU)
-    val currentPreferenceItems = MutableLiveData(emptyList<UserPreference>())
 
     //Los eventos de entrada
-    fun uploadUserPreference(field: PreferenceField) {
+    fun uploadUserPreference() {
         viewModelScope.launch(Dispatchers.IO) {
             surveyState.postValue(SurveyState.LOADING)
-            val listPreferences: List<UserPreference> = when (field) {
+            val listPreferences: List<UserPreference> = when (currentPreferenceField.value) {
                 PreferenceField.DIETS -> diets.value?.toList() ?: emptyList()
                 PreferenceField.EXCEPTIONS -> exceptions.value?.toList() ?: emptyList()
                 PreferenceField.OBJECTIVES -> objectives.value?.toList() ?: emptyList()
@@ -65,7 +64,7 @@ class SurveyViewModel(
 
                 else -> emptyList()
             }
-            val surveyUploaded = userRepo.uploadUserPreference(field.name, listPreferences)
+            val surveyUploaded = userRepo.uploadUserPreference(currentPreferenceField.value!!.name, listPreferences)
             if (surveyUploaded) {
                 surveyState.postValue(SurveyState.SUCCESS)
             } else {
@@ -75,15 +74,19 @@ class SurveyViewModel(
     }
 
     //TODO:refactorizar el viewmodel para el ultimo fragmento
-    fun init(field: PreferenceField) {
+    fun init() {
         viewModelScope.launch(Dispatchers.IO) {
             surveyState.postValue(SurveyState.LOADING)
-            val preference = userRepo.getUserPreference(field.name).toMutableList()
-            when (field) {
+            val preference = userRepo.getUserPreference(currentPreferenceField.value!!.name).toMutableList()
+            when (currentPreferenceField.value) {
                 PreferenceField.DIETS -> diets.postValue(preference)
                 PreferenceField.EXCEPTIONS -> exceptions.postValue(preference)
                 PreferenceField.OBJECTIVES -> objectives.postValue(preference)
-                else -> {}
+                else -> {
+                    vegetables.postValue(userRepo.getUserPreference(PreferenceField.VEGETABLES.name).toMutableList())
+                    grains.postValue(userRepo.getUserPreference(PreferenceField.GRAINS.name).toMutableList())
+                    condiments.postValue(userRepo.getUserPreference(PreferenceField.CONDIMENTS.name).toMutableList())
+                }
             }
             surveyState.postValue(SurveyState.WAITING)
         }

@@ -35,16 +35,16 @@ class SurveyActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         initRemoteConfig()
-
+        viewModel.init()
         progressBar = (binding.progressBar.max) / 4
 
         viewModel.currentPreferenceField.observe(this) {
             hideButtons()
         }
         binding.continueButton.setOnClickListener {
+            viewModel.uploadUserPreference()
             replaceFragmentForward()
             increaseProgressBar()
-
         }
         binding.backButton.setOnClickListener {
             replaceFragmentBackward()
