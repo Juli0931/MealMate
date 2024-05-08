@@ -49,7 +49,6 @@ class SurveyActivity : AppCompatActivity() {
         binding.backButton.setOnClickListener {
             replaceFragmentBackward()
             decreaseProgressBar()
-
         }
 
 

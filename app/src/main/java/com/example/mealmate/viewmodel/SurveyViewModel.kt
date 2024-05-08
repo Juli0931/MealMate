@@ -23,6 +23,9 @@ enum class PreferenceField {
     DIETS,
     EXCEPTIONS,
     INGREDIENTS,
+    CONDIMENTS,
+    GRAINS,
+    VEGETABLES,
     OBJECTIVES,
     ABOUT_YOU
 }
@@ -38,7 +41,7 @@ class SurveyViewModel(
     val diets = MutableLiveData(mutableListOf<UserPreference>())
     val exceptions = MutableLiveData(mutableListOf<UserPreference>())
     val vegetables = MutableLiveData(mutableListOf<UserPreference>())
-    val grain = MutableLiveData(mutableListOf<UserPreference>())
+    val grains = MutableLiveData(mutableListOf<UserPreference>())
     val condiments = MutableLiveData(mutableListOf<UserPreference>())
 
     val objectives = MutableLiveData(mutableListOf<UserPreference>())
@@ -56,7 +59,7 @@ class SurveyViewModel(
                 PreferenceField.OBJECTIVES -> objectives.value?.toList() ?: emptyList()
                 PreferenceField.INGREDIENTS -> {
                     vegetables.value?.toList() ?: emptyList()
-                    grain.value?.toList() ?: emptyList()
+                    grains.value?.toList() ?: emptyList()
                     condiments.value?.toList() ?: emptyList()
                 }
 

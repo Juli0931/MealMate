@@ -6,10 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import com.example.mealmate.databinding.ExceptionsFragmentBinding
+import com.example.mealmate.view.util.ChipGroupUtil
 import com.example.mealmate.viewmodel.PreferenceField
 import com.example.mealmate.viewmodel.SurveyViewModel
-import com.google.android.material.chip.Chip
 
 class ExceptionsFragment : Fragment() {
 
@@ -31,17 +32,19 @@ class ExceptionsFragment : Fragment() {
 
         viewModel.getPreferencesByField(PreferenceField.EXCEPTIONS.name) { chipList ->
 
-            chipList.forEach { chipData ->
-
-                val chip = Chip(requireContext())
-                chip.text = chipData.name
-                chip.setOnClickListener {
-                    // Handle chip click
-                }
-                binding.exceptionsChipGroup.addView(chip)
+            viewModel.getPreferencesByField(PreferenceField.EXCEPTIONS.name) { userPreferenceList ->
+                ChipGroupUtil().generateChipGroupByPreferences(
+                    context = requireContext(),
+                    scope = lifecycleScope,
+                    userPreferenceList = userPreferenceList,
+                    selectedPreferenceList = viewModel.exceptions.value ?: emptyList(),
+                    layoutInflater = layoutInflater,
+                    chipGroup = binding.exceptionsChipGroup,
+                    onRemoveItem = { item -> viewModel.exceptions.value?.remove(item) },
+                    onAddItem = { item -> viewModel.exceptions.value?.add(item) }
+                )
             }
         }
-
     }
 
     // Método estatico para generar instancias del propio fragment

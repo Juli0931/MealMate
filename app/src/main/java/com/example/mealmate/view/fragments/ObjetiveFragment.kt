@@ -6,10 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import com.example.mealmate.databinding.ObjetiveFragmentBinding
+import com.example.mealmate.view.util.ChipGroupUtil
 import com.example.mealmate.viewmodel.PreferenceField
 import com.example.mealmate.viewmodel.SurveyViewModel
-import com.google.android.material.chip.Chip
 
 class ObjetiveFragment : Fragment() {
 
@@ -27,17 +28,17 @@ class ObjetiveFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel.currentPreferenceField.postValue(PreferenceField.OBJECTIVES)
-        viewModel.getPreferencesByField(PreferenceField.OBJECTIVES.name) { chipList ->
-
-            chipList.forEach { chipData ->
-
-                val chip = Chip(requireContext())
-                chip.text = chipData.name
-                chip.setOnClickListener {
-                    // Handle chip click
-                }
-                binding.objectiveChipGroup.addView(chip)
-            }
+        viewModel.getPreferencesByField(PreferenceField.OBJECTIVES.name) { userPreferenceList ->
+            ChipGroupUtil().generateChipGroupByPreferences(
+                context = requireContext(),
+                scope = lifecycleScope,
+                userPreferenceList = userPreferenceList,
+                selectedPreferenceList = viewModel.objectives.value ?: emptyList(),
+                layoutInflater = layoutInflater,
+                chipGroup = binding.objectiveChipGroup,
+                onRemoveItem = { item -> viewModel.objectives.value?.remove(item) },
+                onAddItem = { item -> viewModel.objectives.value?.add(item) }
+            )
         }
 
     }

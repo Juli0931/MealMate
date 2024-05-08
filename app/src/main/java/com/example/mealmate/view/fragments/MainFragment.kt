@@ -1,5 +1,6 @@
 package com.example.mealmate.view.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import androidx.fragment.app.Fragment
 import com.example.mealmate.databinding.MainFragmentBinding
 import com.example.mealmate.view.activities.NavigateToLoginListener
 import com.example.mealmate.view.activities.NavigateToSignupListener
+import com.example.mealmate.view.activities.SurveyActivity
 
 class MainFragment : Fragment() {
 
