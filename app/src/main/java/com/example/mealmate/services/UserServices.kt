@@ -5,9 +5,11 @@ import com.example.mealmate.domain.model.UserPreference
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.firestore
-import com.google.firebase.firestore.toObject
 import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withTimeout
+import com.google.firebase.functions.functions
 
 class UserServices {
 
@@ -38,9 +40,16 @@ class UserServices {
 
     suspend fun uploadUserPreference(field: String, userId: String, items: List<UserPreference>): Boolean {
         return try {
+            val datosMap = HashMap<String, UserPreference>()
+            deleteUserPreferenceList(field)
 
-            Firebase.firestore.collection("users").document(userId).collection(field)
-                .add(items).await()
+            for (item in items) {
+                Firebase.firestore.collection("users").document(userId).collection(field)
+                    .document(item.id.toString()).set(item).await()
+            }
+
+
+
             true
         } catch (e: Exception) {
             e.printStackTrace()
@@ -58,13 +67,33 @@ class UserServices {
                 .get().await()
             result.forEach {
                 list.add(it.toObject(UserPreference::class.java))
-
             }
             list
         } catch (e: Exception) {
             e.printStackTrace()
             list
         }
+    }
+
+   private suspend fun deleteCollection(path: String):Boolean{
+
+        return try {
+            val token = FirebaseAuth.getInstance().currentUser?.getIdToken(true)?.await()?.token
+            val deleteFn = Firebase.functions.getHttpsCallable("recursiveDelete")
+            withTimeout(10000) {
+                deleteFn.call(hashMapOf("path" to path, "token" to token)).await()
+            }
+            true
+        } catch (e: Exception) {
+            e.printStackTrace()
+            false
+        }
+    }
+
+    suspend fun deleteUserPreferenceList(preferenceField: String){
+        val email = FirebaseAuth.getInstance().currentUser?.email ?: ""
+        val pathUserPreference = Firebase.firestore.collection("users").document(email).collection(preferenceField).path
+        deleteCollection(pathUserPreference)
     }
 
 

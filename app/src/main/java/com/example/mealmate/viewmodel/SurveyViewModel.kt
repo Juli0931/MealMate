@@ -77,17 +77,15 @@ class SurveyViewModel(
     fun init() {
         viewModelScope.launch(Dispatchers.IO) {
             surveyState.postValue(SurveyState.LOADING)
-            val preference = userRepo.getUserPreference(currentPreferenceField.value!!.name).toMutableList()
-            when (currentPreferenceField.value) {
-                PreferenceField.DIETS -> diets.postValue(preference)
-                PreferenceField.EXCEPTIONS -> exceptions.postValue(preference)
-                PreferenceField.OBJECTIVES -> objectives.postValue(preference)
-                else -> {
-                    vegetables.postValue(userRepo.getUserPreference(PreferenceField.VEGETABLES.name).toMutableList())
-                    grains.postValue(userRepo.getUserPreference(PreferenceField.GRAINS.name).toMutableList())
-                    condiments.postValue(userRepo.getUserPreference(PreferenceField.CONDIMENTS.name).toMutableList())
-                }
-            }
+
+            diets.postValue(userRepo.getUserPreference(PreferenceField.DIETS.name).toMutableList())
+            exceptions.postValue(userRepo.getUserPreference(PreferenceField.EXCEPTIONS.name).toMutableList())
+            objectives.postValue(userRepo.getUserPreference(PreferenceField.OBJECTIVES.name).toMutableList())
+            vegetables.postValue(userRepo.getUserPreference(PreferenceField.VEGETABLES.name).toMutableList())
+            grains.postValue(userRepo.getUserPreference(PreferenceField.GRAINS.name).toMutableList())
+            condiments.postValue(userRepo.getUserPreference(PreferenceField.CONDIMENTS.name).toMutableList())
+
+
             surveyState.postValue(SurveyState.WAITING)
         }
     }

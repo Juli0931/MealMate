@@ -5,5 +5,4 @@ data class User (
     var username: String = "",
     var email: String = "",
     var name: String = "",
-    val diets: List<String> = emptyList()
     )

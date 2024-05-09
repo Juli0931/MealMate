@@ -3,6 +3,7 @@ package com.example.mealmate.repository
 import com.example.mealmate.domain.model.User
 import com.example.mealmate.domain.model.UserPreference
 import com.example.mealmate.services.UserServices
+import com.example.mealmate.viewmodel.PreferenceField
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 
