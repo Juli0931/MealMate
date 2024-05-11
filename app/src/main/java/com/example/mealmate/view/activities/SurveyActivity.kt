@@ -2,9 +2,11 @@ package com.example.mealmate.view.activities
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.example.mealmate.R
 import com.example.mealmate.databinding.ActivitySurveyBinding
 import com.example.mealmate.view.fragments.AboutYouFragment
@@ -12,6 +14,8 @@ import com.example.mealmate.view.fragments.DietsFragment
 import com.example.mealmate.view.fragments.ExceptionsFragment
 import com.example.mealmate.view.fragments.IngredientsFavFragment
 import com.example.mealmate.view.fragments.ObjetiveFragment
+import com.example.mealmate.viewmodel.PreferenceField
+import com.example.mealmate.viewmodel.SurveyState
 import com.example.mealmate.viewmodel.SurveyViewModel
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
@@ -42,15 +46,37 @@ class SurveyActivity : AppCompatActivity() {
             hideButtons()
         }
         binding.continueButton.setOnClickListener {
-            viewModel.uploadUserPreference()
-            replaceFragmentForward()
-            increaseProgressBar()
+            if(viewModel.currentPreferenceField.value == PreferenceField.ABOUT_YOU){
+                replaceFragmentForward()
+                increaseProgressBar()
+            }else{
+                viewModel.uploadUserPreference()
+            }
         }
         binding.backButton.setOnClickListener {
             replaceFragmentBackward()
             decreaseProgressBar()
         }
 
+        viewModel.surveyState.observe(this){state ->
+            when(state){
+                SurveyState.WAITING -> {}
+                SurveyState.LOADING -> {
+                    Toast.makeText(this, "Loading...", Toast.LENGTH_LONG).show()
+                }
+                SurveyState.SUCCESS -> {
+                    Toast.makeText(this, "Preferencias actualizadas exitosamente", Toast.LENGTH_LONG).show()
+                    viewModel.surveyState.postValue(SurveyState.WAITING)
+                    replaceFragmentForward()
+                    increaseProgressBar()
+                }
+                SurveyState.ERROR -> {
+                    Toast.makeText(this, "Error...", Toast.LENGTH_LONG).show()
+                    viewModel.surveyState.postValue(SurveyState.WAITING)
+                }
+            }
+
+        }
 
     }
 

@@ -52,19 +52,31 @@ class SurveyViewModel(
     fun uploadUserPreference() {
         viewModelScope.launch(Dispatchers.IO) {
             surveyState.postValue(SurveyState.LOADING)
-            val listPreferences: List<UserPreference> = when (currentPreferenceField.value) {
-                PreferenceField.DIETS -> diets.value?.toList() ?: emptyList()
-                PreferenceField.EXCEPTIONS -> exceptions.value?.toList() ?: emptyList()
-                PreferenceField.OBJECTIVES -> objectives.value?.toList() ?: emptyList()
+            var surveyUploaded = false
+             when (currentPreferenceField.value) {
+                PreferenceField.DIETS ->{
+                    val listPreferences = diets.value?.toList() ?: emptyList()
+                    surveyUploaded = userRepo.uploadUserPreference(currentPreferenceField.value!!.name, listPreferences)
+                }
+                PreferenceField.EXCEPTIONS ->{
+                    val listPreferences = exceptions.value?.toList() ?: emptyList()
+                    surveyUploaded = userRepo.uploadUserPreference(currentPreferenceField.value!!.name, listPreferences)
+                }
+                PreferenceField.OBJECTIVES ->{
+                    val listPreferences =  objectives.value?.toList() ?: emptyList()
+                    surveyUploaded = userRepo.uploadUserPreference(currentPreferenceField.value!!.name, listPreferences)
+                }
                 PreferenceField.INGREDIENTS -> {
-                    vegetables.value?.toList() ?: emptyList()
-                    grains.value?.toList() ?: emptyList()
-                    condiments.value?.toList() ?: emptyList()
+                    var listPreferences =  vegetables.value?.toList() ?: emptyList()
+                    surveyUploaded = userRepo.uploadUserPreference(PreferenceField.VEGETABLES.name, listPreferences)
+                     listPreferences =  grains.value?.toList() ?: emptyList()
+                    surveyUploaded = userRepo.uploadUserPreference(PreferenceField.GRAINS.name, listPreferences) && surveyUploaded
+                     listPreferences =  condiments.value?.toList() ?: emptyList()
+                    surveyUploaded = userRepo.uploadUserPreference(PreferenceField.CONDIMENTS.name, listPreferences) && surveyUploaded
                 }
 
-                else -> emptyList()
+                else -> emptyList<UserPreference>()
             }
-            val surveyUploaded = userRepo.uploadUserPreference(currentPreferenceField.value!!.name, listPreferences)
             if (surveyUploaded) {
                 surveyState.postValue(SurveyState.SUCCESS)
             } else {
