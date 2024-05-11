@@ -1,5 +1,6 @@
 package com.example.mealmate.view.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -106,6 +107,10 @@ class SurveyActivity : AppCompatActivity() {
             is DietsFragment -> showFragment(ExceptionsFragment())
             is ExceptionsFragment -> showFragment(ObjetiveFragment())
             is ObjetiveFragment -> showFragment(IngredientsFavFragment())
+            is IngredientsFavFragment -> {
+                startActivity(Intent(this, HomeActivity::class.java))
+                finish()
+            }
         }
     }
 
