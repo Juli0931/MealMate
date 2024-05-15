@@ -11,3 +11,4 @@ data class Recipe(
 
 fun Int.toGramsFormat() =  "${this}g"
 fun Int.toKalFormat() = "$this cal"
+

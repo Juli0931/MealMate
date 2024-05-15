@@ -47,12 +47,11 @@ class HomeFragment : Fragment() {
             addItemDecoration(DividerItemDecoration(requireContext(),
                 GridLayoutManager.VERTICAL))
         }
-
+        binding.titleTV.setOnClickListener{
+            viewModel.init()
+        }
         viewModel.recipeList.observe(viewLifecycleOwner){ recipeList ->
-
-            recipesAdapter.recipeList = recipeList
-            recipesAdapter.notifyDataSetChanged()
-
+            recipesAdapter.updateRecipeList(recipeList)
         }
     }
 }
