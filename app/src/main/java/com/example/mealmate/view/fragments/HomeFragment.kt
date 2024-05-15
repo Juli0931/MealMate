@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
@@ -15,12 +16,14 @@ import com.example.mealmate.databinding.LoginFragmentBinding
 import com.example.mealmate.domain.model.Recipe
 import com.example.mealmate.view.adapters.RecipesAdapter
 import com.example.mealmate.viewmodel.HomeViewModel
+import tech.benhack.ui.helpers.ImageUtil
 
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), RecipesAdapter.RenderImageListener {
 
     private lateinit var binding: FragmentHomeBinding
     private lateinit var recipesAdapter: RecipesAdapter
+    private val imageUtil:ImageUtil by lazy { ImageUtil() }
     private val viewModel:HomeViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,6 +43,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         recipesAdapter = RecipesAdapter(viewModel.recipeList.value ?: emptyList())
+        recipesAdapter.listener = this
         with(binding.recipesRecycler){
             adapter = recipesAdapter
             layoutManager =
@@ -53,5 +57,8 @@ class HomeFragment : Fragment() {
         viewModel.recipeList.observe(viewLifecycleOwner){ recipeList ->
             recipesAdapter.updateRecipeList(recipeList)
         }
+    }
+    override fun render(url: String, image: ImageView) {
+        imageUtil.renderImageCenterCrop(requireContext(),url,image)
     }
 }

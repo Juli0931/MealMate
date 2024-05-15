@@ -3,6 +3,7 @@ package com.example.mealmate.view.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView.Adapter
 
@@ -12,15 +13,18 @@ import com.example.mealmate.databinding.RecipeItemBinding
 import com.example.mealmate.domain.model.Recipe
 import com.example.mealmate.domain.model.toGramsFormat
 import com.example.mealmate.domain.model.toKalFormat
+import tech.benhack.ui.helpers.ImageUtil
 
 class RecipesAdapter(
    private var recipeList:List<Recipe>
 ):Adapter<RecipeViewHolder>() {
 
+    lateinit var listener:RenderImageListener
+
     fun updateRecipeList(newList:List<Recipe>){
         val diffUtil = RecipesDiffUtil(recipeList, newList)
         val diffResults = DiffUtil.calculateDiff(diffUtil)
-        recipeList = newList
+        recipeList = newList.toList()
         diffResults.dispatchUpdatesTo(this)
     }
 
@@ -32,14 +36,20 @@ class RecipesAdapter(
 
     override fun getItemCount(): Int = recipeList.size
 
-    override fun onBindViewHolder(holder: RecipeViewHolder, position: Int) =
+    override fun onBindViewHolder(holder: RecipeViewHolder, position: Int){
         holder.render(recipeList[position])
+        listener.render(recipeList[position].img, holder.imageView)
+    }
+
+    interface RenderImageListener{
+        fun render(url:String,image:ImageView)
+    }
 }
 
 
 class RecipeViewHolder(root:View):ViewHolder(root){
     private val binding = RecipeItemBinding.bind(root)
-
+    val imageView = binding.img
     fun render(recipe:Recipe){
         binding.titleTV.text = recipe.title
         binding.descriptionTV.text = recipe.description
