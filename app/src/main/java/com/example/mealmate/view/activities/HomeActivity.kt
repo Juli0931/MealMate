@@ -1,18 +1,16 @@
 package com.example.mealmate.view.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.mealmate.R
-import com.example.mealmate.databinding.ActivityAuthBinding
 import com.example.mealmate.databinding.ActivityHomeBinding
 import com.example.mealmate.view.fragments.CommunityFragment
 import com.example.mealmate.view.fragments.HomeFragment
 import com.example.mealmate.view.fragments.MealPlannerFragment
-import com.example.mealmate.view.fragments.RecipeDetailFragment
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity(), NavigationListener {
 
     private lateinit var homeFragment: HomeFragment
     private lateinit var communityFragment: CommunityFragment
@@ -26,6 +24,7 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         homeFragment = HomeFragment()
+        homeFragment.navigationListener = this
         communityFragment = CommunityFragment()
         plannerFragment = MealPlannerFragment()
 
@@ -41,7 +40,7 @@ class HomeActivity : AppCompatActivity() {
 
     }
 
-    private fun showFragment(fragment: Fragment) : Boolean {
+     override fun showFragment(fragment: Fragment) : Boolean {
         supportFragmentManager.beginTransaction().replace(R.id.fragmentContainerHome, fragment)
             .commit()
         supportFragmentManager.executePendingTransactions()
@@ -60,3 +59,8 @@ class HomeActivity : AppCompatActivity() {
     }
 
 }
+
+interface NavigationListener{
+    fun showFragment(fragment: Fragment): Boolean
+}
+

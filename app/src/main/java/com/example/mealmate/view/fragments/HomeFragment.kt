@@ -1,19 +1,17 @@
 package com.example.mealmate.view.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.mealmate.R
 import com.example.mealmate.databinding.FragmentHomeBinding
-import com.example.mealmate.databinding.LoginFragmentBinding
-import com.example.mealmate.domain.model.Recipe
+import com.example.mealmate.view.activities.NavigationListener
 import com.example.mealmate.view.adapters.RecipesAdapter
 import com.example.mealmate.viewmodel.HomeViewModel
 import tech.benhack.ui.helpers.ImageUtil
@@ -23,6 +21,7 @@ class HomeFragment : Fragment(), RecipesAdapter.RenderImageListener {
 
     private lateinit var binding: FragmentHomeBinding
     private lateinit var recipesAdapter: RecipesAdapter
+    lateinit var navigationListener: NavigationListener
     private val imageUtil:ImageUtil by lazy { ImageUtil() }
     private val viewModel:HomeViewModel by viewModels()
 
@@ -56,6 +55,13 @@ class HomeFragment : Fragment(), RecipesAdapter.RenderImageListener {
         }
         viewModel.recipeList.observe(viewLifecycleOwner){ recipeList ->
             recipesAdapter.updateRecipeList(recipeList)
+        }
+
+        binding.descriptionTV.setOnClickListener {
+            val a = navigationListener
+            val b = 45
+            navigationListener.showFragment(RecipeDetailFragment())
+
         }
     }
     override fun render(url: String, image: ImageView) {

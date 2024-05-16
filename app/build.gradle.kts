@@ -78,6 +78,7 @@ dependencies {
     // https://mvnrepository.com/artifact/com.github.bumptech.glide/glide
     implementation("com.github.bumptech.glide:glide:4.16.0")
 
+    implementation("com.google.firebase:firebase-storage")
 
 
 
