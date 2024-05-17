@@ -13,7 +13,6 @@ import com.example.mealmate.databinding.RecipeItemBinding
 import com.example.mealmate.domain.model.Recipe
 import com.example.mealmate.domain.model.toGramsFormat
 import com.example.mealmate.domain.model.toKalFormat
-import tech.benhack.ui.helpers.ImageUtil
 
 class RecipesAdapter(
    private var recipeList:List<Recipe>

@@ -9,24 +9,27 @@ import com.example.mealmate.databinding.ActivityHomeBinding
 import com.example.mealmate.view.fragments.CommunityFragment
 import com.example.mealmate.view.fragments.HomeFragment
 import com.example.mealmate.view.fragments.MealPlannerFragment
+import com.example.mealmate.view.fragments.RecipeDetailFragment
 
-class HomeActivity : AppCompatActivity(), NavigationListener {
+class HomeActivity : AppCompatActivity(), NavigateToRecipeDetailListener {
 
     private lateinit var homeFragment: HomeFragment
     private lateinit var communityFragment: CommunityFragment
     private lateinit var plannerFragment: MealPlannerFragment
+    private lateinit var recipeDetailFragment: RecipeDetailFragment
 
     private val binding by lazy {
         ActivityHomeBinding.inflate(layoutInflater)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate (savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         homeFragment = HomeFragment()
-        homeFragment.navigationListener = this
+        homeFragment.listener = this
         communityFragment = CommunityFragment()
         plannerFragment = MealPlannerFragment()
+        recipeDetailFragment = RecipeDetailFragment()
 
         binding.bottomNavigation.setOnItemSelectedListener { item ->
             when(item.itemId) {
@@ -38,9 +41,10 @@ class HomeActivity : AppCompatActivity(), NavigationListener {
 
         }
 
+        showFragment(homeFragment)
     }
 
-     override fun showFragment(fragment: Fragment) : Boolean {
+     private fun showFragment(fragment: Fragment) : Boolean {
         supportFragmentManager.beginTransaction().replace(R.id.fragmentContainerHome, fragment)
             .commit()
         supportFragmentManager.executePendingTransactions()
@@ -58,9 +62,10 @@ class HomeActivity : AppCompatActivity(), NavigationListener {
         }
     }
 
+    override fun navigate() { showFragment(recipeDetailFragment) }
 }
 
-interface NavigationListener{
-    fun showFragment(fragment: Fragment): Boolean
+interface NavigateToRecipeDetailListener{
+    fun navigate()
 }
 

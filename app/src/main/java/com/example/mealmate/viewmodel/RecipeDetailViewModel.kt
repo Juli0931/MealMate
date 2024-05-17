@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mealmate.domain.model.Recipe
+import com.example.mealmate.view.util.ImageUtil
 import com.google.firebase.Firebase
 import com.google.firebase.storage.storage
 import kotlinx.coroutines.Dispatchers
@@ -24,8 +25,7 @@ class RecipeDetailViewModel : ViewModel() {
     val storageRef = Firebase.storage.reference
 
     fun uploadImage() {
-
-        val bitmap = (imageSelected as BitmapDrawable).bitmap
+        val bitmap = ImageUtil().drawableToBitmap(imageSelected.value!!)
         val baos = ByteArrayOutputStream()
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
         val data = baos.toByteArray()
@@ -38,8 +38,6 @@ class RecipeDetailViewModel : ViewModel() {
         } catch (e: Exception) {
             e.printStackTrace()
         }
-
-
     }
 
 }

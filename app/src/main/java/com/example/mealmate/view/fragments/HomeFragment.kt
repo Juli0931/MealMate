@@ -11,18 +11,18 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mealmate.databinding.FragmentHomeBinding
-import com.example.mealmate.view.activities.NavigationListener
+import com.example.mealmate.view.activities.NavigateToRecipeDetailListener
 import com.example.mealmate.view.adapters.RecipesAdapter
 import com.example.mealmate.viewmodel.HomeViewModel
-import tech.benhack.ui.helpers.ImageUtil
+import com.example.mealmate.view.util.ImageUtil
 
 
 class HomeFragment : Fragment(), RecipesAdapter.RenderImageListener {
 
     private lateinit var binding: FragmentHomeBinding
     private lateinit var recipesAdapter: RecipesAdapter
-    lateinit var navigationListener: NavigationListener
-    private val imageUtil:ImageUtil by lazy { ImageUtil() }
+    lateinit var listener: NavigateToRecipeDetailListener
+    private val imageUtil: ImageUtil by lazy { ImageUtil() }
     private val viewModel:HomeViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,10 +58,9 @@ class HomeFragment : Fragment(), RecipesAdapter.RenderImageListener {
         }
 
         binding.descriptionTV.setOnClickListener {
-            val a = navigationListener
-            val b = 45
-            navigationListener.showFragment(RecipeDetailFragment())
-
+            val b = listener
+            val a = 5
+            listener.navigate()
         }
     }
     override fun render(url: String, image: ImageView) {
