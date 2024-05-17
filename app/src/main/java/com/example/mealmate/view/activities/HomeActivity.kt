@@ -42,6 +42,7 @@ class HomeActivity : AppCompatActivity(), NavigateToRecipeDetailListener {
         }
 
         showFragment(homeFragment)
+        requestPermissions()
     }
 
      private fun showFragment(fragment: Fragment) : Boolean {
@@ -63,9 +64,14 @@ class HomeActivity : AppCompatActivity(), NavigateToRecipeDetailListener {
     }
 
     override fun navigate() { showFragment(recipeDetailFragment) }
+
+    private fun requestPermissions(){
+        requestPermissions(arrayOf(android.Manifest.permission.CAMERA,android.Manifest.permission.READ_EXTERNAL_STORAGE), 1)
+    }
 }
 
 interface NavigateToRecipeDetailListener{
     fun navigate()
 }
+
 

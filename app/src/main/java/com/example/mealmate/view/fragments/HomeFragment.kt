@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mealmate.databinding.FragmentHomeBinding
 import com.example.mealmate.view.activities.NavigateToRecipeDetailListener
 import com.example.mealmate.view.adapters.RecipesAdapter
-import com.example.mealmate.viewmodel.HomeViewModel
 import com.example.mealmate.view.util.ImageUtil
+import com.example.mealmate.viewmodel.HomeViewModel
 
 
 class HomeFragment : Fragment(), RecipesAdapter.RenderImageListener {
