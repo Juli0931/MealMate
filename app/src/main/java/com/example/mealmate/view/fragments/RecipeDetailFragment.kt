@@ -18,6 +18,7 @@ import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.mealmate.databinding.FragmentRecipeDetailBinding
+import com.example.mealmate.view.util.ImageUtil
 import com.example.mealmate.viewmodel.RecipeDetailViewModel
 import java.io.File
 import java.util.UUID
@@ -30,7 +31,6 @@ class RecipeDetailFragment : Fragment() {
     private val cameraLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult(), ::onCameraResult)
     private val cameraPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions(),::onCameraPermissionResult)
     private val galleryPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission(),::onGalleryPermissionResult)
-
 
 
     private fun onCameraResult(result: ActivityResult) {
@@ -58,6 +58,10 @@ class RecipeDetailFragment : Fragment() {
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        arguments?.getString("id")?.let{
+            viewModel.downloadRecipe(it)
+            Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
+        }
         viewModel.recipeId.postValue(UUID.randomUUID().toString())
     }
 
@@ -73,7 +77,7 @@ class RecipeDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         viewModel.imageSelected.observe(viewLifecycleOwner){
-            binding.imageView.setImageURI(it)
+            ImageUtil().renderImageCenterCrop(requireContext(), it, binding.imageView)
         }
 
         binding.btnUpload.setOnClickListener{

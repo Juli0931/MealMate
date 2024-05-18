@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mealmate.databinding.FragmentHomeBinding
-import com.example.mealmate.view.activities.NavigateToRecipeDetailListener
+import com.example.mealmate.view.activities.NavigationListener
 import com.example.mealmate.view.adapters.RecipesAdapter
 import com.example.mealmate.view.util.ImageUtil
 import com.example.mealmate.viewmodel.HomeViewModel
@@ -21,7 +21,7 @@ class HomeFragment : Fragment(), RecipesAdapter.RenderImageListener {
 
     private lateinit var binding: FragmentHomeBinding
     private lateinit var recipesAdapter: RecipesAdapter
-    lateinit var listener: NavigateToRecipeDetailListener
+    lateinit var navigationListener: NavigationListener
     private val imageUtil: ImageUtil by lazy { ImageUtil() }
     private val viewModel:HomeViewModel by viewModels()
 
@@ -42,7 +42,8 @@ class HomeFragment : Fragment(), RecipesAdapter.RenderImageListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         recipesAdapter = RecipesAdapter(viewModel.recipeList.value ?: emptyList())
-        recipesAdapter.listener = this
+        recipesAdapter.imageListener = this
+        recipesAdapter.navigationListener = navigationListener
         with(binding.recipesRecycler){
             adapter = recipesAdapter
             layoutManager =
@@ -55,12 +56,6 @@ class HomeFragment : Fragment(), RecipesAdapter.RenderImageListener {
         }
         viewModel.recipeList.observe(viewLifecycleOwner){ recipeList ->
             recipesAdapter.updateRecipeList(recipeList)
-        }
-
-        binding.descriptionTV.setOnClickListener {
-            val b = listener
-            val a = 5
-            listener.navigate()
         }
     }
     override fun render(url: String, image: ImageView) {

@@ -8,15 +8,15 @@ import com.example.mealmate.R
 import com.example.mealmate.databinding.ActivityHomeBinding
 import com.example.mealmate.view.fragments.CommunityFragment
 import com.example.mealmate.view.fragments.HomeFragment
+import com.example.mealmate.view.fragments.MainFragment
 import com.example.mealmate.view.fragments.MealPlannerFragment
 import com.example.mealmate.view.fragments.RecipeDetailFragment
 
-class HomeActivity : AppCompatActivity(), NavigateToRecipeDetailListener {
+class HomeActivity : AppCompatActivity(), NavigationListener {
 
     private lateinit var homeFragment: HomeFragment
     private lateinit var communityFragment: CommunityFragment
     private lateinit var plannerFragment: MealPlannerFragment
-    private lateinit var recipeDetailFragment: RecipeDetailFragment
 
     private val binding by lazy {
         ActivityHomeBinding.inflate(layoutInflater)
@@ -26,10 +26,9 @@ class HomeActivity : AppCompatActivity(), NavigateToRecipeDetailListener {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         homeFragment = HomeFragment()
-        homeFragment.listener = this
+        homeFragment.navigationListener = this
         communityFragment = CommunityFragment()
         plannerFragment = MealPlannerFragment()
-        recipeDetailFragment = RecipeDetailFragment()
 
         binding.bottomNavigation.setOnItemSelectedListener { item ->
             when(item.itemId) {
@@ -42,7 +41,7 @@ class HomeActivity : AppCompatActivity(), NavigateToRecipeDetailListener {
         showFragment(homeFragment)
     }
 
-     private fun showFragment(fragment: Fragment) : Boolean {
+     override fun showFragment(fragment: Fragment) : Boolean {
         supportFragmentManager.beginTransaction().replace(R.id.fragmentContainerHome, fragment)
             .commit()
         supportFragmentManager.executePendingTransactions()
@@ -59,12 +58,23 @@ class HomeActivity : AppCompatActivity(), NavigateToRecipeDetailListener {
             else -> binding.bottomNavigation.visibility = View.GONE
         }
     }
-    override fun navigate() { showFragment(recipeDetailFragment) }
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+        val currentFragment =
+            supportFragmentManager.findFragmentById(R.id.fragmentContainerViewAuth)
 
+        if (currentFragment is RecipeDetailFragment) {
+            showFragment(homeFragment)
+
+
+        } else {
+            super.onBackPressed()
+        }
+    }
 }
 
-interface NavigateToRecipeDetailListener{
-    fun navigate()
+interface NavigationListener{
+    fun showFragment(fragment: Fragment):Boolean
 }
 
 

@@ -1,5 +1,6 @@
 package com.example.mealmate.view.adapters
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,12 +14,15 @@ import com.example.mealmate.databinding.RecipeItemBinding
 import com.example.mealmate.domain.model.Recipe
 import com.example.mealmate.domain.model.toGramsFormat
 import com.example.mealmate.domain.model.toKalFormat
+import com.example.mealmate.view.activities.NavigationListener
+import com.example.mealmate.view.fragments.RecipeDetailFragment
 
 class RecipesAdapter(
    private var recipeList:List<Recipe>
 ):Adapter<RecipeViewHolder>() {
 
-    lateinit var listener:RenderImageListener
+    lateinit var imageListener:RenderImageListener
+    lateinit var navigationListener:NavigationListener
 
     fun updateRecipeList(newList:List<Recipe>){
         val diffUtil = RecipesDiffUtil(recipeList, newList)
@@ -36,8 +40,9 @@ class RecipesAdapter(
     override fun getItemCount(): Int = recipeList.size
 
     override fun onBindViewHolder(holder: RecipeViewHolder, position: Int){
+        holder.navigationListener = navigationListener
         holder.render(recipeList[position])
-        listener.render(recipeList[position].img, holder.imageView)
+        imageListener.render(recipeList[position].img, holder.imageView)
     }
 
     interface RenderImageListener{
@@ -47,13 +52,25 @@ class RecipesAdapter(
 
 
 class RecipeViewHolder(root:View):ViewHolder(root){
+    lateinit var navigationListener: NavigationListener
     private val binding = RecipeItemBinding.bind(root)
     val imageView = binding.img
+    var recipeID = ""
     fun render(recipe:Recipe){
+        recipeID = recipe.id
         binding.titleTV.text = recipe.title
         binding.descriptionTV.text = recipe.description
         binding.weightTV.text = recipe.weight.toGramsFormat()
         binding.kalTV.text = recipe.weight.toKalFormat()
+    }
+    init {
+        binding.root.setOnClickListener{
+            val fragment = RecipeDetailFragment()
+            val args = Bundle()
+            args.putString("id", recipeID)
+            fragment.arguments = args
+            navigationListener.showFragment(fragment)
+        }
     }
 }
 

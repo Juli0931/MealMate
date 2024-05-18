@@ -2,11 +2,13 @@ package com.example.mealmate.viewmodel
 
 import android.net.Uri
 import android.util.Log
+import androidx.core.net.toUri
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mealmate.domain.model.Recipe
 import com.google.firebase.Firebase
+import com.google.firebase.firestore.firestore
 import com.google.firebase.storage.storage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -16,7 +18,7 @@ class RecipeDetailViewModel : ViewModel() {
 
     val imageSelected = MutableLiveData<Uri?>()
     val tempCameraImage = MutableLiveData<Uri?>()
-    val recipe = MutableLiveData<Recipe>()
+    val recipe = MutableLiveData<Recipe?>()
     val recipeId = MutableLiveData<String>()
 
     val storageRef = Firebase.storage.reference
@@ -36,5 +38,17 @@ class RecipeDetailViewModel : ViewModel() {
             e.printStackTrace()
         }
     }
+     fun downloadRecipe(recipeId:String){
+            viewModelScope.launch(Dispatchers.IO) {
+                try{
+                    val result = Firebase.firestore.collection("recipes").document(recipeId).get().await()
+                    val newRecipe = result.toObject(Recipe::class.java)
+                    recipe.postValue(newRecipe)
+                    imageSelected.postValue(newRecipe?.img?.toUri())
+                }catch (e:Exception){
+                    e.printStackTrace()
+                }
+            }
 
+    }
 }
