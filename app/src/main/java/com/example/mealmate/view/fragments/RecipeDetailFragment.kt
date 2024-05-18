@@ -28,7 +28,10 @@ class RecipeDetailFragment : Fragment() {
     private val viewModel:RecipeDetailViewModel by viewModels()
     private val galleryLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult(), ::onGalleryResult)
     private val cameraLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult(), ::onCameraResult)
-    private val requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions(),::onPermissionResult)
+    private val cameraPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions(),::onCameraPermissionResult)
+    private val galleryPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission(),::onGalleryPermissionResult)
+
+
 
     private fun onCameraResult(result: ActivityResult) {
         if(result.resultCode == Activity.RESULT_OK){
@@ -41,11 +44,16 @@ class RecipeDetailFragment : Fragment() {
             viewModel.imageSelected.postValue(uri)
         }
     }
-    private fun onPermissionResult(permissions: Map<String, Boolean>) {
-        permissions.entries.forEach {
+    private fun onCameraPermissionResult(permissions: Map<String , Boolean>) {
+        permissions.entries.forEach{
             if(!it.value){
                 Toast.makeText(requireContext(), "Permission ${it.key} denied", Toast.LENGTH_SHORT).show()
             }
+        }
+    }
+    private fun onGalleryPermissionResult(isGranted: Boolean) {
+        if(!isGranted){
+            Toast.makeText(requireContext(), "Permission GALLERY denied", Toast.LENGTH_SHORT).show()
         }
     }
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,7 +82,7 @@ class RecipeDetailFragment : Fragment() {
 
         binding.btnCamera.setOnClickListener{
 
-            if(areMediaPermissionsGranted()) {
+            if(isCameraPermissionsGranted()) {
                 val i = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
                 val file = File("${activity?.getExternalFilesDir(null)}/profile.png")
                 val uri = FileProvider.getUriForFile(
@@ -86,29 +94,28 @@ class RecipeDetailFragment : Fragment() {
                 viewModel.tempCameraImage.postValue(uri)
                 cameraLauncher.launch(i)
             } else{
-                requestPermissions()
+                requestCameraPermissions()
             }
         }
 
         binding.btnGallery.setOnClickListener{
 
-            if(areMediaPermissionsGranted()) {
+            if(isGalleryPermissionsGranted()) {
                 val i = Intent(Intent.ACTION_GET_CONTENT)
                 i.type = "image/*"
                 galleryLauncher.launch(i)
             }else{
-                requestPermissions()
+                requestGalleryPermissions()
             }
         }
     }
 
-    private fun areMediaPermissionsGranted(): Boolean {
+    private fun isCameraPermissionsGranted(): Boolean {
         val permissions = mutableListOf(
             Manifest.permission.CAMERA
         ).apply {
             if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
                 add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                add(Manifest.permission.READ_EXTERNAL_STORAGE)
             }
         }.toTypedArray()
         var allGranted = true
@@ -117,15 +124,25 @@ class RecipeDetailFragment : Fragment() {
         }
         return allGranted
     }
+    private fun isGalleryPermissionsGranted(): Boolean {
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
+            return ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_DENIED
+        }
+        return true
+    }
 
-    private fun requestPermissions(){
-        requestPermissionLauncher.launch(mutableListOf(
+    private fun requestCameraPermissions(){
+        cameraPermissionLauncher.launch(mutableListOf(
             Manifest.permission.CAMERA
         ).apply {
             if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
                 add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                add(Manifest.permission.READ_EXTERNAL_STORAGE)
             }
         }.toTypedArray())
+    }
+    private fun requestGalleryPermissions(){
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
+            galleryPermissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
+        }
     }
 }
