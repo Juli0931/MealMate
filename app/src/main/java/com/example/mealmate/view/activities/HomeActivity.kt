@@ -38,11 +38,8 @@ class HomeActivity : AppCompatActivity(), NavigateToRecipeDetailListener {
                 R.id.action_planner ->  showFragment(plannerFragment)
                 else -> false
             }
-
         }
-
         showFragment(homeFragment)
-        requestPermissions()
     }
 
      private fun showFragment(fragment: Fragment) : Boolean {
@@ -62,12 +59,8 @@ class HomeActivity : AppCompatActivity(), NavigateToRecipeDetailListener {
             else -> binding.bottomNavigation.visibility = View.GONE
         }
     }
-
     override fun navigate() { showFragment(recipeDetailFragment) }
 
-    private fun requestPermissions(){
-        requestPermissions(arrayOf(android.Manifest.permission.CAMERA,android.Manifest.permission.READ_EXTERNAL_STORAGE), 1)
-    }
 }
 
 interface NavigateToRecipeDetailListener{
