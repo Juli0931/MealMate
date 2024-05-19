@@ -1,13 +1,18 @@
 package com.example.mealmate.view.activities
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.mealmate.R
 import com.example.mealmate.databinding.ActivityAuthBinding
+import com.example.mealmate.domain.model.AppAuthState
 import com.example.mealmate.view.fragments.LoginFragment
 import com.example.mealmate.view.fragments.MainFragment
 import com.example.mealmate.view.fragments.SignupFragment
+import com.example.mealmate.viewmodel.AuthViewModel
 
 class AuthActivity : AppCompatActivity(), NavigateToMainListener, NavigateToLoginListener,
     NavigateToSignupListener {
@@ -19,11 +24,30 @@ class AuthActivity : AppCompatActivity(), NavigateToMainListener, NavigateToLogi
     private lateinit var mainFragment: MainFragment
     private lateinit var loginFragment: LoginFragment
     private lateinit var signupFragment: SignupFragment
+    private val viewModel:AuthViewModel by viewModels()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
-        setContentView(binding.root)
+        viewModel.authStatus.observe(this) {
+            when (it) {
+                is AppAuthState.Loading -> {
+                    Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
+                }
+
+                is AppAuthState.Error -> {
+                    Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
+                }
+
+                is AppAuthState.Success -> {
+                    startActivity(
+                        Intent(this, HomeActivity::class.java)
+                    )
+                    finish()
+                }
+            }
+        }
+        viewModel.verifyCurrentFirebaseToken()
 
         mainFragment = MainFragment.newInstance()
         mainFragment.loginListener = this
@@ -36,6 +60,7 @@ class AuthActivity : AppCompatActivity(), NavigateToMainListener, NavigateToLogi
         signupFragment.loginListener = this
 
         showFragment(mainFragment)
+        setContentView(binding.root)
 
     }
 
@@ -69,10 +94,7 @@ class AuthActivity : AppCompatActivity(), NavigateToMainListener, NavigateToLogi
             showFragment(mainFragment)
         }
     }
-
-
 }
-
 
 interface NavigateToMainListener {
     fun navigateToMain()
