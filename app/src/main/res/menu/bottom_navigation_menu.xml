@@ -5,20 +5,17 @@
 
     <item
         android:id="@+id/action_home"
-        android:title="Home"
-        android:icon="@drawable/home"
-         />
+        android:icon="@drawable/community_icon"
+        android:title="Community" />
 
 
     <item
         android:id="@+id/action_community"
-        android:title="Community"
-        android:icon="@drawable/home"/>
-
-
+        android:icon="@drawable/home_icon"
+        android:title="Home" />
     <item
         android:id="@+id/action_planner"
-        android:title="Planner"
-        android:icon="@drawable/home" />
+        android:icon="@drawable/recipes_icon"
+        android:title="Planner" />
 
 </menu>

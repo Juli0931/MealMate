@@ -95,7 +95,6 @@ class RecipeDetailFragment : Fragment() {
 
     private fun displayRecipe(recipe: Recipe) {
         binding.titleRecipe.text = recipe.title
-        binding.descriptionRecipe.text = recipe.description
         binding.weightRecipe.text = recipe.weight
         binding.kalRecipe.text = recipe.kal
         binding.portionRecipe.text = recipe.portion

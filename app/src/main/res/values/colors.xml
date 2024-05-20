@@ -5,4 +5,5 @@
     <color name="white">#FFFFFF</color>
     <color name="transparent">#00000000</color>
     <color name="green">#D6FC51</color>
+    <color name="bgRecipe">#171D2B</color>
 </resources>
