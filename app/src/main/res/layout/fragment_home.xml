@@ -6,155 +6,177 @@
     android:layout_height="match_parent"
     android:background="#11151E">
 
-    <TextView
-        android:id="@+id/titleTV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="64dp"
-        android:fontFamily="@font/montserrat_semibold"
-        android:hint="¡Hola Brian!"
-        android:textColor="#FFFFFF"
-        android:textColorHint="#FFFFFF"
-        android:textSize="30sp"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="-90dp"
+        tools:layout_editor_absoluteY="31dp">
 
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recipesRecycler"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="80dp"
-        android:layout_marginEnd="32dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searcherET" />
+            <TextView
+                android:id="@+id/titleTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="64dp"
+                android:fontFamily="@font/montserrat_semibold"
+                android:hint="¡Hola Brian!"
+                android:textColor="#FFFFFF"
+                android:textColorHint="#FFFFFF"
+                android:textSize="30sp"
 
-    <TextView
-        android:id="@+id/descriptionTV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:fontFamily="@font/montserrat_semibold"
-        android:text="¿Que quieres cocinar hoy?"
-        android:textAlignment="center"
-        android:textColor="#FFFFFF"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleTV" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recipesRecycler"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="70dp"
+                android:layout_marginEnd="32dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/searcherET" />
 
-    <ImageView
-        android:id="@+id/profileHomeIMG"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="32dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_launcher_background" />
+            <TextView
+                android:id="@+id/descriptionTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:fontFamily="@font/montserrat_semibold"
+                android:text="¿Que quieres cocinar hoy?"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
 
-    <EditText
-        android:id="@+id/searcherET"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
-        android:drawableStart="@drawable/lupa"
-        android:drawablePadding="12dp"
-        android:ems="10"
-        android:inputType="text"
-        android:text="Buscar"
-        android:textColor="#D6FC51"
-        app:layout_constraintEnd_toStartOf="@+id/imageView13"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/descriptionTV" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/titleTV" />
 
-    <ImageView
-        android:id="@+id/imageView13"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        app:layout_constraintBottom_toBottomOf="@+id/searcherET"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/searcherET"
-        app:srcCompat="@drawable/filter_alt" />
+            <EditText
+                android:id="@+id/searcherET"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="16dp"
+                android:drawableStart="@drawable/lupa"
+                android:drawablePadding="12dp"
+                android:ems="10"
+                android:inputType="text"
+                android:text="Buscar"
+                android:textColor="#D6FC51"
+                app:layout_constraintEnd_toStartOf="@+id/filterIcon"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/descriptionTV" />
 
-    <Button
-        android:id="@+id/buttonFilter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="#D6FC51"
-        android:padding="0dp"
-        android:paddingStart="20dp"
-        android:paddingLeft="20dp"
-        android:paddingTop="0dp"
-        android:paddingEnd="20dp"
-        android:paddingRight="20dp"
-        android:paddingBottom="0dp"
-        android:text="Todo"
-        android:textColor="#11151E"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searcherET" />
+            <ImageView
+                android:id="@+id/filterIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="32dp"
+                app:layout_constraintBottom_toBottomOf="@+id/searcherET"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/searcherET"
+                app:srcCompat="@drawable/filter_alt" />
 
-    <!--<Button
-        android:id="@+id/buttonFilter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:backgroundTint="#171D2B"
-        android:padding="0dp"
-        android:paddingStart="20dp"
-        android:paddingLeft="20dp"
-        android:paddingTop="0dp"
-        android:paddingEnd="20dp"
-        android:paddingRight="20dp"
-        android:text="Desayuno"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="@+id/buttonFilter"
-        app:layout_constraintStart_toEndOf="@+id/buttonFilter"
-        app:layout_constraintTop_toTopOf="@+id/buttonFilter" />
+            <Button
+                android:id="@+id/buttonFilter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="#D6FC51"
+                android:padding="0dp"
+                android:paddingStart="20dp"
+                android:paddingLeft="20dp"
+                android:paddingTop="0dp"
+                android:paddingEnd="20dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="0dp"
+                android:text="Todo"
+                android:textColor="#11151E"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/searcherET" />
 
-    <Button
-        android:id="@+id/buttonFilter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:backgroundTint="#171D2B"
-        android:padding="0dp"
-        android:paddingStart="20dp"
-        android:paddingLeft="20dp"
-        android:paddingTop="0dp"
-        android:paddingEnd="20dp"
-        android:paddingRight="20dp"
-        android:text="Almuerzo"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="@+id/buttonFilter"
-        app:layout_constraintStart_toEndOf="@+id/buttonFilter"
-        app:layout_constraintTop_toTopOf="@+id/buttonFilter" />
+            <Button
+                android:id="@+id/buttonDesayuno"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="#171D2B"
+                android:padding="0dp"
+                android:paddingStart="20dp"
+                android:paddingLeft="20dp"
+                android:paddingTop="0dp"
+                android:paddingEnd="20dp"
+                android:paddingRight="20dp"
+                android:text="Desayuno"
+                android:textColor="#FFFFFF"
+                app:layout_constraintStart_toEndOf="@+id/buttonFilter"
+                app:layout_constraintTop_toBottomOf="@+id/searcherET" />
 
-    <Button
-        android:id="@+id/buttonFilter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:backgroundTint="#171D2B"
-        android:padding="0dp"
-        android:paddingStart="20dp"
-        android:paddingLeft="20dp"
-        android:paddingTop="0dp"
-        android:paddingEnd="20dp"
-        android:paddingRight="20dp"
-        android:text="Merienda"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="@+id/buttonFilter"
-        app:layout_constraintStart_toEndOf="@+id/buttonFilter"
-        app:layout_constraintTop_toTopOf="@+id/buttonFilter"
-        tools:ignore="NotSibling" />-->
+            <Button
+                android:id="@+id/buttonAlmuerzo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="#171D2B"
+                android:padding="0dp"
+                android:paddingStart="20dp"
+                android:paddingLeft="20dp"
+                android:paddingTop="0dp"
+                android:paddingEnd="20dp"
+                android:paddingRight="20dp"
+                android:text="Almuerzo"
+                android:textColor="#FFFFFF"
+                app:layout_constraintStart_toEndOf="@+id/buttonDesayuno"
+                app:layout_constraintTop_toBottomOf="@+id/searcherET" />
+
+            <Button
+                android:id="@+id/buttonMerienda"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="#171D2B"
+                android:padding="0dp"
+                android:paddingStart="20dp"
+                android:paddingLeft="20dp"
+                android:paddingTop="0dp"
+                android:paddingEnd="20dp"
+                android:paddingRight="20dp"
+                android:text="Merienda"
+                android:textColor="#FFFFFF"
+                app:layout_constraintStart_toEndOf="@+id/buttonAlmuerzo"
+                app:layout_constraintTop_toBottomOf="@+id/searcherET" />
+
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="64dp"
+                android:layout_marginEnd="32dp"
+                app:cardCornerRadius="100dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/profileHomeIMG"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginEnd="0dp"
+                    app:srcCompat="@drawable/ic_launcher_background" />
+            </androidx.cardview.widget.CardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

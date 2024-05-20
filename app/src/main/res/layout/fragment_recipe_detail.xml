@@ -17,17 +17,32 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="#11151E">
+
+            <TextView
+                android:id="@+id/titleRecipe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:textColor="@color/white"
+                android:textColorLink="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Recipe Title" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/imageCard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="32dp"
                 app:cardCornerRadius="150dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toBottomOf="@+id/titleRecipe">
 
                 <ImageView
                     android:id="@+id/imageView"
@@ -35,38 +50,8 @@
                     android:layout_height="300dp"
                     android:contentDescription="image"
                     android:scaleType="centerCrop" />
+
             </androidx.cardview.widget.CardView>
-
-            <TextView
-                android:id="@+id/titleRecipe"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:textColor="@color/white"
-                android:textColorLink="@color/white"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/imageCard"
-                tools:text="Recipe Title" />
-
-            <TextView
-                android:id="@+id/descriptionRecipe"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:textColorLink="@color/white"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/titleRecipe"
-                tools:text="Recipe Description" />
 
 
             <TextView
@@ -85,12 +70,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
                 android:textColor="@color/green"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView12"
                 app:layout_constraintEnd_toStartOf="@+id/kalRecipe"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/descriptionRecipe"
+                app:layout_constraintTop_toTopOf="@+id/imageView12"
                 tools:text="xx grams" />
 
             <TextView
@@ -116,54 +101,32 @@
                 app:layout_constraintTop_toTopOf="@+id/kalRecipe"
                 tools:text="xx persons" />
 
-            <TextView
-                android:id="@+id/ingredientsLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="32dp"
-                android:text="Ingredientes:"
-                android:textColor="@color/white"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/weightRecipe" />
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/ingredientsRecipe"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="32dp"
                 android:layout_marginEnd="16dp"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ingredientsLabel" />
-
-            <TextView
-                android:id="@+id/stepsLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
-                android:text="Pasos:"
-                android:textColor="@color/white"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ingredientsRecipe" />
+                app:layout_constraintTop_toBottomOf="@+id/imageView12" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/stepsRecipe"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginEnd="16dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/stepsLabel" />
+                app:layout_constraintTop_toBottomOf="@+id/ingredientsRecipe" />
 
             <Button
                 android:id="@+id/btnGallery"
@@ -197,6 +160,19 @@
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/btnCamera"
                 app:layout_constraintTop_toTopOf="@+id/btnCamera" />
+
+            <ImageView
+                android:id="@+id/imageView12"
+                android:layout_width="350dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="32dp"
+                android:src="@drawable/shape_items_recipe"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.666"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageCard" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
