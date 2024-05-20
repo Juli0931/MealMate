@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mealmate.domain.model.Recipe
 import com.google.firebase.Firebase
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.firestore
 import com.google.firebase.storage.storage
 import kotlinx.coroutines.Dispatchers
@@ -16,12 +17,13 @@ import kotlinx.coroutines.tasks.await
 
 class RecipeDetailViewModel : ViewModel() {
 
+
     val imageSelected = MutableLiveData<Uri?>()
     val tempCameraImage = MutableLiveData<Uri?>()
     val recipe = MutableLiveData<Recipe?>()
     val recipeId = MutableLiveData<String>()
 
-    val storageRef = Firebase.storage.reference
+    private val storageRef = Firebase.storage.reference
 
     fun uploadImage() {
 
@@ -44,11 +46,24 @@ class RecipeDetailViewModel : ViewModel() {
                     val result = Firebase.firestore.collection("recipes").document(recipeId).get().await()
                     val newRecipe = result.toObject(Recipe::class.java)
                     recipe.postValue(newRecipe)
-                    imageSelected.postValue(newRecipe?.img?.toUri())
+                    if (newRecipe != null) {
+                        imageSelected.postValue(newRecipe.img.toUri())
+                    }
                 }catch (e:Exception){
                     e.printStackTrace()
                 }
             }
+    }
 
+    private fun DocumentSnapshot.toRecipe(): Recipe {
+        val description = getString("description") ?: ""
+        val id = getString("id") ?: ""
+        val img = getString("img") ?: ""
+        val ingredients = get("ingredients") as? List<String> ?: emptyList()
+        val kal = getString("kal") ?: ""
+        val steps = get("steps") as? List<String> ?: emptyList()
+        val title = getString("title") ?: ""
+        val weight = getString("weight") ?: ""
+        return Recipe(id, title, description, kal, weight, img, ingredients, steps)
     }
 }

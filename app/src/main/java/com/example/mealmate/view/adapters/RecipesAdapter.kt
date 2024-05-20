@@ -7,13 +7,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView.Adapter
-
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.mealmate.R
 import com.example.mealmate.databinding.RecipeItemBinding
 import com.example.mealmate.domain.model.Recipe
-import com.example.mealmate.domain.model.toGramsFormat
-import com.example.mealmate.domain.model.toKalFormat
 import com.example.mealmate.view.activities.NavigationListener
 import com.example.mealmate.view.fragments.RecipeDetailFragment
 
@@ -50,7 +47,6 @@ class RecipesAdapter(
     }
 }
 
-
 class RecipeViewHolder(root:View):ViewHolder(root){
     lateinit var navigationListener: NavigationListener
     private val binding = RecipeItemBinding.bind(root)
@@ -60,8 +56,8 @@ class RecipeViewHolder(root:View):ViewHolder(root){
         recipeID = recipe.id
         binding.titleTV.text = recipe.title
         binding.descriptionTV.text = recipe.description
-        binding.weightTV.text = recipe.weight.toGramsFormat()
-        binding.kalTV.text = recipe.weight.toKalFormat()
+        binding.weightTV.text = recipe.weight
+        binding.kalTV.text = recipe.kal
     }
     init {
         binding.root.setOnClickListener{
@@ -73,6 +69,7 @@ class RecipeViewHolder(root:View):ViewHolder(root){
         }
     }
 }
+
 
 class RecipesDiffUtil(
     private val oldList: List<Recipe>,
@@ -89,5 +86,4 @@ class RecipesDiffUtil(
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
         return oldList[oldItemPosition] == newList[newItemPosition]
     }
-
 }

@@ -17,7 +17,11 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mealmate.databinding.FragmentRecipeDetailBinding
+import com.example.mealmate.domain.model.Recipe
+import com.example.mealmate.view.adapters.IngredientsAdapter
+import com.example.mealmate.view.adapters.StepsAdapter
 import com.example.mealmate.view.util.ImageUtil
 import com.example.mealmate.viewmodel.RecipeDetailViewModel
 import java.io.File
@@ -25,44 +29,28 @@ import java.util.UUID
 
 class RecipeDetailFragment : Fragment() {
 
-    private lateinit var binding:FragmentRecipeDetailBinding
-    private val viewModel:RecipeDetailViewModel by viewModels()
-    private val galleryLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult(), ::onGalleryResult)
-    private val cameraLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult(), ::onCameraResult)
-    private val cameraPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions(),::onCameraPermissionResult)
-    private val galleryPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission(),::onGalleryPermissionResult)
+    private lateinit var binding: FragmentRecipeDetailBinding
+    private val viewModel: RecipeDetailViewModel by viewModels()
+    private val galleryLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        onGalleryResult(result)
+    }
+    private val cameraLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        onCameraResult(result)
+    }
+    private val cameraPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+        onCameraPermissionResult(permissions)
+    }
+    private val galleryPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+        onGalleryPermissionResult(isGranted)
+    }
 
-
-    private fun onCameraResult(result: ActivityResult) {
-        if(result.resultCode == Activity.RESULT_OK){
-            viewModel.imageSelected.postValue(viewModel.tempCameraImage.value)
-        }
-    }
-    private fun onGalleryResult(result: ActivityResult) {
-        if(result.resultCode == Activity.RESULT_OK){
-            val uri = result.data?.data
-            viewModel.imageSelected.postValue(uri)
-        }
-    }
-    private fun onCameraPermissionResult(permissions: Map<String , Boolean>) {
-        permissions.entries.forEach{
-            if(!it.value){
-                Toast.makeText(requireContext(), "Permission ${it.key} denied", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
-    private fun onGalleryPermissionResult(isGranted: Boolean) {
-        if(!isGranted){
-            Toast.makeText(requireContext(), "Permission GALLERY denied", Toast.LENGTH_SHORT).show()
-        }
-    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.getString("id")?.let{
+        arguments?.getString("id")?.let {
             viewModel.downloadRecipe(it)
             Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
         }
-        viewModel.recipeId.postValue(UUID.randomUUID().toString())
+        viewModel.recipeId.value = UUID.randomUUID().toString()
     }
 
     override fun onCreateView(
@@ -76,42 +64,67 @@ class RecipeDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        viewModel.imageSelected.observe(viewLifecycleOwner){
-            ImageUtil().renderImageCenterCrop(requireContext(), it, binding.imageView)
+        viewModel.recipe.observe(viewLifecycleOwner) { recipe ->
+            recipe?.let { displayRecipe(it) }
         }
 
-        binding.btnUpload.setOnClickListener{
+        viewModel.imageSelected.observe(viewLifecycleOwner) { uri ->
+            ImageUtil().renderImageCenterCrop(requireContext(), uri, binding.imageView)
+        }
+
+        binding.btnUpload.setOnClickListener {
             viewModel.uploadImage()
         }
 
-        binding.btnCamera.setOnClickListener{
-
-            if(isCameraPermissionsGranted()) {
-                val i = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                val file = File("${activity?.getExternalFilesDir(null)}/profile.png")
-                val uri = FileProvider.getUriForFile(
-                    requireContext(),
-                    requireActivity().packageName,
-                    file
-                )
-                i.putExtra(MediaStore.EXTRA_OUTPUT, uri)
-                viewModel.tempCameraImage.postValue(uri)
-                cameraLauncher.launch(i)
-            } else{
+        binding.btnCamera.setOnClickListener {
+            if (isCameraPermissionsGranted()) {
+                openCamera()
+            } else {
                 requestCameraPermissions()
             }
         }
 
-        binding.btnGallery.setOnClickListener{
-
-            if(isGalleryPermissionsGranted()) {
-                val i = Intent(Intent.ACTION_GET_CONTENT)
-                i.type = "image/*"
-                galleryLauncher.launch(i)
-            }else{
+        binding.btnGallery.setOnClickListener {
+            if (isGalleryPermissionsGranted()) {
+                openGallery()
+            } else {
                 requestGalleryPermissions()
             }
         }
+    }
+
+    private fun displayRecipe(recipe: Recipe) {
+        binding.titleRecipe.text = recipe.title
+        binding.descriptionRecipe.text = recipe.description
+        binding.weightRecipe.text = recipe.weight.toString()
+        binding.kalRecipe.text = recipe.kal.toString()
+        binding.ingredientsRecipe.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = IngredientsAdapter(recipe.ingredients)
+        }
+        binding.stepsRecipe.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = StepsAdapter(recipe.steps)
+        }
+    }
+
+    private fun openCamera() {
+        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        val file = File("${activity?.getExternalFilesDir(null)}/profile.png")
+        val uri = FileProvider.getUriForFile(
+            requireContext(),
+            requireActivity().packageName,
+            file
+        )
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri)
+        viewModel.tempCameraImage.postValue(uri)
+        cameraLauncher.launch(intent)
+    }
+
+    private fun openGallery() {
+        val intent = Intent(Intent.ACTION_GET_CONTENT)
+        intent.type = "image/*"
+        galleryLauncher.launch(intent)
     }
 
     private fun isCameraPermissionsGranted(): Boolean {
@@ -128,6 +141,7 @@ class RecipeDetailFragment : Fragment() {
         }
         return allGranted
     }
+
     private fun isGalleryPermissionsGranted(): Boolean {
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
             return ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_DENIED
@@ -135,18 +149,48 @@ class RecipeDetailFragment : Fragment() {
         return true
     }
 
-    private fun requestCameraPermissions(){
-        cameraPermissionLauncher.launch(mutableListOf(
-            Manifest.permission.CAMERA
-        ).apply {
-            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
-                add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-            }
-        }.toTypedArray())
+    private fun requestCameraPermissions() {
+        cameraPermissionLauncher.launch(
+            mutableListOf(
+                Manifest.permission.CAMERA
+            ).apply {
+                if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
+                    add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                }
+            }.toTypedArray()
+        )
     }
-    private fun requestGalleryPermissions(){
+
+    private fun requestGalleryPermissions() {
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
             galleryPermissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
+        }
+    }
+
+    private fun onCameraResult(result: ActivityResult) {
+        if (result.resultCode == Activity.RESULT_OK) {
+            viewModel.imageSelected.postValue(viewModel.tempCameraImage.value)
+        }
+    }
+
+    private fun onGalleryResult(result: ActivityResult) {
+        if (result.resultCode == Activity.RESULT_OK) {
+            val uri = result.data?.data
+            viewModel.imageSelected.postValue(uri)
+        }
+    }
+
+    private fun onCameraPermissionResult(permissions: Map<String, Boolean>) {
+        permissions.entries.forEach {
+            if (!it.value) {
+                Toast.makeText(requireContext(), "Permission ${it.key} denied", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun onGalleryPermissionResult(isGranted: Boolean) {
+        if (!isGranted) {
+            Toast.makeText(requireContext(), "Permission GALLERY denied", Toast.LENGTH_SHORT).show()
         }
     }
 }
