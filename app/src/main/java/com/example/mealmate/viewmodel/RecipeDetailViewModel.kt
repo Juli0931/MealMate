@@ -61,9 +61,11 @@ class RecipeDetailViewModel : ViewModel() {
         val img = getString("img") ?: ""
         val ingredients = get("ingredients") as? List<String> ?: emptyList()
         val kal = getString("kal") ?: ""
+        val portion = getString("portion") ?: ""
         val steps = get("steps") as? List<String> ?: emptyList()
+        val time = getString("time") ?: ""
         val title = getString("title") ?: ""
         val weight = getString("weight") ?: ""
-        return Recipe(id, title, description, kal, weight, img, ingredients, steps)
+        return Recipe(id, title, description, kal, weight, time, portion, img, ingredients, steps)
     }
 }

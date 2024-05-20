@@ -6,6 +6,8 @@ data class Recipe(
     val description: String = "",
     val kal: String = "",
     val weight: String = "",
+    val time: String = "",
+    val portion:String = "",
     val img: String = "",
     val ingredients: List<String> = emptyList(),
     val steps: List<String> = emptyList()

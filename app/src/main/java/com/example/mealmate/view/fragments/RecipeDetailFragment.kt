@@ -96,8 +96,10 @@ class RecipeDetailFragment : Fragment() {
     private fun displayRecipe(recipe: Recipe) {
         binding.titleRecipe.text = recipe.title
         binding.descriptionRecipe.text = recipe.description
-        binding.weightRecipe.text = recipe.weight.toString()
-        binding.kalRecipe.text = recipe.kal.toString()
+        binding.weightRecipe.text = recipe.weight
+        binding.kalRecipe.text = recipe.kal
+        binding.portionRecipe.text = recipe.portion
+        binding.timeRecipe.text = recipe.time
         binding.ingredientsRecipe.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = IngredientsAdapter(recipe.ingredients)
