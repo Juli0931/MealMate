@@ -43,6 +43,10 @@ class RecipeDetailFragment : Fragment() {
     private val galleryPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
         onGalleryPermissionResult(isGranted)
     }
+    private lateinit  var ingredientsAdapter: IngredientsAdapter
+    private lateinit  var stepsAdapter: StepsAdapter
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,6 +67,7 @@ class RecipeDetailFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        setupRecyclerViews()
 
         viewModel.recipe.observe(viewLifecycleOwner) { recipe ->
             recipe?.let { displayRecipe(it) }
@@ -93,20 +98,33 @@ class RecipeDetailFragment : Fragment() {
         }
     }
 
+    private fun setupRecyclerViews(){
+        ingredientsAdapter = IngredientsAdapter(
+            viewModel.recipe.value?.ingredients ?: emptyList()
+        )
+        stepsAdapter = StepsAdapter(
+            viewModel.recipe.value?.steps ?: emptyList()
+        )
+
+        binding.ingredientsRecipe.apply {
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+           adapter = ingredientsAdapter
+        }
+        binding.stepsRecipe.apply {
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            adapter = stepsAdapter
+        }
+    }
+
     private fun displayRecipe(recipe: Recipe) {
         binding.titleRecipe.text = recipe.title
         binding.weightRecipe.text = recipe.weight
         binding.kalRecipe.text = recipe.kal
         binding.portionRecipe.text = recipe.portion
         binding.timeRecipe.text = recipe.time
-        binding.ingredientsRecipe.apply {
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = IngredientsAdapter(recipe.ingredients)
-        }
-        binding.stepsRecipe.apply {
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = StepsAdapter(recipe.steps)
-        }
+
+        ingredientsAdapter.updateIngredientsList(recipe.ingredients)
+        stepsAdapter.updateStepsList(recipe.steps)
     }
 
     private fun openCamera() {
@@ -131,11 +149,7 @@ class RecipeDetailFragment : Fragment() {
     private fun isCameraPermissionsGranted(): Boolean {
         val permissions = mutableListOf(
             Manifest.permission.CAMERA
-        ).apply {
-            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
-                add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-            }
-        }.toTypedArray()
+        ).toTypedArray()
         var allGranted = true
         permissions.forEach {
             allGranted = ContextCompat.checkSelfPermission(requireContext(), it) != PackageManager.PERMISSION_DENIED && allGranted
@@ -154,11 +168,7 @@ class RecipeDetailFragment : Fragment() {
         cameraPermissionLauncher.launch(
             mutableListOf(
                 Manifest.permission.CAMERA
-            ).apply {
-                if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
-                    add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                }
-            }.toTypedArray()
+            ).toTypedArray()
         )
     }
 

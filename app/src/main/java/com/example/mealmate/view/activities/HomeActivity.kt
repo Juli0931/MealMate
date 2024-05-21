@@ -61,7 +61,7 @@ class HomeActivity : AppCompatActivity(), NavigationListener {
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         val currentFragment =
-            supportFragmentManager.findFragmentById(R.id.fragmentContainerViewAuth)
+            supportFragmentManager.findFragmentById(R.id.fragmentContainerHome)
 
         if (currentFragment is RecipeDetailFragment) {
             showFragment(homeFragment)
