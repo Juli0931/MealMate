@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mealmate.R
 import com.example.mealmate.databinding.FragmentRecipeDetailBinding
 import com.example.mealmate.domain.model.Recipe
+import com.example.mealmate.view.activities.IngredientsSelectorActivity
 import com.example.mealmate.view.adapters.IngredientsAdapter
 import com.example.mealmate.view.adapters.StepsAdapter
 import com.example.mealmate.view.util.ImageUtil
@@ -46,6 +47,17 @@ class RecipeDetailFragment : Fragment(), PopupMenu.OnMenuItemClickListener{
     private val galleryPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
         onGalleryPermissionResult(isGranted)
     }
+    private val ingredientSelectorLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        onIngredientResult(result)
+    }
+
+    private fun onIngredientResult(result: ActivityResult?) {
+        result?.data?.extras?.getString("ingredient")?.let { ingredient ->
+
+            viewModel.addIngredient(ingredient)
+        }
+    }
+
     private lateinit  var ingredientsAdapter: IngredientsAdapter
     private lateinit  var stepsAdapter: StepsAdapter
 
@@ -75,18 +87,21 @@ class RecipeDetailFragment : Fragment(), PopupMenu.OnMenuItemClickListener{
         viewModel.recipe.observe(viewLifecycleOwner) { recipe ->
             recipe?.let { displayRecipe(it) }
         }
-
+        viewModel.ingredients.observe(viewLifecycleOwner){ingredients ->
+            ingredients?.let {displayIngredients(it)}
+        }
         viewModel.imageSelected.observe(viewLifecycleOwner) { uri ->
             ImageUtil().renderImageCenterCrop(requireContext(), uri, binding.imageView)
         }
-
         binding.btnUpload.setOnClickListener {
             viewModel.uploadImage()
         }
         binding.imageView.setOnClickListener{
             showPopup(it)
         }
-
+        binding.addIngredient.setOnClickListener {
+            ingredientSelectorLauncher.launch(Intent(activity, IngredientsSelectorActivity::class.java))
+        }
 
     }
 
@@ -125,13 +140,17 @@ class RecipeDetailFragment : Fragment(), PopupMenu.OnMenuItemClickListener{
 
     private fun displayRecipe(recipe: Recipe) {
         binding.titleRecipe.text = recipe.title
-        binding.weightRecipe.text = recipe.weight
-        binding.kalRecipe.text = recipe.kal
-        binding.portionRecipe.text = recipe.portion
-        binding.timeRecipe.text = recipe.time
+        binding.weightRecipe.setText(recipe.weight)
+        binding.kalRecipe.setText(recipe.kal)
+        binding.portionRecipe.setText(recipe.portion)
+        binding.timeRecipe.setText(recipe.time)
 
-        ingredientsAdapter.updateIngredientsList(recipe.ingredients)
+
         stepsAdapter.updateStepsList(recipe.steps)
+    }
+
+    private fun displayIngredients(ingredients:List<String>){
+        ingredientsAdapter.updateIngredientsList(ingredients)
     }
 
     private fun openCamera() {

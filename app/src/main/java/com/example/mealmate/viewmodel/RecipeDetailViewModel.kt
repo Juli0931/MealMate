@@ -22,6 +22,7 @@ class RecipeDetailViewModel : ViewModel() {
     val tempCameraImage = MutableLiveData<Uri?>()
     val recipe = MutableLiveData<Recipe?>()
     val recipeId = MutableLiveData<String>()
+    val ingredients = MutableLiveData<List<String>>(emptyList())
 
     private val storageRef = Firebase.storage.reference
 
@@ -46,6 +47,7 @@ class RecipeDetailViewModel : ViewModel() {
                     val result = Firebase.firestore.collection("recipes").document(recipeId).get().await()
                     val newRecipe = result.toObject(Recipe::class.java)
                     recipe.postValue(newRecipe)
+                    ingredients.postValue(newRecipe?.ingredients)
                     if (newRecipe != null) {
                         imageSelected.postValue(newRecipe.img.toUri())
                     }
@@ -67,5 +69,10 @@ class RecipeDetailViewModel : ViewModel() {
         val title = getString("title") ?: ""
         val weight = getString("weight") ?: ""
         return Recipe(id, title, description, kal, weight, time, portion, img, ingredients, steps)
+    }
+
+    fun addIngredient(ingredient: String) {
+        ingredients.postValue(ingredients.value?.plus(ingredient))
+
     }
 }

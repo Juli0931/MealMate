@@ -54,7 +54,7 @@
             </androidx.cardview.widget.CardView>
 
 
-            <TextView
+            <EditText
                 android:id="@+id/kalRecipe"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -65,7 +65,7 @@
                 app:layout_constraintTop_toTopOf="@+id/weightRecipe"
                 tools:text="xx kcal" />
 
-            <TextView
+            <EditText
                 android:id="@+id/weightRecipe"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -78,7 +78,7 @@
                 app:layout_constraintTop_toTopOf="@+id/imageView12"
                 tools:text="xx grams" />
 
-            <TextView
+            <EditText
                 android:id="@+id/timeRecipe"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -90,7 +90,7 @@
                 app:layout_constraintTop_toTopOf="@+id/portionRecipe"
                 tools:text="xx min" />
 
-            <TextView
+            <EditText
                 android:id="@+id/portionRecipe"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -112,6 +112,16 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView12" />
+
+            <Button
+                android:id="@+id/add_ingredient"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/ingredientsRecipe"
+                app:layout_constraintTop_toTopOf="@id/ingredientsRecipe"
+                android:layout_marginStart="8dp"
+                android:text="+"
+                />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/stepsRecipe"

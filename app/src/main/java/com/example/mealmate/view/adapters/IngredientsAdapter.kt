@@ -7,9 +7,12 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mealmate.R
+import com.example.mealmate.databinding.ItemIngredientBinding
 import com.example.mealmate.domain.model.Recipe
 
 class IngredientsAdapter(private var ingredients: List<String>) : RecyclerView.Adapter<IngredientViewHolder>() {
+
+     var listener: IngredientViewHolder.HandleIngredientListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IngredientViewHolder {
         return IngredientViewHolder.create(parent)
@@ -17,6 +20,7 @@ class IngredientsAdapter(private var ingredients: List<String>) : RecyclerView.A
 
     override fun onBindViewHolder(holder: IngredientViewHolder, position: Int) {
         holder.bind(ingredients[position])
+        holder.listener = listener
     }
 
     override fun getItemCount(): Int = ingredients.size
@@ -29,10 +33,18 @@ class IngredientsAdapter(private var ingredients: List<String>) : RecyclerView.A
 }
 
 class IngredientViewHolder private constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    private val textViewIngredient: TextView = itemView.findViewById(R.id.textViewIngredient)
+    var listener: HandleIngredientListener? = null
+    lateinit var ingredient: String
+    private val binding = ItemIngredientBinding.bind(itemView)
 
     fun bind(ingredient: String) {
-        textViewIngredient.text = ingredient
+        this.ingredient = ingredient
+        binding.textViewIngredient.text = ingredient
+    }
+    init {
+        binding.root.setOnClickListener{
+            listener?.select(ingredient)
+        }
     }
 
     companion object {
@@ -40,6 +52,10 @@ class IngredientViewHolder private constructor(itemView: View) : RecyclerView.Vi
             val view = LayoutInflater.from(parent.context).inflate(R.layout.item_ingredient, parent, false)
             return IngredientViewHolder(view)
         }
+    }
+
+    interface HandleIngredientListener{
+        fun select(ingredient: String)
     }
 }
 
