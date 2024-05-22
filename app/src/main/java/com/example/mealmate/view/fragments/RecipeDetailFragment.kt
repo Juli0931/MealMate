@@ -8,8 +8,10 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -18,6 +20,7 @@ import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.mealmate.R
 import com.example.mealmate.databinding.FragmentRecipeDetailBinding
 import com.example.mealmate.domain.model.Recipe
 import com.example.mealmate.view.adapters.IngredientsAdapter
@@ -27,7 +30,7 @@ import com.example.mealmate.viewmodel.RecipeDetailViewModel
 import java.io.File
 import java.util.UUID
 
-class RecipeDetailFragment : Fragment() {
+class RecipeDetailFragment : Fragment(), PopupMenu.OnMenuItemClickListener{
 
     private lateinit var binding: FragmentRecipeDetailBinding
     private val viewModel: RecipeDetailViewModel by viewModels()
@@ -80,23 +83,27 @@ class RecipeDetailFragment : Fragment() {
         binding.btnUpload.setOnClickListener {
             viewModel.uploadImage()
         }
-
-        binding.btnCamera.setOnClickListener {
-            if (isCameraPermissionsGranted()) {
-                openCamera()
-            } else {
-                requestCameraPermissions()
-            }
+        binding.imageView.setOnClickListener{
+            showPopup(it)
         }
 
-        binding.btnGallery.setOnClickListener {
-            if (isGalleryPermissionsGranted()) {
-                openGallery()
-            } else {
-                requestGalleryPermissions()
-            }
-        }
+
     }
+
+    private fun showPopup(v: View) {
+        val popup = PopupMenu(requireContext(), v)
+        popup.setOnMenuItemClickListener(this)
+        popup.inflate(R.menu.media_menu)
+        popup.show()
+    }
+    override fun onMenuItemClick(item: MenuItem?): Boolean {
+        when (item!!.itemId) {
+            R.id.action_camera -> openCamera()
+            R.id.action_gallery -> openGallery()
+        }
+        return true
+    }
+
 
     private fun setupRecyclerViews(){
         ingredientsAdapter = IngredientsAdapter(
