@@ -9,9 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
-        android:hint="Título"
-        android:inputType="text"
-        android:marginBottom="16dp"
+        android:layout_marginBottom="16dp"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
@@ -20,10 +18,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="200dp"
         android:gravity="top"
-        android:hint="Descripción"
+
         android:inputType="textMultiLine"
         android:lines="4"
-        android:marginBottom="16dp"
+        android:layout_marginBottom="16dp"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
@@ -31,23 +29,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="400dp"
-        android:marginBottom="16dp"
-        android:text="Seleccionar Imagen"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginBottom="16dp"
 
-    <ImageView
-        android:id="@+id/imageViewPrevisualizacion"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:scaleType="centerCrop"
-        android:visibility="gone" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/buttonGuardar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="600dp"
-        android:text="Guardar Post"
+
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

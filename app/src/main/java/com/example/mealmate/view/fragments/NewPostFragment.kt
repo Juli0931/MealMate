@@ -30,7 +30,7 @@ class NewPostFragment : Fragment() {
 
         val tituloEditText = view.findViewById<EditText>(R.id.editTextTitulo)
         val descripcionEditText = view.findViewById<EditText>(R.id.editTextDescripcion)
-        val imageViewPrevisualizacion = view.findViewById<ImageView>(R.id.imageViewPrevisualizacion)
+        //val imageViewPrevisualizacion = view.findViewById<ImageView>(R.id.imageViewPrevisualizacion)
         val botonSeleccionarImagen = view.findViewById<Button>(R.id.buttonSeleccionarImagen)
         val botonGuardar = view.findViewById<Button>(R.id.buttonGuardar)
 
@@ -65,9 +65,9 @@ class NewPostFragment : Fragment() {
 
         if(requestCode == pick_image && resultCode == Activity.RESULT_OK && data != null && data.data != null){
             selectedImageUri = data.data!!
-            val imageViewPrevisualizacion = view?.findViewById<ImageView>(R.id.imageViewPrevisualizacion)
-            imageViewPrevisualizacion?.setImageURI(selectedImageUri)
-            imageViewPrevisualizacion?.visibility = View.VISIBLE
+          //  val imageViewPrevisualizacion = view?.findViewById<ImageView>(R.id.imageViewPrevisualizacion)
+          //  imageViewPrevisualizacion?.setImageURI(selectedImageUri)
+          //  imageViewPrevisualizacion?.visibility = View.VISIBLE
         }
     }
 
@@ -96,12 +96,12 @@ class NewPostFragment : Fragment() {
     private fun limpiarCampos(){
         val tituloEditText = view?.findViewById<EditText>(R.id.editTextTitulo)
         val descripcionEditText = view?.findViewById<EditText>(R.id.editTextDescripcion)
-        val imageViewPrevisualizacion = view?.findViewById<ImageView>(R.id.imageViewPrevisualizacion)
+        //val imageViewPrevisualizacion = view?.findViewById<ImageView>(R.id.imageViewPrevisualizacion)
 
         tituloEditText?.text?.clear()
         descripcionEditText?.text?.clear()
-        imageViewPrevisualizacion?.setImageURI(null)
-        imageViewPrevisualizacion?.visibility = View.GONE
+     //   imageViewPrevisualizacion?.setImageURI(null)
+     //   imageViewPrevisualizacion?.visibility = View.GONE
     }
 
 }

@@ -15,6 +15,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
+enum class RecipeDetailMode {
+    EDITION,
+    VISUALIZATION
+}
 class RecipeDetailViewModel : ViewModel() {
 
 
@@ -23,6 +27,9 @@ class RecipeDetailViewModel : ViewModel() {
     val recipe = MutableLiveData<Recipe?>()
     val recipeId = MutableLiveData<String>()
     val ingredients = MutableLiveData<List<String>>(emptyList())
+    val steps = MutableLiveData<List<String>>(emptyList())
+    val mode = MutableLiveData<RecipeDetailMode>(RecipeDetailMode.VISUALIZATION)
+
 
     private val storageRef = Firebase.storage.reference
 
@@ -48,6 +55,7 @@ class RecipeDetailViewModel : ViewModel() {
                     val newRecipe = result.toObject(Recipe::class.java)
                     recipe.postValue(newRecipe)
                     ingredients.postValue(newRecipe?.ingredients)
+                    steps.postValue(newRecipe?.steps)
                     if (newRecipe != null) {
                         imageSelected.postValue(newRecipe.img.toUri())
                     }
@@ -73,6 +81,17 @@ class RecipeDetailViewModel : ViewModel() {
 
     fun addIngredient(ingredient: String) {
         ingredients.postValue(ingredients.value?.plus(ingredient))
+    }
 
+    fun addStep(newStep: String) {
+        steps.postValue(steps.value?.plus(newStep))
+    }
+
+    fun tryToEdit() {
+        mode.postValue(RecipeDetailMode.EDITION)
+    }
+
+    fun uploadRecipe() {
+        mode.postValue(RecipeDetailMode.VISUALIZATION)
     }
 }

@@ -27,6 +27,7 @@ import com.example.mealmate.view.activities.IngredientsSelectorActivity
 import com.example.mealmate.view.adapters.IngredientsAdapter
 import com.example.mealmate.view.adapters.StepsAdapter
 import com.example.mealmate.view.util.ImageUtil
+import com.example.mealmate.viewmodel.RecipeDetailMode
 import com.example.mealmate.viewmodel.RecipeDetailViewModel
 import java.io.File
 import java.util.UUID
@@ -83,12 +84,24 @@ class RecipeDetailFragment : Fragment(), PopupMenu.OnMenuItemClickListener{
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setupRecyclerViews()
+        setupAddStep()
+        viewModel.mode.observe(viewLifecycleOwner) { mode ->
+            when(mode){
+                RecipeDetailMode.VISUALIZATION -> setupVisualization()
+                RecipeDetailMode.EDITION -> setupEdition()
+                else -> {}
+            }
+        }
 
         viewModel.recipe.observe(viewLifecycleOwner) { recipe ->
             recipe?.let { displayRecipe(it) }
         }
         viewModel.ingredients.observe(viewLifecycleOwner){ingredients ->
             ingredients?.let {displayIngredients(it)}
+        }
+
+        viewModel.steps.observe(viewLifecycleOwner){steps ->
+            steps?.let {displaySteps(it)}
         }
         viewModel.imageSelected.observe(viewLifecycleOwner) { uri ->
             ImageUtil().renderImageCenterCrop(requireContext(), uri, binding.imageView)
@@ -102,7 +115,66 @@ class RecipeDetailFragment : Fragment(), PopupMenu.OnMenuItemClickListener{
         binding.addIngredient.setOnClickListener {
             ingredientSelectorLauncher.launch(Intent(activity, IngredientsSelectorActivity::class.java))
         }
+        binding.editRecipe.setOnClickListener{
+            viewModel.tryToEdit()
+        }
+        binding.btnUpload.setOnClickListener{
+            viewModel.uploadRecipe()
+        }
 
+    }
+
+    private fun displaySteps(steps: List<String>) {
+        stepsAdapter.updateStepsList(steps)
+    }
+
+    private fun setupAddStep(){
+        binding.btnAddStep.setOnClickListener{
+            binding.addStepContainer.root.visibility = View.VISIBLE
+            it.visibility = View.GONE
+        }
+
+        binding.addStepContainer.cancelStep.setOnClickListener{
+            binding.btnAddStep.visibility = View.VISIBLE
+            it.visibility = View.GONE
+        }
+
+        binding.addStepContainer.addStep.setOnClickListener{
+            viewModel.addStep(binding.addStepContainer.newStep.text.toString())
+            binding.btnAddStep.visibility = View.VISIBLE
+            it.visibility = View.GONE
+        }
+    }
+
+    private fun setupEdition() {
+        with(binding){
+            kalRecipe.isEnabled = true
+            weightRecipe.isEnabled = true
+            timeRecipe.isEnabled = true
+            portionRecipe.isEnabled = true
+            editRecipe.visibility = View.GONE
+            imageCard.setOnClickListener{showPopup(it)}
+            addIngredient.visibility = View.VISIBLE
+            btnAddStep.visibility = View.VISIBLE
+            addStepContainer.root.visibility = View.GONE
+            btnUpload.visibility = View.VISIBLE
+
+        }
+    }
+
+    private fun setupVisualization() {
+        with(binding){
+            kalRecipe.isEnabled = false
+            weightRecipe.isEnabled = false
+            timeRecipe.isEnabled = false
+            portionRecipe.isEnabled = false
+            editRecipe.visibility = View.VISIBLE
+            imageCard.setOnClickListener(null)
+            addIngredient.visibility = View.GONE
+            btnAddStep.visibility = View.GONE
+            addStepContainer.root.visibility = View.GONE
+            btnUpload.visibility = View.GONE
+        }
     }
 
     private fun showPopup(v: View) {
@@ -144,9 +216,6 @@ class RecipeDetailFragment : Fragment(), PopupMenu.OnMenuItemClickListener{
         binding.kalRecipe.setText(recipe.kal)
         binding.portionRecipe.setText(recipe.portion)
         binding.timeRecipe.setText(recipe.time)
-
-
-        stepsAdapter.updateStepsList(recipe.steps)
     }
 
     private fun displayIngredients(ingredients:List<String>){
