@@ -68,7 +68,6 @@ class RecipeDetailFragment : Fragment(), PopupMenu.OnMenuItemClickListener{
         super.onCreate(savedInstanceState)
         arguments?.getString("id")?.let {
             viewModel.downloadRecipe(it)
-            Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
         }
         viewModel.recipeId.value = UUID.randomUUID().toString()
     }
@@ -136,13 +135,13 @@ class RecipeDetailFragment : Fragment(), PopupMenu.OnMenuItemClickListener{
 
         binding.addStepContainer.cancelStep.setOnClickListener{
             binding.btnAddStep.visibility = View.VISIBLE
-            it.visibility = View.GONE
+            binding.addStepContainer.root.visibility = View.GONE
         }
 
         binding.addStepContainer.addStep.setOnClickListener{
             viewModel.addStep(binding.addStepContainer.newStep.text.toString())
             binding.btnAddStep.visibility = View.VISIBLE
-            it.visibility = View.GONE
+            binding.addStepContainer.root.visibility = View.GONE
         }
     }
 
@@ -174,6 +173,7 @@ class RecipeDetailFragment : Fragment(), PopupMenu.OnMenuItemClickListener{
             btnAddStep.visibility = View.GONE
             addStepContainer.root.visibility = View.GONE
             btnUpload.visibility = View.GONE
+            editRecipe.visibility = View.GONE
         }
     }
 

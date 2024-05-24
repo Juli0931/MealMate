@@ -167,6 +167,13 @@
                 android:layout_marginHorizontal="24dp"
                 />
 
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrier"
+                app:barrierDirection="bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:constraint_referenced_ids="btn_add_step, addStepContainer"
+                />
 
             <Button
                 android:id="@+id/btnUpload"
@@ -176,7 +183,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/addStepContainer" />
+                app:layout_constraintTop_toBottomOf="@+id/barrier" />
 
             <ImageView
                 android:id="@+id/imageView12"
