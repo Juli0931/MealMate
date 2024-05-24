@@ -5,14 +5,14 @@
 
     <item
         android:id="@+id/action_home"
-        android:icon="@drawable/community_icon"
-        android:title="Community" />
+        android:icon="@drawable/home_icon"
+        android:title="Home" />
 
 
     <item
         android:id="@+id/action_community"
-        android:icon="@drawable/home_icon"
-        android:title="Home" />
+        android:icon="@drawable/community_icon"
+        android:title="Community" />
     <item
         android:id="@+id/action_planner"
         android:icon="@drawable/recipes_icon"

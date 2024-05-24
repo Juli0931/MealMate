@@ -24,8 +24,6 @@ class StepsAdapter(private var steps: List<String>) : RecyclerView.Adapter<StepV
         val diffResults = DiffUtil.calculateDiff(diffUtil)
         this.steps = steps.toList()
         diffResults.dispatchUpdatesTo(this)
-
-
     }
 }
 
