@@ -11,17 +11,18 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mealmate.databinding.FragmentHomeBinding
-import com.example.mealmate.view.activities.NavigationListener
 import com.example.mealmate.view.adapters.RecipesAdapter
+import com.example.mealmate.view.navigation.NavigationListener
 import com.example.mealmate.view.util.ImageUtil
 import com.example.mealmate.viewmodel.HomeViewModel
 
 
-class HomeFragment : Fragment(), RecipesAdapter.RenderImageListener {
+class HomeFragment(
+    private val navigationListener: NavigationListener
+) : Fragment(), RecipesAdapter.RenderImageListener {
 
     private lateinit var binding: FragmentHomeBinding
     private lateinit var recipesAdapter: RecipesAdapter
-    lateinit var navigationListener: NavigationListener
     private val imageUtil: ImageUtil by lazy { ImageUtil() }
     private val viewModel:HomeViewModel by viewModels()
 

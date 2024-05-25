@@ -8,9 +8,10 @@ import com.example.mealmate.R
 import com.example.mealmate.databinding.ActivityHomeBinding
 import com.example.mealmate.view.fragments.CommunityFragment
 import com.example.mealmate.view.fragments.HomeFragment
-import com.example.mealmate.view.fragments.MainFragment
 import com.example.mealmate.view.fragments.MealPlannerFragment
+import com.example.mealmate.view.fragments.NewPostFragment
 import com.example.mealmate.view.fragments.RecipeDetailFragment
+import com.example.mealmate.view.navigation.NavigationListener
 
 class HomeActivity : AppCompatActivity(), NavigationListener {
 
@@ -25,9 +26,8 @@ class HomeActivity : AppCompatActivity(), NavigationListener {
     override fun onCreate (savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        homeFragment = HomeFragment()
-        homeFragment.navigationListener = this
-        communityFragment = CommunityFragment()
+        homeFragment = HomeFragment(this)
+        communityFragment = CommunityFragment(this)
         plannerFragment = MealPlannerFragment()
 
         binding.bottomNavigation.setOnItemSelectedListener { item ->
@@ -63,18 +63,14 @@ class HomeActivity : AppCompatActivity(), NavigationListener {
         val currentFragment =
             supportFragmentManager.findFragmentById(R.id.fragmentContainerHome)
 
-        if (currentFragment is RecipeDetailFragment) {
-            showFragment(homeFragment)
 
 
-        } else {
-            super.onBackPressed()
+        when(currentFragment){
+            is RecipeDetailFragment -> showFragment(homeFragment)
+            is NewPostFragment -> showFragment(communityFragment)
+            else -> super.onBackPressed()
         }
     }
-}
-
-interface NavigationListener{
-    fun showFragment(fragment: Fragment):Boolean
 }
 
 

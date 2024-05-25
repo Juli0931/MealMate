@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.mealmate.R
 import com.example.mealmate.databinding.RecipeItemBinding
 import com.example.mealmate.domain.model.Recipe
-import com.example.mealmate.view.activities.NavigationListener
 import com.example.mealmate.view.fragments.RecipeDetailFragment
+import com.example.mealmate.view.navigation.NavigationListener
 
 class RecipesAdapter(
    private var recipeList:List<Recipe>

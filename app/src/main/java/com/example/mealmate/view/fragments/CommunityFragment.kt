@@ -12,10 +12,13 @@ import com.example.mealmate.R
 import com.example.mealmate.databinding.FragmentCommunityBinding
 import com.example.mealmate.view.adapters.RecipePostAdapter
 import com.example.mealmate.view.adapters.RecipePostViewHolder
+import com.example.mealmate.view.navigation.NavigationListener
 import com.example.mealmate.view.util.ImageUtil
 import com.example.mealmate.viewmodel.CommunityViewModel
 
-class CommunityFragment : Fragment(), RecipePostViewHolder.RecipePostListener {
+class CommunityFragment(
+    private val navigationListener: NavigationListener
+) : Fragment(), RecipePostViewHolder.RecipePostListener  {
 
     private lateinit var binding:FragmentCommunityBinding
     private lateinit var adapter:RecipePostAdapter
@@ -31,8 +34,18 @@ class CommunityFragment : Fragment(), RecipePostViewHolder.RecipePostListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setupRecyclerView()
+        setupButtons()
         observeStates()
         viewModel.refresh()
+
+
+    }
+
+    private fun setupButtons() {
+        binding.newPostBotton.setOnClickListener{
+            val fragment = NewPostFragment()
+            navigationListener.showFragment(fragment)
+        }
     }
 
     private fun observeStates() {

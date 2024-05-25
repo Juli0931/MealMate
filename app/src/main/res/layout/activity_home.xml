@@ -8,7 +8,6 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerHome"
-        android:name="com.example.mealmate.view.fragments.HomeFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="#11151E"
