@@ -1,14 +1,13 @@
 package com.example.mealmate.domain.model
 
 import com.google.type.DateTime
-import java.util.Date
 
 data class RecipePost(
     val id:String = "",
     val username:String = "",
     val profileImageURL:String = "",
     val postImageURL:String = "",
-    val postTime:DateTime,
+    val timestamp:Long = 0L,
     val description:String = "",
     val totalLikes:Int = 0,
     val totalComments:Int = 0,
@@ -16,4 +15,4 @@ data class RecipePost(
     val comments:List<Comment> = emptyList(),
 
 
-)
+    )
