@@ -1,7 +1,11 @@
 package com.example.mealmate.view.activities
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.mealmate.R
@@ -62,9 +66,6 @@ class HomeActivity : AppCompatActivity(), NavigationListener {
     override fun onBackPressed() {
         val currentFragment =
             supportFragmentManager.findFragmentById(R.id.fragmentContainerHome)
-
-
-
         when(currentFragment){
             is RecipeDetailFragment -> showFragment(homeFragment)
             is NewPostFragment -> showFragment(communityFragment)

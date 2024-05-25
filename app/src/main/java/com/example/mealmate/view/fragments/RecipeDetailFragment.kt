@@ -185,8 +185,20 @@ class RecipeDetailFragment : Fragment(), PopupMenu.OnMenuItemClickListener{
     }
     override fun onMenuItemClick(item: MenuItem?): Boolean {
         when (item!!.itemId) {
-            R.id.action_camera -> openCamera()
-            R.id.action_gallery -> openGallery()
+            R.id.action_camera -> {
+                if(isCameraPermissionsGranted()){
+                    openCamera()
+                }else{
+                    requestCameraPermissions()
+                }
+            }
+            R.id.action_gallery -> {
+                if(isGalleryPermissionsGranted()){
+                    openGallery()
+                }else{
+                    requestGalleryPermissions()
+                }
+            }
         }
         return true
     }
@@ -224,7 +236,7 @@ class RecipeDetailFragment : Fragment(), PopupMenu.OnMenuItemClickListener{
 
     private fun openCamera() {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        val file = File("${activity?.getExternalFilesDir(null)}/profile.png")
+        val file = File("${activity?.getExternalFilesDir(null)}/${System.currentTimeMillis()}")
         val uri = FileProvider.getUriForFile(
             requireContext(),
             requireActivity().packageName,
