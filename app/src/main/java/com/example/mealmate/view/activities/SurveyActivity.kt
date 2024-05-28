@@ -7,7 +7,6 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import com.example.mealmate.R
 import com.example.mealmate.databinding.ActivitySurveyBinding
 import com.example.mealmate.view.fragments.AboutYouFragment
@@ -16,7 +15,7 @@ import com.example.mealmate.view.fragments.ExceptionsFragment
 import com.example.mealmate.view.fragments.IngredientsFavFragment
 import com.example.mealmate.view.fragments.ObjetiveFragment
 import com.example.mealmate.viewmodel.PreferenceField
-import com.example.mealmate.viewmodel.SurveyState
+import com.example.mealmate.view.state.UIState
 import com.example.mealmate.viewmodel.SurveyViewModel
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
@@ -59,21 +58,21 @@ class SurveyActivity : AppCompatActivity() {
             decreaseProgressBar()
         }
 
-        viewModel.surveyState.observe(this){state ->
+        viewModel.uiState.observe(this){ state ->
             when(state){
-                SurveyState.WAITING -> {}
-                SurveyState.LOADING -> {
+                UIState.WAITING -> {}
+                UIState.LOADING -> {
                     Toast.makeText(this, "Loading...", Toast.LENGTH_LONG).show()
                 }
-                SurveyState.SUCCESS -> {
+                UIState.SUCCESS -> {
                     Toast.makeText(this, "Preferencias actualizadas exitosamente", Toast.LENGTH_LONG).show()
-                    viewModel.surveyState.postValue(SurveyState.WAITING)
+                    viewModel.uiState.postValue(UIState.WAITING)
                     replaceFragmentForward()
                     increaseProgressBar()
                 }
-                SurveyState.ERROR -> {
+                UIState.ERROR -> {
                     Toast.makeText(this, "Error...", Toast.LENGTH_LONG).show()
-                    viewModel.surveyState.postValue(SurveyState.WAITING)
+                    viewModel.uiState.postValue(UIState.WAITING)
                 }
             }
 

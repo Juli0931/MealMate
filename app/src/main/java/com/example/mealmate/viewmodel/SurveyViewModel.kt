@@ -8,16 +8,10 @@ import com.example.mealmate.repository.SurveyRepository
 import com.example.mealmate.repository.SurveyRepositoryImpl
 import com.example.mealmate.repository.UserRepository
 import com.example.mealmate.repository.UserRepositoryImpl
+import com.example.mealmate.view.state.UIState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-
-enum class SurveyState {
-    WAITING,
-    LOADING,
-    SUCCESS,
-    ERROR
-}
 
 enum class PreferenceField {
     DIETS,
@@ -36,7 +30,7 @@ class SurveyViewModel(
 ) : ViewModel() {
 
     //status
-    val surveyState = MutableLiveData(SurveyState.WAITING)
+    val uiState = MutableLiveData(UIState.WAITING)
 
     val diets = MutableLiveData(mutableListOf<UserPreference>())
     val exceptions = MutableLiveData(mutableListOf<UserPreference>())
@@ -51,7 +45,7 @@ class SurveyViewModel(
     //Los eventos de entrada
     fun uploadUserPreference() {
         viewModelScope.launch(Dispatchers.IO) {
-            surveyState.postValue(SurveyState.LOADING)
+            uiState.postValue(UIState.LOADING)
             var surveyUploaded = false
              when (currentPreferenceField.value) {
                 PreferenceField.DIETS ->{
@@ -78,9 +72,9 @@ class SurveyViewModel(
                 else -> emptyList<UserPreference>()
             }
             if (surveyUploaded) {
-                surveyState.postValue(SurveyState.SUCCESS)
+                uiState.postValue(UIState.SUCCESS)
             } else {
-                surveyState.postValue(SurveyState.ERROR)
+                uiState.postValue(UIState.ERROR)
             }
         }
     }
@@ -88,7 +82,7 @@ class SurveyViewModel(
     //TODO:refactorizar el viewmodel para el ultimo fragmento
     fun init() {
         viewModelScope.launch(Dispatchers.IO) {
-            surveyState.postValue(SurveyState.LOADING)
+            uiState.postValue(UIState.LOADING)
 
             diets.postValue(userRepo.getUserPreference(PreferenceField.DIETS.name).toMutableList())
             exceptions.postValue(userRepo.getUserPreference(PreferenceField.EXCEPTIONS.name).toMutableList())
@@ -98,7 +92,7 @@ class SurveyViewModel(
             condiments.postValue(userRepo.getUserPreference(PreferenceField.CONDIMENTS.name).toMutableList())
 
 
-            surveyState.postValue(SurveyState.WAITING)
+            uiState.postValue(UIState.WAITING)
         }
     }
 

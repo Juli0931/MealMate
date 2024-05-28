@@ -98,7 +98,6 @@ class RecipeDetailFragment : Fragment(), PopupMenu.OnMenuItemClickListener{
         viewModel.ingredients.observe(viewLifecycleOwner){ingredients ->
             ingredients?.let {displayIngredients(it)}
         }
-
         viewModel.steps.observe(viewLifecycleOwner){steps ->
             steps?.let {displaySteps(it)}
         }
@@ -107,9 +106,6 @@ class RecipeDetailFragment : Fragment(), PopupMenu.OnMenuItemClickListener{
         }
         binding.btnUpload.setOnClickListener {
             viewModel.uploadImage()
-        }
-        binding.imageView.setOnClickListener{
-            showPopup(it)
         }
         binding.addIngredient.setOnClickListener {
             ingredientSelectorLauncher.launch(Intent(activity, IngredientsSelectorActivity::class.java))

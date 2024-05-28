@@ -21,10 +21,13 @@ import androidx.core.content.FileProvider
 import androidx.fragment.app.viewModels
 import com.example.mealmate.R
 import com.example.mealmate.databinding.FragmentNewPostBinding
+import com.example.mealmate.domain.model.RecipePost
 import com.example.mealmate.view.util.ImageUtil
+import com.example.mealmate.view.util.toStorageURL
 import com.example.mealmate.viewmodel.NewPostViewModel
 import com.google.type.DateTime
 import java.io.File
+import java.util.UUID
 
 class NewPostFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
 
@@ -44,6 +47,11 @@ class NewPostFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
     private lateinit var binding:FragmentNewPostBinding
     private val viewModel:NewPostViewModel by viewModels()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel.init()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -51,6 +59,8 @@ class NewPostFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
         binding = FragmentNewPostBinding.inflate(inflater, container, false)
         return binding.root
     }
+
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setupButtons()
@@ -148,6 +158,21 @@ class NewPostFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
         binding.postImage.setOnClickListener{
             showPopup(it)
         }
+
+        binding.sharePost.setOnClickListener{
+            viewModel.currentUser.value?.let {user ->
+                val postImageURL = viewModel.recipePostId.value?.toStorageURL(requireContext())
+                val newPost = RecipePost(
+                    id = viewModel.recipePostId.value!!,
+                    username = user.username,
+                    profileImageURL = user.profileImageURL,
+                    timestamp = System.currentTimeMillis(),
+                    description = binding.descriptionED.text.toString(),
+                    postImageURL = postImageURL ?: ""
+                )
+                viewModel.uploadPost(newPost)
+            }
+        }
     }
 
     private fun onCameraResult(result: ActivityResult) {
@@ -174,5 +199,6 @@ class NewPostFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
             Toast.makeText(requireContext(), "Permission GALLERY denied", Toast.LENGTH_SHORT).show()
         }
     }
+
 
 }

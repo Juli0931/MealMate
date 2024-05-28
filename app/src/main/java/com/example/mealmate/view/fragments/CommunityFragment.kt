@@ -37,8 +37,6 @@ class CommunityFragment(
         setupButtons()
         observeStates()
         viewModel.refresh()
-
-
     }
 
     private fun setupButtons() {
