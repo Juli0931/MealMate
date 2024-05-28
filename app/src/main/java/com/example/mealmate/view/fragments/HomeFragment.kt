@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -28,7 +29,7 @@ class HomeFragment(
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.init()
+        viewModel.refresh()
     }
 
     override fun onCreateView(
@@ -53,10 +54,17 @@ class HomeFragment(
                 GridLayoutManager.VERTICAL))
         }
         binding.titleTV.setOnClickListener{
-            viewModel.init()
+            viewModel.refresh()
         }
         viewModel.recipeList.observe(viewLifecycleOwner){ recipeList ->
             recipesAdapter.updateRecipeList(recipeList)
+        }
+
+        binding.swipeRefresh.setOnRefreshListener {
+            viewModel.refresh()
+        }
+        viewModel.isLoading.observe(viewLifecycleOwner){isLoading ->
+            binding.swipeRefresh.isRefreshing = isLoading
         }
     }
     override fun render(url: String, image: ImageView) {

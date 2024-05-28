@@ -14,9 +14,11 @@ import kotlinx.coroutines.tasks.await
 
 class CommunityViewModel : ViewModel() {
 
-    val recipePostList = MutableLiveData<List<RecipePost>>(dummyPost)
+    val recipePostList = MutableLiveData<List<RecipePost>>()
+    val isLoading  = MutableLiveData(false)
 
     fun refresh(){
+        isLoading.postValue(true)
         viewModelScope.launch(Dispatchers.IO) {
             try{
                 val newPostList = mutableListOf<RecipePost>()
@@ -27,6 +29,8 @@ class CommunityViewModel : ViewModel() {
                 recipePostList.postValue(newPostList)
             }catch (e:Exception){
                 e.printStackTrace()
+            }finally {
+                isLoading.postValue(false)
             }
         }
 
@@ -45,41 +49,3 @@ class CommunityViewModel : ViewModel() {
     }
 
 }
-val dummyPost = listOf<RecipePost>(
-    RecipePost(
-        id = "sagsgsdgasad",
-        username = "domigod",
-        profileImageURL = "",
-        postImageURL = "",
-        timestamp = System.currentTimeMillis(),
-        description = "Alguien quiere papas",
-        totalLikes = 0,
-        totalComments = 0,
-        totalShares = 0,
-        comments = emptyList(),
-    ),
-    RecipePost(
-        id = "sagsgsdgasad",
-        username = "domigod",
-        profileImageURL = "",
-        postImageURL = "",
-        timestamp = System.currentTimeMillis(),
-        description = "Alguien quiere papas",
-        totalLikes = 0,
-        totalComments = 0,
-        totalShares = 0,
-        comments = emptyList(),
-    ),
-    RecipePost(
-        id = "sagsgsdgasad",
-        username = "domigod",
-        profileImageURL = "",
-        postImageURL = "",
-        timestamp = System.currentTimeMillis(),
-        description = "Alguien quiere papas",
-        totalLikes = 0,
-        totalComments = 0,
-        totalShares = 0,
-        comments = emptyList(),
-    )
-)

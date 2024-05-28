@@ -44,11 +44,18 @@ class CommunityFragment(
             val fragment = NewPostFragment()
             navigationListener.showFragment(fragment)
         }
+        binding.swipeRefresh.setOnRefreshListener {
+            viewModel.refresh()
+        }
+
     }
 
     private fun observeStates() {
         viewModel.recipePostList.observe(viewLifecycleOwner){
             adapter.updateRecipePostList(it)
+        }
+        viewModel.isLoading.observe(viewLifecycleOwner){isLoading ->
+            binding.swipeRefresh.isRefreshing = isLoading
         }
     }
 
