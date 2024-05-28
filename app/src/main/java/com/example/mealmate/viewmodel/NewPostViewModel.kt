@@ -27,21 +27,24 @@ class NewPostViewModel : ViewModel() {
     val currentUser = MutableLiveData<User>()
     val recipePostId = MutableLiveData(UUID.randomUUID().toString())
     fun uploadImage() {
-        try {
             imageSelected.value?.let {
+                uiState.postValue(UIState.LOADING)
                 viewModelScope.launch(Dispatchers.IO) {
-                    val recipeImagesRef = Firebase.storage.reference.child("recipesPosts/${recipePostId.value}.jpg")
-                    recipeImagesRef.putFile(it).await()
-                    Log.d("SUCCESS", "Image")
+                    try {
+                        val recipeImagesRef = Firebase.storage.reference.child("recipesPosts/${recipePostId.value}.jpg")
+                        recipeImagesRef.putFile(it).await()
+                        uiState.postValue(UIState.WAITING)
+                    }catch (e:Exception){
+                        uiState.postValue(UIState.ERROR)
+                        e.printStackTrace()
+                    }
                 }
             }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
     }
 
     fun uploadPost(newPost: RecipePost) {
         uploadImage()
+        uiState.postValue(UIState.LOADING)
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 Firebase.firestore.collection("recipePosts").document(newPost.id).set(newPost)
@@ -55,6 +58,7 @@ class NewPostViewModel : ViewModel() {
     }
 
     private fun getUsername(){
+        uiState.postValue(UIState.LOADING)
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val email = Firebase.auth.currentUser?.email.toString()
@@ -66,7 +70,10 @@ class NewPostViewModel : ViewModel() {
                 }
 
             } catch (e: Exception) {
+                uiState.postValue(UIState.ERROR)
                 e.printStackTrace()
+            }finally {
+                uiState.postValue(UIState.WAITING)
             }
         }
     }

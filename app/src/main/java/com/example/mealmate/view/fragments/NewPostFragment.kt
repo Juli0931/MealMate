@@ -22,6 +22,7 @@ import androidx.fragment.app.viewModels
 import com.example.mealmate.R
 import com.example.mealmate.databinding.FragmentNewPostBinding
 import com.example.mealmate.domain.model.RecipePost
+import com.example.mealmate.view.state.UIState
 import com.example.mealmate.view.util.ImageUtil
 import com.example.mealmate.view.util.toStorageURL
 import com.example.mealmate.viewmodel.NewPostViewModel
@@ -70,6 +71,27 @@ class NewPostFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
     }
 
     private fun observeStates() {
+        viewModel.uiState.observe(viewLifecycleOwner){uiState ->
+            when(uiState){
+                UIState.WAITING -> {
+                    binding.progressBar.visibility = View.GONE
+                }
+                UIState.LOADING -> {
+                    binding.progressBar.visibility = View.VISIBLE
+                }
+                UIState.SUCCESS -> {
+                    Toast.makeText(requireContext(),"Publicación exitosa",Toast.LENGTH_LONG).show()
+                    activity?.onBackPressed()
+
+                }
+                UIState.ERROR -> {
+                    Toast.makeText(requireContext(),"Ocurrió un error, intenta más tarde",Toast.LENGTH_LONG).show()
+                    viewModel.uiState.postValue(UIState.WAITING)
+                }
+            }
+
+        }
+
         viewModel.imageSelected.observe(viewLifecycleOwner){
             ImageUtil().renderImageCenterCrop(requireContext(), it, binding.postImage)
         }
