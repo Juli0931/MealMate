@@ -26,30 +26,40 @@ class NewPostViewModel : ViewModel() {
     val uiState = MutableLiveData(UIState.WAITING)
     val currentUser = MutableLiveData<User>()
     val recipePostId = MutableLiveData(UUID.randomUUID().toString())
-    fun uploadImage() {
-            imageSelected.value?.let {
-                uiState.postValue(UIState.LOADING)
-                viewModelScope.launch(Dispatchers.IO) {
-                    try {
-                        val recipeImagesRef = Firebase.storage.reference.child("recipesPosts/${recipePostId.value}.jpg")
-                        recipeImagesRef.putFile(it).await()
-                        uiState.postValue(UIState.WAITING)
-                    }catch (e:Exception){
-                        uiState.postValue(UIState.ERROR)
-                        e.printStackTrace()
-                    }
-                }
+   private suspend fun uploadImage():Uri? {
+
+       return if(imageSelected.value != null){
+            try {
+                val recipeImagesRef = Firebase.storage.reference.child("recipesPosts/${recipePostId.value}.jpg")
+                recipeImagesRef.putFile(imageSelected.value!!).await()
+                uiState.postValue(UIState.WAITING)
+                recipeImagesRef.downloadUrl.await()
+            }catch (e:Exception){
+                e.printStackTrace()
+                null
             }
+        }else{
+            null
+        }
+
     }
 
     fun uploadPost(newPost: RecipePost) {
-        uploadImage()
+
         uiState.postValue(UIState.LOADING)
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                Firebase.firestore.collection("recipePosts").document(newPost.id).set(newPost)
-                    .await()
-                uiState.postValue(UIState.SUCCESS)
+                val postImageUrl = uploadImage()
+                if(postImageUrl != null){
+                    newPost.copy(postImageURL = postImageUrl.toString()).also {
+                        Firebase.firestore.collection("recipePosts").document(it.id).set(it)
+                            .await()
+                        uiState.postValue(UIState.SUCCESS)
+                    }
+                }else{
+                    uiState.postValue(UIState.ERROR)
+                }
+
             } catch (e: Exception) {
                 e.printStackTrace()
                 uiState.postValue(UIState.ERROR)

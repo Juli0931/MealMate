@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mealmate.domain.model.RecipePost
 import com.google.firebase.Firebase
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.firestore
 import com.google.firebase.firestore.toObject
 import com.google.type.DateTime
@@ -22,7 +23,8 @@ class CommunityViewModel : ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             try{
                 val newPostList = mutableListOf<RecipePost>()
-                val result = Firebase.firestore.collection("recipePosts").get().await()
+                val result = Firebase.firestore.collection("recipePosts")
+                    .orderBy("timestamp", Query.Direction.DESCENDING).get().await()
                 for (document in result){
                     newPostList.add(document.toObject(RecipePost::class.java))
                 }
