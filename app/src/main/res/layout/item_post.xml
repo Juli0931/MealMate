@@ -87,13 +87,12 @@
 
     <ImageView
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@color/white"
         android:id="@+id/icon_like"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_launcher_background"
-        tools:layout_editor_absoluteX="24dp"
-        tools:layout_editor_absoluteY="190dp" />
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+      />
 
     <ImageView
         app:layout_constraintTop_toTopOf="parent"

@@ -61,8 +61,6 @@ class NewPostFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
         return binding.root
     }
 
-
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setupButtons()
         observeStates()

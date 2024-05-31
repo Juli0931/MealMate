@@ -61,10 +61,11 @@ class HomeFragment(
         }
 
         binding.swipeRefresh.setOnRefreshListener {
-            viewModel.refresh()
+           // viewModel.refresh()
+            binding.swipeRefresh.isRefreshing = false
         }
         viewModel.isLoading.observe(viewLifecycleOwner){isLoading ->
-            binding.swipeRefresh.isRefreshing = isLoading
+          //  binding.swipeRefresh.isRefreshing = isLoading
         }
     }
     override fun render(url: String, image: ImageView) {

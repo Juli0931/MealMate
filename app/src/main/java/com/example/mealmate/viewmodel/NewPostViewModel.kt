@@ -1,7 +1,6 @@
 package com.example.mealmate.viewmodel
 
 import android.net.Uri
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -15,7 +14,6 @@ import com.google.firebase.storage.storage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
-import java.net.URI
 import java.util.UUID
 
 
@@ -67,7 +65,7 @@ class NewPostViewModel : ViewModel() {
         }
     }
 
-    private fun getUsername(){
+    private fun getUser(){
         uiState.postValue(UIState.LOADING)
         viewModelScope.launch(Dispatchers.IO) {
             try {
@@ -89,6 +87,6 @@ class NewPostViewModel : ViewModel() {
     }
 
     fun init(){
-        getUsername()
+        getUser()
     }
 }

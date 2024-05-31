@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mealmate.R
@@ -39,30 +40,34 @@ class CommunityFragment(
         viewModel.refresh()
     }
 
+    //TODO: Resolve swipe refresh bug when user navigates between fragments
     private fun setupButtons() {
         binding.newPostBotton.setOnClickListener{
             val fragment = NewPostFragment()
             navigationListener.showFragment(fragment)
         }
         binding.swipeRefresh.setOnRefreshListener {
-            viewModel.refresh()
+          //  viewModel.refresh()
+            binding.swipeRefresh.isRefreshing = false
         }
 
     }
 
+    //TODO: Resolve swipe refresh bug when user navigates between fragments
     private fun observeStates() {
         viewModel.recipePostList.observe(viewLifecycleOwner){
             adapter.updateRecipePostList(it)
         }
         viewModel.isLoading.observe(viewLifecycleOwner){isLoading ->
-            binding.swipeRefresh.isRefreshing = isLoading
+         //   binding.swipeRefresh.isRefreshing = isLoading
         }
     }
 
     private fun setupRecyclerView() {
         adapter = RecipePostAdapter(
             viewModel.recipePostList.value ?: emptyList(),
-            this
+            this,
+            viewModel.currentUser.value?.id ?: ""
             )
         with(binding.postRecyclerview){
             adapter = this@CommunityFragment.adapter
@@ -73,6 +78,16 @@ class CommunityFragment(
 
     override fun renderImage(url: String, image: ImageView) {
         ImageUtil().renderImageCenterCrop(requireContext(), url, image)
+    }
+
+    override fun paintIconLike(hasLike: Boolean, image: ImageView) {
+        if(hasLike){
+            image.background = ContextCompat.getDrawable(requireContext(),R.color.red)
+
+        }else{
+            image.background = ContextCompat.getDrawable(requireContext(),R.color.black)
+
+        }
     }
 
     override fun onClickLikeIcon(id: String, isSelected: Boolean) {
