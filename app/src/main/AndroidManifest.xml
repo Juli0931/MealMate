@@ -35,6 +35,7 @@
 
         <activity
             android:name=".view.activities.HomeActivity"
+            android:windowSoftInputMode="adjustPan|stateVisible"
             android:exported="false" />
         <activity
             android:name=".view.activities.SurveyActivity"

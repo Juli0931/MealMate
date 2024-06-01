@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.mealmate.R
 import com.example.mealmate.databinding.ActivityHomeBinding
+import com.example.mealmate.view.fragments.CommentFragment
 import com.example.mealmate.view.fragments.CommunityFragment
 import com.example.mealmate.view.fragments.HomeFragment
 import com.example.mealmate.view.fragments.MealPlannerFragment
@@ -42,7 +43,7 @@ class HomeActivity : AppCompatActivity(), NavigationListener {
                 else -> false
             }
         }
-        showFragment(homeFragment)
+        showFragment(homeFragment) // homeFragment, CommentFragment()
     }
 
      override fun showFragment(fragment: Fragment) : Boolean {
