@@ -4,68 +4,112 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#11151E"
     tools:context=".view.fragments.NewPostFragment">
 
     <Button
         android:id="@+id/close_post"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="X" />
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="32dp"
+        android:backgroundTint="#00FFFFFF"
+        android:fontFamily="@font/montserrat_semibold"
+        android:text="X"
+        android:textColor="#FFFFFF"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/share_post"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Compartir" />
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="12dp"
+        android:fontFamily="@font/montserrat_semibold"
+        android:text="Compartir"
+        android:textColor="@color/green"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:src="@drawable/icon"
+        app:layout_constraintBottom_toBottomOf="@+id/post_location"
+        app:layout_constraintStart_toStartOf="@+id/post_location"
+        app:layout_constraintTop_toTopOf="@+id/post_location" />
+
+    <ImageView
+        android:id="@+id/imageView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:src="@drawable/vector__1_"
+        app:layout_constraintBottom_toBottomOf="@+id/tag"
+        app:layout_constraintStart_toStartOf="@+id/tag"
+        app:layout_constraintTop_toTopOf="@+id/tag" />
 
     <Button
         android:id="@+id/post_location"
-        app:layout_constraintTop_toBottomOf="@id/post_image"
-        app:layout_constraintStart_toStartOf="parent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Location" />
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="@color/green"
+        android:fontFamily="@font/montserrat_semibold"
+        android:text="    Location"
+        android:textColor="@color/bgRecipe"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/post_image" />
 
     <Button
         android:id="@+id/tag"
-        app:layout_constraintTop_toTopOf="@id/post_location"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Etiqueta" />
+        android:layout_marginEnd="64dp"
+        android:backgroundTint="@color/green"
+        android:fontFamily="@font/montserrat_semibold"
+        android:text="    Etiqueta"
+        android:textColor="@color/bgRecipe"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/post_location" />
 
     <EditText
         android:id="@+id/descriptionED"
-        app:layout_constraintStart_toEndOf="@id/profile_image"
-        app:layout_constraintTop_toTopOf="@id/profile_image"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
+        android:layout_marginStart="24dp"
+        android:fontFamily="@font/montserrat_semibold"
         android:inputType="text"
+        android:textColor="@color/gray"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@id/profile_image"
+        app:layout_constraintTop_toTopOf="@id/profile_image"
         tools:text="Description" />
 
     <ImageView
         android:id="@+id/profile_image"
-        app:layout_constraintTop_toBottomOf="@id/close_post"
-        app:layout_constraintStart_toStartOf="parent"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:background="@color/black"
+        android:layout_marginStart="32dp"
 
-         />
+        android:layout_marginTop="64dp"
+        android:background="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/close_post" />
 
     <ImageView
         android:id="@+id/post_image"
-        app:layout_constraintTop_toBottomOf="@id/profile_image"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:layout_marginTop="32dp"
         android:background="@color/black"
-        />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/profile_image" />
 
     <ProgressBar
         android:id="@+id/progress_bar"
@@ -73,6 +117,7 @@
         android:layout_height="match_parent"
         android:background="@color/gray"
         android:progressTint="@color/green"
-        />
+        app:layout_constraintEnd_toStartOf="@+id/tag"
+        tools:layout_editor_absoluteY="0dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
