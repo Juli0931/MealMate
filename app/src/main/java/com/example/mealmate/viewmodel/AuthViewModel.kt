@@ -5,13 +5,18 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mealmate.domain.model.AppAuthState
+import com.example.mealmate.domain.model.CurrentSession
+import com.example.mealmate.repository.UserRepository
+import com.example.mealmate.repository.UserRepositoryImpl
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
-class AuthViewModel: ViewModel() {
+class AuthViewModel(
+    private val userRepo:UserRepository = UserRepositoryImpl()
+): ViewModel() {
 
     val authStatus = MutableLiveData<AppAuthState>()
 
@@ -22,7 +27,14 @@ class AuthViewModel: ViewModel() {
                 if (user != null) {
                     val result = user.getIdToken(true).await()
                     if (result?.token != null) {
-                        authStatus.postValue(AppAuthState.Success(""))
+                        val user = userRepo.loadUser()
+                        if(user != null){
+                            CurrentSession.currentUser = user
+                            authStatus.postValue(AppAuthState.Success(""))
+                        }else{
+                            authStatus.postValue(AppAuthState.Error("Failed to load user"))
+
+                        }
                     } else {
                         Log.e("LoginViewModel", "TOKEN expired")
                     }
