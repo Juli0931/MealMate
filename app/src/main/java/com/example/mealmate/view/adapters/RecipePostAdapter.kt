@@ -44,6 +44,7 @@ class RecipePostViewHolder private constructor(itemView: View) : RecyclerView.Vi
     lateinit var listener:RecipePostListener
     lateinit var currentUserId: String
     private var hasLike: Boolean = false
+    private var totalLikes: Int = 0
 
     //TODO: change image to icon for likes, comments and shares
     @SuppressLint("ResourceAsColor")
@@ -54,6 +55,7 @@ class RecipePostViewHolder private constructor(itemView: View) : RecyclerView.Vi
         binding.postTime.text = recipePost.timestamp.toString()
         binding.postDescription.text = recipePost.description
         binding.postLikes.text = recipePost.totalLikes.toString()
+        totalLikes = recipePost.totalLikes
         binding.postComments.text = recipePost.comments.toString()
         binding.postShares.text = recipePost.totalShares.toString()
 
@@ -69,6 +71,12 @@ class RecipePostViewHolder private constructor(itemView: View) : RecyclerView.Vi
             hasLike = !hasLike
             listener.paintIconLike(hasLike, binding.iconLike)
             listener.onClickLikeIcon(id, hasLike)
+            if(hasLike){
+                totalLikes += 1
+            }else{
+                totalLikes -= 1
+            }
+            binding.postLikes.text = totalLikes.toString()
         }
         binding.iconComment.setOnClickListener{listener.onClickCommentIcon(id)}
         binding.iconShare.setOnClickListener{listener.onClickShareIcon(id)}

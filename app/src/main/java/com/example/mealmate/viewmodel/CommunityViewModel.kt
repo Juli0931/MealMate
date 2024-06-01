@@ -3,6 +3,7 @@ package com.example.mealmate.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.mealmate.domain.model.CurrentSession
 import com.example.mealmate.domain.model.RecipePost
 import com.example.mealmate.domain.model.User
 import com.example.mealmate.view.state.UIState
@@ -20,11 +21,9 @@ class CommunityViewModel : ViewModel() {
 
     val recipePostList = MutableLiveData<List<RecipePost>>()
     val isLoading  = MutableLiveData(false)
-    val currentUser  = MutableLiveData<User>()
 
     fun refresh(){
         isLoading.postValue(true)
-        getUser()
         viewModelScope.launch(Dispatchers.IO) {
             try{
                 val newPostList = mutableListOf<RecipePost>()
@@ -42,43 +41,25 @@ class CommunityViewModel : ViewModel() {
         }
     }
 
-    private fun getUser(){
-       isLoading.postValue(true)
-        viewModelScope.launch(Dispatchers.IO) {
-            try {
-                val email = Firebase.auth.currentUser?.email.toString()
-                val result =
-                    Firebase.firestore.collection("users").whereEqualTo("email", email).limit(1)
-                        .get().await()
-                result.documents[0].toObject(User::class.java)?.also {
-                    currentUser.postValue(it)
-                }
-
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }finally {
-                isLoading.postValue(false)
-            }
-        }
-    }
     fun updateLike(postId: String, selected: Boolean) {
         isLoading.postValue(true)
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                currentUser.value?.let {
+                CurrentSession.currentUser.let {user ->
                     val result = Firebase.firestore.collection("recipePosts").document(postId).get().await()
                     val post = result.toObject(RecipePost::class.java)!!
                     val updatedLikes:List<String> = if (selected){
                        val set = post.likes.toMutableSet()
-                        set.add(it.id)
+                        set.add(user.id)
                         set.toList()
                     }else{
                        val newList = post.likes.toMutableList()
-                        newList.remove(it.id)
+                        newList.remove(user.id)
                         newList.toList()
                     }
                     val updatedPost = post.copy(
-                        likes = updatedLikes
+                        likes = updatedLikes,
+                        totalLikes = updatedLikes.size
                     )
                     Firebase.firestore.collection("recipePosts").document(postId).set(updatedPost).await()
                 }

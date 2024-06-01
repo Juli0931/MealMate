@@ -22,7 +22,6 @@ class NewPostViewModel : ViewModel() {
     val tempCameraImage = MutableLiveData<Uri>()
     val imageSelected = MutableLiveData<Uri>()
     val uiState = MutableLiveData(UIState.WAITING)
-    val currentUser = MutableLiveData<User>()
     val recipePostId = MutableLiveData(UUID.randomUUID().toString())
    private suspend fun uploadImage():Uri? {
 
@@ -41,7 +40,6 @@ class NewPostViewModel : ViewModel() {
         }
 
     }
-
     fun uploadPost(newPost: RecipePost) {
 
         uiState.postValue(UIState.LOADING)
@@ -63,30 +61,5 @@ class NewPostViewModel : ViewModel() {
                 uiState.postValue(UIState.ERROR)
             }
         }
-    }
-
-    private fun getUser(){
-        uiState.postValue(UIState.LOADING)
-        viewModelScope.launch(Dispatchers.IO) {
-            try {
-                val email = Firebase.auth.currentUser?.email.toString()
-                val result =
-                    Firebase.firestore.collection("users").whereEqualTo("email", email).limit(1)
-                        .get().await()
-                result.documents[0].toObject(User::class.java)?.also {
-                    currentUser.postValue(it)
-                }
-
-            } catch (e: Exception) {
-                uiState.postValue(UIState.ERROR)
-                e.printStackTrace()
-            }finally {
-                uiState.postValue(UIState.WAITING)
-            }
-        }
-    }
-
-    fun init(){
-        getUser()
     }
 }

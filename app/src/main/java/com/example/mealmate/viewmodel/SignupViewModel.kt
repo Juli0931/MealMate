@@ -4,9 +4,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mealmate.domain.model.AppAuthState
+import com.example.mealmate.domain.model.CurrentSession
 import com.example.mealmate.domain.model.User
 import com.example.mealmate.repository.AuthRepository
 import com.example.mealmate.repository.AuthRepositoryImpl
+import com.example.mealmate.repository.UserRepository
+import com.example.mealmate.repository.UserRepositoryImpl
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

@@ -1,6 +1,7 @@
 package com.example.mealmate.repository
 
 import com.example.mealmate.domain.model.AppAuthState
+import com.example.mealmate.domain.model.CurrentSession
 import com.example.mealmate.domain.model.User
 import com.example.mealmate.services.AuthServices
 import com.example.mealmate.services.UserServices
@@ -19,6 +20,9 @@ class AuthRepositoryImpl(
         try {
             val result = authServices.login(email, pass)
             result.user?.let {
+                userServices.loadUser(it.uid).toObject(User::class.java).also { user ->
+                    CurrentSession.currentUser = user!!
+                }
                 return AppAuthState.Success("")
             } ?: run {
                 return AppAuthState.Error("")
@@ -36,6 +40,9 @@ class AuthRepositoryImpl(
                 //2. Guardar usuario en base de datos
                 user.id = it.uid
                 userServices.createUser(user)
+                userServices.loadUser(it.uid).toObject(User::class.java).also { user ->
+                    CurrentSession.currentUser = user!!
+                }
                 return AppAuthState.Success(it.uid)
             } ?: run {
                 return AppAuthState.Error("Something went wrong")

@@ -4,6 +4,7 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.database.CursorWindowAllocationException
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
@@ -21,6 +22,7 @@ import androidx.core.content.FileProvider
 import androidx.fragment.app.viewModels
 import com.example.mealmate.R
 import com.example.mealmate.databinding.FragmentNewPostBinding
+import com.example.mealmate.domain.model.CurrentSession
 import com.example.mealmate.domain.model.RecipePost
 import com.example.mealmate.view.state.UIState
 import com.example.mealmate.view.util.ImageUtil
@@ -48,10 +50,6 @@ class NewPostFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
     private lateinit var binding:FragmentNewPostBinding
     private val viewModel:NewPostViewModel by viewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        viewModel.init()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -64,8 +62,6 @@ class NewPostFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setupButtons()
         observeStates()
-
-
     }
 
     private fun observeStates() {
@@ -180,7 +176,7 @@ class NewPostFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
         }
 
         binding.sharePost.setOnClickListener{
-            viewModel.currentUser.value?.let {user ->
+            CurrentSession.currentUser.let {user ->
                 val postImageURL = viewModel.recipePostId.value?.toStorageURL(requireContext())
                 val newPost = RecipePost(
                     id = viewModel.recipePostId.value!!,

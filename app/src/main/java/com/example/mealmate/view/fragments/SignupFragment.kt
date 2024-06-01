@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.mealmate.databinding.SignupFragmentBinding
 import com.example.mealmate.domain.model.AppAuthState
+import com.example.mealmate.domain.model.CurrentSession
 import com.example.mealmate.domain.model.User
 import com.example.mealmate.view.activities.NavigateToLoginListener
 import com.example.mealmate.view.activities.SurveyActivity

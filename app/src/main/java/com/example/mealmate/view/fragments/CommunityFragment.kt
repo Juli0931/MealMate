@@ -11,11 +11,13 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mealmate.R
 import com.example.mealmate.databinding.FragmentCommunityBinding
+import com.example.mealmate.domain.model.CurrentSession
 import com.example.mealmate.view.adapters.RecipePostAdapter
 import com.example.mealmate.view.adapters.RecipePostViewHolder
 import com.example.mealmate.view.navigation.NavigationListener
 import com.example.mealmate.view.util.ImageUtil
 import com.example.mealmate.viewmodel.CommunityViewModel
+import org.checkerframework.checker.units.qual.Current
 
 class CommunityFragment(
     private val navigationListener: NavigationListener
@@ -67,7 +69,7 @@ class CommunityFragment(
         adapter = RecipePostAdapter(
             viewModel.recipePostList.value ?: emptyList(),
             this,
-            viewModel.currentUser.value?.id ?: ""
+            CurrentSession.currentUser.id
             )
         with(binding.postRecyclerview){
             adapter = this@CommunityFragment.adapter
@@ -86,7 +88,6 @@ class CommunityFragment(
 
         }else{
             image.background = ContextCompat.getDrawable(requireContext(),R.color.black)
-
         }
     }
 
