@@ -56,7 +56,7 @@ class RecipePostViewHolder private constructor(itemView: View) : RecyclerView.Vi
         binding.postDescription.text = recipePost.description
         binding.postLikes.text = recipePost.totalLikes.toString()
         totalLikes = recipePost.totalLikes
-        binding.postComments.text = recipePost.comments.toString()
+        binding.postComments.text = recipePost.totalComments.toString()
         binding.postShares.text = recipePost.totalShares.toString()
 
         listener.renderImage(recipePost.profileImageURL, binding.profileImage)

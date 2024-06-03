@@ -12,6 +12,5 @@ data class RecipePost(
     val totalLikes:Int = 0,
     val totalComments:Int = 0,
     val totalShares:Int = 0,
-    val comments:List<Comment> = emptyList(),
     val likes: List<String> = emptyList()
     )

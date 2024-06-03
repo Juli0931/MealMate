@@ -34,7 +34,19 @@
         android:textColor="@color/white"
         android:hint="Añadir un comentario"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btn_post_comment"
         android:layout_height="60dp"
         />
+
+    <Button
+        android:id="@+id/btn_post_comment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="Publicar"
+         />
 </androidx.constraintlayout.widget.ConstraintLayout>

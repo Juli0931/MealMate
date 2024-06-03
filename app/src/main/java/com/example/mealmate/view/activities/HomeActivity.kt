@@ -17,6 +17,7 @@ import com.example.mealmate.view.fragments.MealPlannerFragment
 import com.example.mealmate.view.fragments.NewPostFragment
 import com.example.mealmate.view.fragments.RecipeDetailFragment
 import com.example.mealmate.view.navigation.NavigationListener
+import org.w3c.dom.Comment
 
 class HomeActivity : AppCompatActivity(), NavigationListener {
 
@@ -43,16 +44,41 @@ class HomeActivity : AppCompatActivity(), NavigationListener {
                 else -> false
             }
         }
-        showFragment(homeFragment) // homeFragment, CommentFragment()
+        showFragment(homeFragment)
     }
 
-     override fun showFragment(fragment: Fragment) : Boolean {
-        supportFragmentManager.beginTransaction().replace(R.id.fragmentContainerHome, fragment)
+
+
+    override fun showFragment(fragment: Fragment) : Boolean {
+        val currentFragment =
+            supportFragmentManager.findFragmentById(R.id.fragmentContainerHome)
+
+
+       val fragmentTransaction = supportFragmentManager.beginTransaction().apply {
+           if(fragment is CommentFragment){
+               setCustomAnimations(
+                   R.anim.slide_in_bottom,
+                   R.anim.fade_out,
+                   R.anim.fade_in,
+                   R.anim.slide_out_top
+               )
+           }
+           if(currentFragment is CommentFragment){
+               setCustomAnimations(
+                   0,
+                   R.anim.slide_out_bottom,
+                   0,
+                   R.anim.fade_out
+               )
+           }
+       }
+        fragmentTransaction.replace(R.id.fragmentContainerHome, fragment)
             .commit()
         supportFragmentManager.executePendingTransactions()
         showNavigationBar()
         return true
     }
+
 
     private fun showNavigationBar(){
         val currentFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerHome)
@@ -70,6 +96,7 @@ class HomeActivity : AppCompatActivity(), NavigationListener {
         when(currentFragment){
             is RecipeDetailFragment -> showFragment(homeFragment)
             is NewPostFragment -> showFragment(communityFragment)
+            is CommentFragment -> showFragment(communityFragment)
             else -> super.onBackPressed()
         }
     }

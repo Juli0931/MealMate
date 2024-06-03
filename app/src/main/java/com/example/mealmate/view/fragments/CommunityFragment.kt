@@ -100,8 +100,14 @@ class CommunityFragment(
     }
 
     override fun onClickCommentIcon(id: String) {
-        viewModel.addComment(id)
-    }
+        val bundle = Bundle().apply {
+            putString("recipePostId", id)
+        }
+        CommentFragment().run {
+            arguments = bundle
+            navigationListener.showFragment(this)
+        }
 
+    }
 
 }

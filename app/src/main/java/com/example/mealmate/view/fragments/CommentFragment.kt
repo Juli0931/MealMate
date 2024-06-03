@@ -3,30 +3,45 @@ package com.example.mealmate.view.fragments
 import android.content.Context
 import android.graphics.Rect
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
-import androidx.core.content.ContextCompat
+import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.mealmate.R
 import com.example.mealmate.databinding.FragmentCommentBinding
-import com.example.mealmate.databinding.FragmentCommunityBinding
+import com.example.mealmate.domain.model.Comment
+import com.example.mealmate.domain.model.CurrentSession
 import com.example.mealmate.view.adapters.CommentAdapter
 import com.example.mealmate.view.adapters.CommentViewHolder
 import com.example.mealmate.view.util.ImageUtil
 import com.example.mealmate.viewmodel.CommentViewModel
-import com.example.mealmate.viewmodel.CommunityViewModel
+import java.util.UUID
 
 
 class CommentFragment : Fragment(), CommentViewHolder.CommentListener {
     private lateinit var binding: FragmentCommentBinding
     private val viewModel: CommentViewModel by viewModels()
     lateinit var adapter: CommentAdapter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val postID = arguments?.getString("recipePostId")
+        if(postID != null){
+            viewModel.postID = postID
+        }else{
+            activity?.onBackPressed()
+            Toast.makeText(requireContext(),
+                "Error al entrar en comentarios",
+                Toast.LENGTH_LONG)
+                .show()
+        }
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,11 +52,13 @@ class CommentFragment : Fragment(), CommentViewHolder.CommentListener {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setupRecyclerview()
         observeStates()
         setupViewsListeners()
         binding.commentET.requestFocus()
         showKeyboard(binding.commentET)
+        viewModel.refresh()
     }
 
     private fun setupRecyclerview(){
@@ -75,6 +92,18 @@ class CommentFragment : Fragment(), CommentViewHolder.CommentListener {
                     }
                 }
             }
+        }
+
+        binding.btnPostComment.setOnClickListener {
+            val comment = Comment(
+                id = UUID.randomUUID().toString(),
+                username = CurrentSession.currentUser.username,
+                profileImageURL = CurrentSession.currentUser.profileImageURL,
+                timestamp = System.currentTimeMillis(),
+                comment = binding.commentET.text.toString()
+            )
+            viewModel.uploadComment(comment)
+            binding.commentET.setText("")
         }
     }
     private fun showKeyboard(editText: EditText) {
