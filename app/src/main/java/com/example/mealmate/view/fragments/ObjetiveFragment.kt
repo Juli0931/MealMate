@@ -27,6 +27,7 @@ class ObjetiveFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         viewModel.currentPreferenceField.postValue(PreferenceField.OBJECTIVES)
         viewModel.getPreferencesByField(PreferenceField.OBJECTIVES.name) { userPreferenceList ->
             ChipGroupUtil().generateChipGroupByPreferences(

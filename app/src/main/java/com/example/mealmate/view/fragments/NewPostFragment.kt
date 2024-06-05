@@ -60,6 +60,7 @@ class NewPostFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setupButtons()
         observeStates()
     }
@@ -177,9 +178,9 @@ class NewPostFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
 
         binding.sharePost.setOnClickListener{
             CurrentSession.currentUser.let {user ->
-                val postImageURL = viewModel.recipePostId.value?.toStorageURL(requireContext())
+                val postImageURL = viewModel.recipePostId.toStorageURL(requireContext())
                 val newPost = RecipePost(
-                    id = viewModel.recipePostId.value!!,
+                    id = viewModel.recipePostId,
                     username = user.username,
                     profileImageURL = user.profileImageURL,
                     timestamp = System.currentTimeMillis(),

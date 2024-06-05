@@ -72,7 +72,7 @@ class CommentFragment : Fragment(), CommentViewHolder.CommentListener {
 
     private fun observeStates() {
         viewModel.comments.observe(viewLifecycleOwner){
-            adapter.updateCommentsList(it)
+            adapter.updateCommentsList(it ?: emptyList())
         }
 
     }

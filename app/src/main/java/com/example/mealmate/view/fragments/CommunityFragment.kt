@@ -36,6 +36,7 @@ class CommunityFragment(
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         setupButtons()
         observeStates()
@@ -58,7 +59,7 @@ class CommunityFragment(
     //TODO: Resolve swipe refresh bug when user navigates between fragments
     private fun observeStates() {
         viewModel.recipePostList.observe(viewLifecycleOwner){
-            adapter.updateRecipePostList(it)
+            adapter.updateRecipePostList(it ?: emptyList())
         }
         viewModel.isLoading.observe(viewLifecycleOwner){isLoading ->
          //   binding.swipeRefresh.isRefreshing = isLoading

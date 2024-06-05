@@ -28,6 +28,7 @@ class ExceptionsFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         viewModel.currentPreferenceField.postValue(PreferenceField.EXCEPTIONS)
 
         viewModel.getPreferencesByField(PreferenceField.EXCEPTIONS.name) { chipList ->

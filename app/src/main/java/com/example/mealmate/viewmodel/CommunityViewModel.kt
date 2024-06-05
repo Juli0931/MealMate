@@ -6,6 +6,8 @@ import androidx.lifecycle.viewModelScope
 import com.example.mealmate.domain.model.CurrentSession
 import com.example.mealmate.domain.model.RecipePost
 import com.example.mealmate.domain.model.User
+import com.example.mealmate.repository.RecipePostRepository
+import com.example.mealmate.repository.RecipePostRepositoryImpl
 import com.example.mealmate.view.state.UIState
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
@@ -17,59 +19,31 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
-class CommunityViewModel : ViewModel() {
+class CommunityViewModel(
+    private val recipePostRepository: RecipePostRepository = RecipePostRepositoryImpl()
+): ViewModel() {
 
-    val recipePostList = MutableLiveData<List<RecipePost>>()
+    val recipePostList = MutableLiveData<List<RecipePost>?>()
     val isLoading  = MutableLiveData(false)
 
     fun refresh(){
         isLoading.postValue(true)
         viewModelScope.launch(Dispatchers.IO) {
-            try{
-                val newPostList = mutableListOf<RecipePost>()
-                val result = Firebase.firestore.collection("recipePosts")
-                    .orderBy("timestamp", Query.Direction.DESCENDING).get().await()
-                for (document in result){
-                    newPostList.add(document.toObject(RecipePost::class.java))
+                val recipePosts = recipePostRepository.getAllRecipePosts()
+                if(recipePosts != null){
+                    recipePostList.postValue(recipePosts)
+                }else{
+                    recipePostList.postValue(emptyList())
                 }
-                recipePostList.postValue(newPostList)
-            }catch (e:Exception){
-                e.printStackTrace()
-            }finally {
                 isLoading.postValue(false)
-            }
         }
     }
 
     fun updateLike(postId: String, selected: Boolean) {
         isLoading.postValue(true)
         viewModelScope.launch(Dispatchers.IO) {
-            try {
-                CurrentSession.currentUser.let {user ->
-                    val result = Firebase.firestore.collection("recipePosts").document(postId).get().await()
-                    val post = result.toObject(RecipePost::class.java)!!
-                    val updatedLikes:List<String> = if (selected){
-                       val set = post.likes.toMutableSet()
-                        set.add(user.id)
-                        set.toList()
-                    }else{
-                       val newList = post.likes.toMutableList()
-                        newList.remove(user.id)
-                        newList.toList()
-                    }
-                    val updatedPost = post.copy(
-                        likes = updatedLikes,
-                        totalLikes = updatedLikes.size
-                    )
-                    Firebase.firestore.collection("recipePosts").document(postId).set(updatedPost).await()
-                }
-
-
-            }catch (e:Exception){
-                e.printStackTrace()
-            }finally {
+                recipePostRepository.updateLike(postId, selected)
                 isLoading.postValue(false)
-            }
         }
     }
 

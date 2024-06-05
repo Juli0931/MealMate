@@ -43,6 +43,7 @@ class HomeFragment(
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         recipesAdapter = RecipesAdapter(viewModel.recipeList.value ?: emptyList())
         recipesAdapter.imageListener = this
         recipesAdapter.navigationListener = navigationListener

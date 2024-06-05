@@ -6,6 +6,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mealmate.domain.model.RecipePost
 import com.example.mealmate.domain.model.User
+import com.example.mealmate.repository.RecipePostRepository
+import com.example.mealmate.repository.RecipePostRepositoryImpl
+import com.example.mealmate.repository.StorageRepository
+import com.example.mealmate.repository.StorageRepositoryImpl
 import com.example.mealmate.view.state.UIState
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
@@ -17,48 +21,28 @@ import kotlinx.coroutines.tasks.await
 import java.util.UUID
 
 
-class NewPostViewModel : ViewModel() {
+class NewPostViewModel(
+    private val storageRepository: StorageRepository = StorageRepositoryImpl(),
+    private val recipePostRepository: RecipePostRepository = RecipePostRepositoryImpl()
+) : ViewModel() {
 
     val tempCameraImage = MutableLiveData<Uri>()
     val imageSelected = MutableLiveData<Uri>()
     val uiState = MutableLiveData(UIState.WAITING)
-    val recipePostId = MutableLiveData(UUID.randomUUID().toString())
-   private suspend fun uploadImage():Uri? {
+    val recipePostId = UUID.randomUUID().toString()
 
-       return if(imageSelected.value != null){
-            try {
-                val recipeImagesRef = Firebase.storage.reference.child("recipesPosts/${recipePostId.value}.jpg")
-                recipeImagesRef.putFile(imageSelected.value!!).await()
-                uiState.postValue(UIState.WAITING)
-                recipeImagesRef.downloadUrl.await()
-            }catch (e:Exception){
-                e.printStackTrace()
-                null
-            }
-        }else{
-            null
-        }
-
-    }
     fun uploadPost(newPost: RecipePost) {
 
         uiState.postValue(UIState.LOADING)
         viewModelScope.launch(Dispatchers.IO) {
-            try {
-                val postImageUrl = uploadImage()
-                if(postImageUrl != null){
-                    newPost.copy(postImageURL = postImageUrl.toString()).also {
-                        Firebase.firestore.collection("recipePosts").document(it.id).set(it)
-                            .await()
-                        uiState.postValue(UIState.SUCCESS)
-                    }
+
+            val postImageUrl = storageRepository.uploadImage(imageSelected.value, recipePostId)
+            recipePostRepository.uploadRecipePost(postImageUrl, newPost).also { isSuccess ->
+                if(isSuccess){
+                    uiState.postValue(UIState.SUCCESS)
                 }else{
                     uiState.postValue(UIState.ERROR)
                 }
-
-            } catch (e: Exception) {
-                e.printStackTrace()
-                uiState.postValue(UIState.ERROR)
             }
         }
     }

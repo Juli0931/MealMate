@@ -67,7 +67,7 @@ class RecipeDetailFragment : Fragment(), PopupMenu.OnMenuItemClickListener{
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.getString("id")?.let {
-            viewModel.downloadRecipe(it)
+            viewModel.getRecipeById(it)
         }
         viewModel.recipeId.value = UUID.randomUUID().toString()
     }
@@ -82,6 +82,7 @@ class RecipeDetailFragment : Fragment(), PopupMenu.OnMenuItemClickListener{
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setupRecyclerViews()
         setupAddStep()
         viewModel.mode.observe(viewLifecycleOwner) { mode ->

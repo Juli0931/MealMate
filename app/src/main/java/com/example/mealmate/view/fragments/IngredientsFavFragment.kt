@@ -27,6 +27,7 @@ class IngredientsFavFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         viewModel.currentPreferenceField.postValue(PreferenceField.INGREDIENTS)
         viewModel.getPreferencesByField(PreferenceField.VEGETABLES.name) { userPreferenceList ->
             ChipGroupUtil().generateChipGroupByPreferences(

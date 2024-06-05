@@ -7,9 +7,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mealmate.domain.model.Recipe
+import com.example.mealmate.repository.RecipeRepository
+import com.example.mealmate.repository.RecipeRepositoryImpl
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.DocumentSnapshot
-import com.google.firebase.firestore.firestore
 import com.google.firebase.storage.storage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -19,8 +20,9 @@ enum class RecipeDetailMode {
     EDITION,
     VISUALIZATION
 }
-class RecipeDetailViewModel : ViewModel() {
-
+class RecipeDetailViewModel(
+    private val recipeRepository: RecipeRepository = RecipeRepositoryImpl()
+) : ViewModel() {
 
     val imageSelected = MutableLiveData<Uri?>()
     val tempCameraImage = MutableLiveData<Uri?>()
@@ -33,8 +35,8 @@ class RecipeDetailViewModel : ViewModel() {
 
     private val storageRef = Firebase.storage.reference
 
+    //TODO: refactor method according to clean architecture
     fun uploadImage() {
-
         try {
             imageSelected.value?.let {
                 viewModelScope.launch(Dispatchers.IO) {
@@ -48,19 +50,14 @@ class RecipeDetailViewModel : ViewModel() {
             e.printStackTrace()
         }
     }
-     fun downloadRecipe(recipeId:String){
+     fun getRecipeById(recipeId:String){
             viewModelScope.launch(Dispatchers.IO) {
-                try{
-                    val result = Firebase.firestore.collection("recipes").document(recipeId).get().await()
-                    val newRecipe = result.toObject(Recipe::class.java)
-                    recipe.postValue(newRecipe)
-                    ingredients.postValue(newRecipe?.ingredients)
-                    steps.postValue(newRecipe?.steps)
-                    if (newRecipe != null) {
-                        imageSelected.postValue(newRecipe.img.toUri())
-                    }
-                }catch (e:Exception){
-                    e.printStackTrace()
+               val newRecipe =  recipeRepository.getRecipeById(recipeId)
+                recipe.postValue(newRecipe)
+                ingredients.postValue(newRecipe?.ingredients)
+                steps.postValue(newRecipe?.steps)
+                if (newRecipe != null) {
+                    imageSelected.postValue(newRecipe.img.toUri())
                 }
             }
     }
