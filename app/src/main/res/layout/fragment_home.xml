@@ -50,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:fontFamily="@font/montserrat_semibold"
-                android:text="¿Que quieres cocinar hoy?"
+                android:text="¿Qué quieres cocinar hoy?"
                 android:textAlignment="center"
                 android:textColor="#FFFFFF"
 
