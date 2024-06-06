@@ -11,6 +11,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.mealmate.R
 import com.example.mealmate.databinding.FragmentHomeBinding
 import com.example.mealmate.domain.model.CurrentSession
 import com.example.mealmate.view.adapters.RecipesAdapter
@@ -69,7 +70,16 @@ class HomeFragment(
         viewModel.isLoading.observe(viewLifecycleOwner){isLoading ->
           //  binding.swipeRefresh.isRefreshing = isLoading
         }
-        binding.titleTV.text = "¡Hola ${CurrentSession.currentUser.username}!"
+        binding.titleTV.text = "¡Hola ${CurrentSession.currentUser.username.split(" ")[0]}!"
+
+        // OnClickListener para profileHomeIMG
+        binding.profileHomeIMG.setOnClickListener {
+            val profileFragment = ProfileFragment.newInstance()
+            activity?.supportFragmentManager?.beginTransaction()
+                ?.replace(R.id.fragmentContainerHome, profileFragment)
+                ?.addToBackStack(null)
+                ?.commit()
+        }
     }
     override fun render(url: String, image: ImageView) {
         imageUtil.renderImageCenterCrop(requireContext(),url,image)
