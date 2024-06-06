@@ -84,11 +84,13 @@
         android:layout_marginStart="24dp"
         android:fontFamily="@font/montserrat_semibold"
         android:inputType="text"
-        android:textColor="@color/gray"
+        android:textColor="@color/white"
         android:textSize="16sp"
+        android:textColorHint="@color/gray"
+        android:hint="Añadir descripción"
         app:layout_constraintStart_toEndOf="@id/profile_image"
         app:layout_constraintTop_toTopOf="@id/profile_image"
-        tools:text="Description" />
+         />
 
     <ImageView
         android:id="@+id/profile_image"
@@ -103,8 +105,8 @@
 
     <ImageView
         android:id="@+id/post_image"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
         android:layout_marginTop="32dp"
         android:background="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
