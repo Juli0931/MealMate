@@ -1,14 +1,275 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".view.fragments.MealPlannerFragment">
+    android:layout_height="match_parent">
 
-    <!-- TODO: Update blank fragment layout -->
+    <!-- Fondo general -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#111">
+
+        <!-- Título y Fecha -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_marginTop="40dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Planificador de comidas"
+                android:textSize="24sp"
+                android:textColor="#fff" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lunes, marzo 04"
+                android:textSize="16sp"
+                android:textColor="#aaa" />
+        </LinearLayout>
+
+        <!-- Botones de días -->
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <!-- Día actual -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:text="04\nLun"
+                    android:textColor="#fff"
+                    android:gravity="center"
+                    android:textSize="16sp" />
+
+                <!-- Otros días -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:text="05\nMar"
+                    android:textColor="#aaa"
+                    android:gravity="center"
+                    android:textSize="16sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:text="06\nMier"
+                    android:textColor="#aaa"
+                    android:gravity="center"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:text="07\nJue"
+                    android:textColor="#aaa"
+                    android:gravity="center"
+                    android:textSize="16sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:text="08\nVie"
+                    android:textColor="#aaa"
+                    android:gravity="center"
+                    android:textSize="16sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:text="09\nSab"
+                    android:textColor="#aaa"
+                    android:gravity="center"
+                    android:textSize="16sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:text="10\nDom"
+                    android:textColor="#aaa"
+                    android:gravity="center"
+                    android:textSize="16sp" />
+                <!-- Añadir los demás días similares -->
+
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <!-- Sección de Recetas del día -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Recetas del día"
+                android:textSize="18sp"
+                android:textColor="#fff"
+                android:paddingBottom="8dp" />
+
+            <!-- Desayuno -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:layout_marginBottom="8dp">
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/bowl_avena"
+                    android:layout_gravity="center_vertical" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:paddingStart="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Bowl de avena"
+                        android:textSize="16sp"
+                        android:textColor="#fff" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Frutas sobre una cama de avena y yogurt natural."
+                        android:textSize="14sp"
+                        android:textColor="#aaa" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="90g   350 cal"
+                        android:textSize="14sp"
+                        android:textColor="#aaa" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:layout_marginBottom="8dp">
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/salmon_verduras"
+                    android:layout_gravity="center_vertical" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:paddingStart="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Salmón con verduras"
+                        android:textSize="16sp"
+                        android:textColor="#fff" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Salmón tierno con selección de verduras a la parrilla"
+                        android:textSize="14sp"
+                        android:textColor="#aaa" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="80g   60 cal"
+                        android:textSize="14sp"
+                        android:textColor="#aaa" />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:layout_marginBottom="8dp">
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/granizado_frutal"
+                    android:layout_gravity="center_vertical" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:paddingStart="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Granizado frutal"
+                        android:textSize="16sp"
+                        android:textColor="#fff" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Granizado de frutos rojos con adición de arándanos."
+                        android:textSize="14sp"
+                        android:textColor="#aaa" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="150g   250 cal"
+                        android:textSize="14sp"
+                        android:textColor="#aaa" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Añadir otros elementos de comida similares -->
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- Texto Próximamente en diagonal -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="PLANNER FRAGMENT" />
+        android:text="PRÓXIMAMENTE"
+        android:textSize="48sp"
+        android:textColor="#FFFFFF"
+        android:background="#88000000"
+        android:gravity="center"
+        android:rotation="-45"
+        android:alpha="0.8" />
 
-</FrameLayout>
+</RelativeLayout>
