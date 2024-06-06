@@ -27,7 +27,7 @@
                 android:hint="¡Hola Brian!"
                 android:textColor="#FFFFFF"
                 android:textColorHint="#FFFFFF"
-                android:textSize="30sp"
+                android:textSize="32sp"
 
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -175,7 +175,8 @@
                     android:layout_height="60dp"
                     android:layout_marginTop="0dp"
                     android:layout_marginEnd="0dp"
-                    app:srcCompat="@drawable/ic_launcher_background" />
+                    app:srcCompat="@drawable/grayprofile"
+                    android:clickable="true"/>
             </androidx.cardview.widget.CardView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
