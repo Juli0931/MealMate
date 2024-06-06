@@ -16,6 +16,7 @@ import com.google.firebase.firestore.firestore
 import com.google.firebase.firestore.toObject
 import com.google.type.DateTime
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
@@ -28,7 +29,7 @@ class CommunityViewModel(
 
     fun refresh(){
         isLoading.postValue(true)
-        viewModelScope.launch(Dispatchers.IO) {
+        GlobalScope.launch(Dispatchers.IO) {
                 val recipePosts = recipePostRepository.getAllRecipePosts()
                 if(recipePosts != null){
                     recipePostList.postValue(recipePosts)
@@ -39,9 +40,10 @@ class CommunityViewModel(
         }
     }
 
+    //TODO: GlobalScope replace ViewModelScope as a provisional solution. viewModelScope is affected by navigation between fragments(unkown issue).
     fun updateLike(postId: String, selected: Boolean) {
         isLoading.postValue(true)
-        viewModelScope.launch(Dispatchers.IO) {
+        GlobalScope.launch(Dispatchers.IO) {
                 recipePostRepository.updateLike(postId, selected)
                 isLoading.postValue(false)
         }

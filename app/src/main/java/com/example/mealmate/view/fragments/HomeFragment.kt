@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mealmate.databinding.FragmentHomeBinding
+import com.example.mealmate.domain.model.CurrentSession
 import com.example.mealmate.view.adapters.RecipesAdapter
 import com.example.mealmate.view.navigation.NavigationListener
 import com.example.mealmate.view.util.ImageUtil
@@ -68,6 +69,7 @@ class HomeFragment(
         viewModel.isLoading.observe(viewLifecycleOwner){isLoading ->
           //  binding.swipeRefresh.isRefreshing = isLoading
         }
+        binding.titleTV.text = "¡Hola ${CurrentSession.currentUser.username}!"
     }
     override fun render(url: String, image: ImageView) {
         imageUtil.renderImageCenterCrop(requireContext(),url,image)
